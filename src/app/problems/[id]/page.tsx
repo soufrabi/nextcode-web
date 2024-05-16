@@ -106,7 +106,7 @@ function LeftPart() {
     const problemNumber = "1"
     const problemName = "Two Sum"
     return (
-        <div className="bg-slate-100 p-2 h-full m-2">
+        <div className="bg-slate-100 p-2 h-full w-full m-2">
             <div className="flex gap-4 pb-2 px-1">
                 <button className="flex gap-1 items-center">
                     <Image
@@ -115,7 +115,7 @@ function LeftPart() {
                         width={20}
                         height={20}
                     />
-                    <span className="text-sm"> Description </span>
+                    <span className="text-xs md:text-sm"> Description </span>
                 </button>
                 <button className="flex gap-1 items-center">
                     <Image
@@ -124,7 +124,7 @@ function LeftPart() {
                         width={20}
                         height={20}
                     />
-                    <span className="text-sm"> Editorial </span>
+                    <span className="text-xs md:text-sm"> Editorial </span>
                 </button>
                 <button className="flex gap-1 items-center">
                     <Image
@@ -133,7 +133,7 @@ function LeftPart() {
                         width={20}
                         height={20}
                     />
-                    <span className="text-sm"> Solutions </span>
+                    <span className="text-xs md:text-sm"> Solutions </span>
                 </button>
                 <button className="flex gap-1 items-center">
                     <Image
@@ -142,7 +142,7 @@ function LeftPart() {
                         width={20}
                         height={20}
                     />
-                    <span className="text-sm"> Submissions </span>
+                    <span className="text-xs md:text-sm"> Submissions </span>
                 </button>
 
             </div>
@@ -274,7 +274,7 @@ int main(int argc, char** argv) {
 }
 `
     return (
-        <div className="p-2">
+        <div className="p-2 flex-shrink">
             <div className="bg-slate-100 py-2 pl-2">
                 <button className="flex gap-1 items-center">
                     <Image
@@ -405,7 +405,7 @@ function TestCasePanel() {
 }
 function RightPart() {
     return (
-        <div className="w-full flex flex-col">
+        <div className={`w-full md:flex md:flex-col hidden`}>
             <CodeEditor />
             <TestCasePanel />
         </div>
@@ -423,7 +423,7 @@ function NavBar() {
 
     return (
         <div className="w-full px-6">
-            <nav className="flex justify-between items-center mx-auto bg-[f0f0f0] h-12">
+            <nav className="flex justify-center md:justify-between items-center md:mx-auto bg-[f0f0f0] h-12">
                 <div className="flex items-center gap-4">
                     <button onContextMenu={handleContextMenu}>
                         <Image
@@ -433,7 +433,7 @@ function NavBar() {
                             height={20}
                         />
                     </button>
-                    <div className="flex gap-3 items-center">
+                    <div className="hidden md:flex gap-3 items-center">
                         <button>
                             <Image
                                 src="/playlist-symbolic.svg"
@@ -469,7 +469,7 @@ function NavBar() {
                         </button>
                     </div>
                 </div>
-                <div className="flex gap-4">
+                <div className="hidden md:flex gap-4">
                     <button className="">
                         <Image
                             src="/debug-insect-symbol.png"
@@ -506,7 +506,7 @@ function NavBar() {
 
                     </button>
                 </div>
-                <div className="flex gap-4 items-center">
+                <div className="hidden md:flex gap-4 items-center">
                     <button>
                         <Image
                             src="/touchpad-symbolic.svg"
@@ -552,7 +552,7 @@ export default function ProblemPage() {
     return (
         <main className="bg-slate-200 h-screen w-screen max-h-screen max-w-screen">
             <NavBar />
-            <div className="w-full grid grid-cols-2">
+            <div className="w-full md:flex md:flex-row overflow-x-hidden">
                 <LeftPart />
                 <RightPart />
             </div>
