@@ -107,7 +107,7 @@ function LeftPart() {
     const problemName = "Two Sum"
     return (
         <div className="bg-slate-100 p-2 h-full w-full m-2">
-            <div className="flex gap-4 pb-2 px-1">
+            <div className="flex gap-4 pb-2 md:pl-1">
                 <button className="flex gap-1 items-center">
                     <Image
                         src="/description-icon.png"
