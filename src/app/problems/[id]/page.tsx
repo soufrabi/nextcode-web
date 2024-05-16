@@ -114,6 +114,7 @@ function LeftPart() {
                         alt="description"
                         width={20}
                         height={20}
+                        className="hidden md:block"
                     />
                     <span className="text-xs md:text-sm"> Description </span>
                 </button>
@@ -123,6 +124,7 @@ function LeftPart() {
                         alt="editorial"
                         width={20}
                         height={20}
+                        className="hidden md:block"
                     />
                     <span className="text-xs md:text-sm"> Editorial </span>
                 </button>
@@ -132,6 +134,7 @@ function LeftPart() {
                         alt="solution"
                         width={20}
                         height={20}
+                        className="hidden md:block"
                     />
                     <span className="text-xs md:text-sm"> Solutions </span>
                 </button>
@@ -141,6 +144,7 @@ function LeftPart() {
                         alt="submission"
                         width={20}
                         height={20}
+                        className="hidden md:block"
                     />
                     <span className="text-xs md:text-sm"> Submissions </span>
                 </button>
