@@ -9,6 +9,11 @@ import { Disclosure, DisclosureButton, DisclosurePanel } from "@headlessui/react
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
 import { TagIcon } from "@heroicons/react/24/outline";
 import { LightBulbIcon } from "@heroicons/react/24/outline";
+import { HandThumbUpIcon } from "@heroicons/react/24/outline";
+import { HandThumbDownIcon } from "@heroicons/react/24/outline";
+import { ChatBubbleOvalLeftIcon } from "@heroicons/react/24/outline";
+import { StarIcon } from "@heroicons/react/24/outline";
+import { QuestionMarkCircleIcon } from "@heroicons/react/24/outline";
 
 
 function TopicsDisclosure(props: { topics: string[] }) {
@@ -71,113 +76,135 @@ function LeftPart() {
     const problemNumber = "1"
     const problemName = "Two Sum"
     return (
-        <div className="p-2 h-full" >
-            <div className="bg-slate-100 p-2 h-full">
-                <div className="flex gap-4 pb-2 px-1">
-                    <button className="flex gap-1 items-center">
-                        <Image
-                            src="/description-icon.png"
-                            alt="description"
-                            width={20}
-                            height={20}
-                        />
-                        <span className="text-sm"> Description </span>
-                    </button>
-                    <button className="flex gap-1 items-center">
-                        <Image
-                            src="/book-icon.png"
-                            alt="editorial"
-                            width={20}
-                            height={20}
-                        />
-                        <span className="text-sm"> Editorial </span>
-                    </button>
-                    <button className="flex gap-1 items-center">
-                        <Image
-                            src="/chemistry-icon.png"
-                            alt="solution"
-                            width={20}
-                            height={20}
-                        />
-                        <span className="text-sm"> Solutions </span>
-                    </button>
-                    <button className="flex gap-1 items-center">
-                        <Image
-                            src="/history-icon.png"
-                            alt="submission"
-                            width={20}
-                            height={20}
-                        />
-                        <span className="text-sm"> Submissions </span>
-                    </button>
+        <div className="bg-slate-100 p-2 h-full m-2 flex flex-col">
+            <div className="flex gap-4 pb-2 px-1 flex-initial">
+                <button className="flex gap-1 items-center">
+                    <Image
+                        src="/description-icon.png"
+                        alt="description"
+                        width={20}
+                        height={20}
+                    />
+                    <span className="text-sm"> Description </span>
+                </button>
+                <button className="flex gap-1 items-center">
+                    <Image
+                        src="/book-icon.png"
+                        alt="editorial"
+                        width={20}
+                        height={20}
+                    />
+                    <span className="text-sm"> Editorial </span>
+                </button>
+                <button className="flex gap-1 items-center">
+                    <Image
+                        src="/chemistry-icon.png"
+                        alt="solution"
+                        width={20}
+                        height={20}
+                    />
+                    <span className="text-sm"> Solutions </span>
+                </button>
+                <button className="flex gap-1 items-center">
+                    <Image
+                        src="/history-icon.png"
+                        alt="submission"
+                        width={20}
+                        height={20}
+                    />
+                    <span className="text-sm"> Submissions </span>
+                </button>
+
+            </div>
+            <div className="bg-white p-4 overflow-y-scroll flex-1 " >
+                <span className="text-2xl font-semibold">{problemNumber}. {problemName}</span>
+
+                <div className="text-sm pt-4">
+                    Given an array of integers nums and an integer <span className="bg-slate-100 px-2 py-1">target</span>, return indices of the two numbers such that they add up to <span className="bg-slate-100 px-2 py-1"> target </span> .<br /><br />
+                    You may assume that each input would have <span className="font-bold">exactly one solution</span>, and you may not use the same element twice.<br /><br />
+
+                    You can return the answer in any order.<br /><br />
+                </div>
+
+                <div>
+                    <span className="font-semibold">Example 1:</span> <br />
+                    <div className="border-l-[1px] border-l-gray-300 pl-4 my-2">
+                        <span className="font-medium text-sm">Input: </span> <span className="text-sm text-gray-600"> nums = [2,7,11,15], target = 9 </span> <br />
+                        <span className="font-medium text-sm">Output: </span> <span className="text-sm text-gray-600"> [0,1] </span> <br />
+                        <span className="font-medium text-sm">Explanation: </span> <span className="text-sm text-gray-600"> Because nums[0] + nums[1] == 9, we return [0, 1]. </span> <br />
+                    </div>
+                </div>
+
+                <div>
+                    <span className="font-semibold">Constraints:</span>
+                    <div className="pl-4 my-2">
+                        <ul className="text-sm list-disc">
+                            <li> <span className="bg-slate-100 px-2 py-1"> {`2 <= nums.length <= 104`} </span> </li>
+                            <li> <span className="bg-slate-100 px-2 py-1"> {`-109 <= nums[i] <= 109`} </span>  </li>
+                            <li> <span className="bg-slate-100 px-2 py-1" > {`-109 <= target <= 109`} </span> </li>
+                            <li> <span className="font-semibold px-2 py-1"> {`Only one valid answer exists.`} </span> </li>
+                        </ul>
+                    </div>
 
                 </div>
-                <div className="bg-white p-4 overflow-y-auto h-full" >
-                    <span className="text-2xl font-semibold">{problemNumber}. {problemName}</span>
 
-                    <div className="text-sm pt-4">
-                        Given an array of integers nums and an integer <span className="bg-slate-100 px-2 py-1">target</span>, return indices of the two numbers such that they add up to <span className="bg-slate-100 px-2 py-1"> target </span> .<br /><br />
-                        You may assume that each input would have <span className="font-bold">exactly one solution</span>, and you may not use the same element twice.<br /><br />
-
-                        You can return the answer in any order.<br /><br />
-                    </div>
-
+                <div className="mt-8 flex gap-4">
                     <div>
-                        <span className="font-semibold">Example 1:</span> <br />
-                        <div className="border-l-[1px] border-l-gray-300 pl-4 my-2">
-                            <span className="font-medium text-sm">Input: </span> <span className="text-sm text-gray-600"> nums = [2,7,11,15], target = 9 </span> <br />
-                            <span className="font-medium text-sm">Output: </span> <span className="text-sm text-gray-600"> [0,1] </span> <br />
-                            <span className="font-medium text-sm">Explanation: </span> <span className="text-sm text-gray-600"> Because nums[0] + nums[1] == 9, we return [0, 1]. </span> <br />
-                        </div>
+                        <span className="text-gray-500 text-xs">Accepted:</span> <span className="text-sm">13.2M</span>
                     </div>
-
+                    <div className="border-r-gray-200 border-r-2" />
                     <div>
-                        <span className="font-semibold">Constraints:</span>
-                        <div className="pl-4 my-2">
-                            <ul className="text-sm list-disc">
-                                <li> <span className="bg-slate-100 px-2 py-1"> {`2 <= nums.length <= 104`} </span> </li>
-                                <li> <span className="bg-slate-100 px-2 py-1"> {`-109 <= nums[i] <= 109`} </span>  </li>
-                                <li> <span className="bg-slate-100 px-2 py-1" > {`-109 <= target <= 109`} </span> </li>
-                                <li> <span className="font-semibold px-2 py-1"> {`Only one valid answer exists.`} </span> </li>
-                            </ul>
-                        </div>
+                        <span className="text-gray-500 text-xs">Submissions:</span> <span className="text-sm">25M</span>
+                    </div>
+                    <div className="border-r-gray-200 border-r-2" />
+                    <div>
+                        <span className="text-gray-500 text-xs">Acceptance Rate:</span> <span className="text-sm">52.5%</span>
+                    </div>
+                </div>
 
+                <div className="flex flex-col gap-6">
+                    <div className="w-full border-b-slate-100 border-b-2"> </div>
+
+                    <div className="w-full border-b-slate-100 border-b-2 pb-3">
+                        <TopicsDisclosure topics={["Array", "2-pointer"]} />
                     </div>
 
-                    <div className="mt-8 flex gap-4">
-                        <div>
-                            <span className="text-gray-500 text-xs">Accepted:</span> <span className="text-sm">13.2M</span>
-                        </div>
-                        <div className="border-r-gray-200 border-r-2" />
-                        <div>
-                            <span className="text-gray-500 text-xs">Submissions:</span> <span className="text-sm">25M</span>
-                        </div>
-                        <div className="border-r-gray-200 border-r-2" />
-                        <div>
-                            <span className="text-gray-500 text-xs">Acceptance Rate:</span> <span className="text-sm">52.5%</span>
-                        </div>
+
+                    <div className="w-full border-b-slate-100 border-b-2 pb-3">
+                        <HintsDisclosure index={0} bodyText={`A really brute force way would be to search for all possible pairs of numbers but that would be too slow. Again, it's best to try out brute force solutions for just for completeness. It is from these brute force solutions that you can come up with optimizations`} />
                     </div>
 
-                    <div className="flex flex-col gap-6">
-                        <div className="w-full border-b-slate-100 border-b-2"> </div>
-
-                        <div className="w-full border-b-slate-100 border-b-2 pb-3">
-                            <TopicsDisclosure topics={["Array", "2-pointer"]} />
-                        </div>
-
-
-                        <div className="w-full border-b-slate-100 border-b-2 pb-3">
-                            <HintsDisclosure index={0} bodyText={`A really brute force way would be to search for all possible pairs of numbers but that would be too slow. Again, it's best to try out brute force solutions for just for completeness. It is from these brute force solutions that you can come up with optimizations`} />
-                        </div>
-
-                        <div className="w-full border-b-slate-100 border-b-2 pb-3">
-                            <HintsDisclosure index={1} bodyText={`The second train of thought is, without changing the array, can we use additional space somehow? Like maybe a hash map to speed up the search?`} />
-                        </div>
+                    <div className="w-full border-b-slate-100 border-b-2 pb-3">
+                        <HintsDisclosure index={1} bodyText={`The second train of thought is, without changing the array, can we use additional space somehow? Like maybe a hash map to speed up the search?`} />
                     </div>
+                </div>
 
+                <div className="mt-4  ">
+                    <span className="text-xs">Copyright ©️ 2024 Soufrabi All Rights Reserved</span>
                 </div>
             </div>
-        </div >
+
+            <div className="flex flex-row gap-2 px-4  py-2 flex-initial">
+                <div className="flex flex-row gap-2">
+                    <HandThumbUpIcon className="h-5 w-5 " />
+                    <span> 5.5K </span>
+                </div>
+                <div className="flex flex-row gap-2">
+                    <HandThumbDownIcon className="h-5 w-5" />
+                    <span> 1.6K </span>
+                </div>
+                <div className="flex flex-row gap-2">
+                    <ChatBubbleOvalLeftIcon className="h-5 w-5" />
+                    <span> 800 </span>
+                </div>
+                <div className="ml-4">
+                    <StarIcon className="h-5 w-5" />
+                </div>
+                <div>
+                    <QuestionMarkCircleIcon className="h-5 w-5" />
+                </div>
+            </div>
+        </div>
     )
 }
 
@@ -324,7 +351,7 @@ function TestCasePanel() {
 }
 function RightPart() {
     return (
-        <div className="flex flex-col">
+        <div className="w-full flex flex-col">
             <CodeEditor />
             <TestCasePanel />
         </div>
@@ -465,13 +492,13 @@ function NavBar() {
 export default function ProblemPage() {
 
     React.useEffect(() => {
-        document.body.style.overflow = "hidden"
+        // document.body.style.overflow = "hidden"
     }, [])
 
     return (
-        <main className="bg-slate-200 h-screen w-screen flex flex-col">
+        <main className="bg-slate-200 h-screen w-screen max-h-screen max-w-screen">
             <NavBar />
-            <div className="w-full grid grid-cols-2 gap-0 flex-1">
+            <div className="w-full grid grid-cols-2">
                 <LeftPart />
                 <RightPart />
             </div>
