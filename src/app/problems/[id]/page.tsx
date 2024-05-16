@@ -174,7 +174,7 @@ function LeftPart() {
                     You can return the answer in any order.<br /><br />
                 </div>
 
-                <div>
+                <div className="mt-6">
                     <span className="font-semibold">Example 1:</span> <br />
                     <div className="border-l-[1px] border-l-gray-300 pl-4 my-2">
                         <span className="font-medium text-sm">Input: </span> <span className="text-sm text-gray-600"> nums = [2,7,11,15], target = 9 </span> <br />
@@ -184,6 +184,14 @@ function LeftPart() {
                 </div>
 
                 <div>
+                    <span className="font-semibold">Example 2:</span> <br />
+                    <div className="border-l-[1px] border-l-gray-300 pl-4 my-2">
+                        <span className="font-medium text-sm">Input: </span> <span className="text-sm text-gray-600"> nums = [3,2,4], target = 6 </span> <br />
+                        <span className="font-medium text-sm">Output: </span> <span className="text-sm text-gray-600"> [1,2] </span> <br />
+                    </div>
+                </div>
+
+                <div className="mt-8">
                     <span className="font-semibold">Constraints:</span>
                     <div className="pl-4 my-2">
                         <ul className="text-sm list-disc">
