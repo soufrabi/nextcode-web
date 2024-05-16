@@ -14,6 +14,7 @@ import { HandThumbDownIcon } from "@heroicons/react/24/outline";
 import { ChatBubbleOvalLeftIcon } from "@heroicons/react/24/outline";
 import { StarIcon } from "@heroicons/react/24/outline";
 import { QuestionMarkCircleIcon } from "@heroicons/react/24/outline";
+import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
 
 
 function TopicsDisclosure(props: { topics: string[] }) {
@@ -76,8 +77,8 @@ function LeftPart() {
     const problemNumber = "1"
     const problemName = "Two Sum"
     return (
-        <div className="bg-slate-100 p-2 h-full m-2 flex flex-col">
-            <div className="flex gap-4 pb-2 px-1 flex-initial">
+        <div className="bg-slate-100 p-2 h-full m-2">
+            <div className="flex gap-4 pb-2 px-1">
                 <button className="flex gap-1 items-center">
                     <Image
                         src="/description-icon.png"
@@ -116,7 +117,7 @@ function LeftPart() {
                 </button>
 
             </div>
-            <div className="bg-white p-4 overflow-y-scroll flex-1 " >
+            <div className="bg-white p-4 overflow-y-scroll h-[calc(100vh-8rem)] " >
                 <span className="text-2xl font-semibold">{problemNumber}. {problemName}</span>
 
                 <div className="text-sm pt-4">
@@ -184,25 +185,28 @@ function LeftPart() {
                 </div>
             </div>
 
-            <div className="flex flex-row gap-2 px-4  py-2 flex-initial">
-                <div className="flex flex-row gap-2">
+            <div className="flex flex-row gap-4 pl-0 py-2">
+                <button className="flex flex-row gap-2 items-center">
                     <HandThumbUpIcon className="h-5 w-5 " />
                     <span> 5.5K </span>
-                </div>
-                <div className="flex flex-row gap-2">
+                </button>
+                <button className="flex flex-row gap-2 items-center">
                     <HandThumbDownIcon className="h-5 w-5" />
                     <span> 1.6K </span>
-                </div>
-                <div className="flex flex-row gap-2">
+                </button>
+                <button className="flex flex-row gap-2 items-center">
                     <ChatBubbleOvalLeftIcon className="h-5 w-5" />
                     <span> 800 </span>
-                </div>
-                <div className="ml-4">
+                </button>
+                <button className="ml-4">
                     <StarIcon className="h-5 w-5" />
-                </div>
-                <div>
+                </button>
+                <button>
+                    <ArrowTopRightOnSquareIcon className="h-5 w-5" />
+                </button>
+                <button>
                     <QuestionMarkCircleIcon className="h-5 w-5" />
-                </div>
+                </button>
             </div>
         </div>
     )
@@ -492,7 +496,7 @@ function NavBar() {
 export default function ProblemPage() {
 
     React.useEffect(() => {
-        // document.body.style.overflow = "hidden"
+        document.body.style.overflow = "hidden"
     }, [])
 
     return (
