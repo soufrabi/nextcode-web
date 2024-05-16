@@ -112,7 +112,7 @@ function LeftPart() {
                     </button>
 
                 </div>
-                <div className="bg-white p-4" >
+                <div className="bg-white p-4 overflow-y-auto" >
                     <span className="text-2xl font-semibold">{problemNumber}. {problemName}</span>
 
                     <div className="text-sm pt-4">
@@ -465,11 +465,11 @@ function NavBar() {
 export default function ProblemPage() {
 
     React.useEffect(() => {
-        // document.body.style.overflow = "hidden"
+        document.body.style.overflow = "hidden"
     }, [])
 
     return (
-        <main className="bg-slate-200">
+        <main className="bg-slate-200 h-screen w-screen">
             <NavBar />
             <div className="w-full grid grid-cols-2 gap-0">
                 <LeftPart />
