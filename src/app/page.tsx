@@ -1,4 +1,4 @@
-import Image from "next/image";
+// import Image from "next/image";
 
 
 export default function Home() {
@@ -6,7 +6,7 @@ export default function Home() {
     return (
         <main className="">
             <div>
-                LeetCode Clone using Next.js
+                NextCode - The next generation Online Judge
             </div>
         </main>
     )

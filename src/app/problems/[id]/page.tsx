@@ -71,8 +71,8 @@ function LeftPart() {
     const problemNumber = "1"
     const problemName = "Two Sum"
     return (
-        <div className="p-2" style={{ height: "100%" }} >
-            <div className="bg-slate-100 p-2">
+        <div className="p-2 h-full" >
+            <div className="bg-slate-100 p-2 h-full">
                 <div className="flex gap-4 pb-2 px-1">
                     <button className="flex gap-1 items-center">
                         <Image
@@ -112,7 +112,7 @@ function LeftPart() {
                     </button>
 
                 </div>
-                <div className="bg-white p-4 overflow-y-auto" >
+                <div className="bg-white p-4 overflow-y-auto h-full" >
                     <span className="text-2xl font-semibold">{problemNumber}. {problemName}</span>
 
                     <div className="text-sm pt-4">
@@ -469,9 +469,9 @@ export default function ProblemPage() {
     }, [])
 
     return (
-        <main className="bg-slate-200 h-screen w-screen">
+        <main className="bg-slate-200 h-screen w-screen flex flex-col">
             <NavBar />
-            <div className="w-full grid grid-cols-2 gap-0">
+            <div className="w-full grid grid-cols-2 gap-0 flex-1">
                 <LeftPart />
                 <RightPart />
             </div>
