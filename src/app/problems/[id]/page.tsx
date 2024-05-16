@@ -15,6 +15,7 @@ import { ChatBubbleOvalLeftIcon } from "@heroicons/react/24/outline";
 import { StarIcon } from "@heroicons/react/24/outline";
 import { QuestionMarkCircleIcon } from "@heroicons/react/24/outline";
 import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
+import { BuildingOffice2Icon } from "@heroicons/react/24/outline";
 
 
 function TopicsDisclosure(props: { topics: string[] }) {
@@ -46,6 +47,34 @@ function TopicsDisclosure(props: { topics: string[] }) {
     )
 }
 
+function CompaniesDisclosure(props: { companiesList: string[] }) {
+    return (
+        <div>
+            <Disclosure>
+                {({ open }) => (
+                    <>
+                        <DisclosureButton className="w-full flex justify-between">
+                            <div className="flex gap-1 items-center">
+                                <BuildingOffice2Icon className="h-4 w-4 mr-1" />
+                                <span className="text-sm">Companies</span>
+                            </div>
+                            <ChevronDownIcon className={`${open ? 'rotate-180 transform' : ''} h-5 w-5`} />
+                        </DisclosureButton>
+                        <DisclosurePanel className="">
+                            <div className="pl-4 pt-3 flex gap-2">
+                                {props.companiesList.map((companyName: string) => (
+                                    <span key={nanoid()} className="bg-slate-100 text-xs px-2 py-1">{companyName}</span>
+                                ))
+                                }
+                            </div>
+                        </DisclosurePanel>
+                    </>
+
+                )}
+            </Disclosure>
+        </div>
+    )
+}
 
 function HintsDisclosure(props: { index: number, bodyText: string }) {
     return (
@@ -120,6 +149,24 @@ function LeftPart() {
             <div className="bg-white p-4 overflow-y-scroll h-[calc(100vh-8rem)] " >
                 <span className="text-2xl font-semibold">{problemNumber}. {problemName}</span>
 
+                <div className="flex flex-row gap-2 mt-4">
+                    <div>
+                        <span className="text-xs text-green-600 bg-slate-100 px-2 py-1">Easy</span>
+                    </div>
+                    <div className="flex flex-row gap-1 items-center bg-slate-100 px-2 py-1">
+                        <TagIcon className="h-4 w-4" />
+                        <span className="text-xs">Topics</span>
+                    </div>
+                    <div className="flex flex-row gap-1 items-center bg-slate-100 px-2 py-1">
+                        <BuildingOffice2Icon className="h-4 w-4" />
+                        <span className="text-xs">Companies</span>
+                    </div>
+                    <div className="flex flex-row gap-1 items-center bg-slate-100 px-2 py-1">
+                        <LightBulbIcon className="h-4 w-4" />
+                        <span className="text-xs">Hint</span>
+                    </div>
+                </div>
+
                 <div className="text-sm pt-4">
                     Given an array of integers nums and an integer <span className="bg-slate-100 px-2 py-1">target</span>, return indices of the two numbers such that they add up to <span className="bg-slate-100 px-2 py-1"> target </span> .<br /><br />
                     You may assume that each input would have <span className="font-bold">exactly one solution</span>, and you may not use the same element twice.<br /><br />
@@ -168,6 +215,9 @@ function LeftPart() {
 
                     <div className="w-full border-b-slate-100 border-b-2 pb-3">
                         <TopicsDisclosure topics={["Array", "2-pointer"]} />
+                    </div>
+                    <div className="w-full border-b-slate-100 border-b-2 pb-3">
+                        <CompaniesDisclosure companiesList={["Google", "Microsoft"]} />
                     </div>
 
 
