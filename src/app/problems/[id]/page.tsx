@@ -33,6 +33,7 @@ import { IoMdCloseCircle } from "react-icons/io";
 import { MdOutlineDashboard } from "react-icons/md";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import Split from "react-split";
 
 
 function TopicsDisclosure(props: { topics: string[] }) {
@@ -123,7 +124,7 @@ function LeftPart() {
     const problemNumber = "1"
     const problemName = "Two Sum"
     return (
-        <div className="bg-slate-100 p-2 h-full w-full md:m-2 rounded-2xl">
+        <div className="bg-slate-100 p-2 h-full w-full md:m-2 md:mr-0 rounded-2xl">
             <div className="flex gap-4 pb-2 pl-2 ">
                 <button className="flex gap-1 items-center rounded-sm hover:shadow-[0_0_100px_rgba(0,0,0,0.05)_inset]" >
                     <MdOutlineDescription className="h-5 w-5 hidden md:block" />
@@ -290,8 +291,19 @@ int main(int argc, char** argv) {
     return 0;
 }
 `
+
+    const [value, setValue] = React.useState("")
+
+    const handleOnChange = (newValue: string | undefined) => {
+        // event should be passed as the second parameter
+        if (newValue) {
+            setValue(newValue)
+        }
+        // console.log(value)
+    }
+
     return (
-        <div className="">
+        <div className="mb-4">
             <div className="bg-slate-100 py-2 pl-2 rounded-tl-2xl rounded-tr-2xl">
                 <button className="flex gap-1 items-center">
                     <IoCodeSlashOutline className="h-5 w-5" />
@@ -299,13 +311,28 @@ int main(int argc, char** argv) {
                 </button>
 
             </div>
-            <div>
+            <div className="h-[calc(100%-1.5rem)] min-h-4">
                 <Editor
-                    height="50vh"
+                    // height="12rem"
+                    // height="50vh"
                     // defaultLanguage="javascript"
                     // defaultValue='Deno.serve(req => new Response("Hello"));'
+                    value={value}
+                    onChange={handleOnChange}
                     defaultLanguage="cpp"
                     defaultValue={cppDefaultValue}
+                    options={{
+                        readOnly: false,
+                        minimap: {
+                            enabled: false
+                        },
+                        suggest: {
+                            showWords: false,
+                        },
+                        // fixedOverflowWidgets: true,
+                    }}
+
+                    className="min-h-4 "
                 />
             </div>
         </div>
@@ -437,7 +464,7 @@ function TestCasePanel() {
     }, [currentTestCaseId])
 
     return (
-        <div className="mt-2">
+        <div className="" id="testcase-panel flex flex-row">
             <div className="bg-slate-100 flex gap-4 py-2 px-2 rounded-tl-2xl rounded-tr-2xl">
                 <button className="flex gap-1 items-center">
                     <IoIosCheckboxOutline className="h-5 w-5" />
@@ -493,10 +520,31 @@ function TestCasePanel() {
 }
 function RightPart() {
     return (
-        <div className={`w-full md:flex md:flex-col hidden p-1 mr-1 max-h-screen`}>
-            <CodeEditor />
-            <TestCasePanel />
-        </div>
+        <>
+            {
+                <Split
+                    sizes={[60, 40]}
+                    minSize={[100, 100]}
+                    expandToMin={false}
+                    gutterSize={10}
+                    gutterAlign="center"
+                    snapOffset={30}
+                    dragInterval={1}
+                    direction="vertical"
+                    cursor="col-resize"
+                    className="split-vertical"
+                >
+                    <CodeEditor />
+                    <TestCasePanel />
+                </Split>
+            }
+            {
+                // <div className={`w-full md:flex md:flex-col hidden p-1 mr-1 max-h-screen`}>
+                // <CodeEditor />
+                // <TestCasePanel />
+                // </div>
+            }
+        </>
     )
 }
 
@@ -587,18 +635,56 @@ function NavBar() {
 }
 
 export default function ProblemPage() {
+    const mediaQueryViewPortMd = window.matchMedia('(min-width: 768px)')
+    const [isViewportMd, setIsViewPortMd] = React.useState<boolean>(() => { return mediaQueryViewPortMd.matches })
 
+    const mediaQueryEventListener = (e: any) => {
+        if (e.matches) {
+            setIsViewPortMd(true)
+        } else {
+            setIsViewPortMd(false)
+        }
+
+    }
     React.useEffect(() => {
         document.body.style.overflow = "hidden"
+        mediaQueryViewPortMd.addEventListener("change", mediaQueryEventListener)
+
+        return () => {
+
+            mediaQueryViewPortMd.removeEventListener("change", mediaQueryEventListener)
+        }
     }, [])
 
     return (
         <main className="bg-slate-200 h-screen w-screen max-h-screen max-w-screen">
             <NavBar />
-            <div className="w-full md:flex md:flex-row overflow-x-hidden">
-                <LeftPart />
-                <RightPart />
+            {/* <div className="w-full md:flex md:flex-row overflow-x-hidden"> */}
+
+            <div className="">
+                {
+                    isViewportMd ?
+                        <Split
+                            sizes={[50, 50]}
+                            minSize={200}
+                            expandToMin={false}
+                            gutterSize={10}
+                            gutterAlign="center"
+                            snapOffset={30}
+                            dragInterval={1}
+                            direction="horizontal"
+                            cursor="col-resize"
+                            className="split-horizontal"
+                        >
+                            <LeftPart />
+                            <RightPart />
+                        </Split>
+
+                        :
+                        <LeftPart />
+                }
             </div>
+            {/* </div> */}
             <ToastContainer />
         </main>
     )
