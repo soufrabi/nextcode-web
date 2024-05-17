@@ -21,7 +21,7 @@ import { BuildingOffice2Icon } from "@heroicons/react/24/outline";
 import { RiPlayList2Fill } from "react-icons/ri";
 import { RiShuffleFill } from "react-icons/ri";
 import { VscDebug } from "react-icons/vsc";
-import { FaPlay } from "react-icons/fa"
+import { FaPlay, FaPlus } from "react-icons/fa"
 import { IoCodeSlashOutline } from "react-icons/io5";
 import { MdOutlineCloudUpload } from "react-icons/md";
 import { IoSettingsOutline } from "react-icons/io5";
@@ -31,6 +31,8 @@ import { IoIosCheckboxOutline } from "react-icons/io";
 import { LuTerminal } from "react-icons/lu";
 import { IoMdCloseCircle } from "react-icons/io";
 import { MdOutlineDashboard } from "react-icons/md";
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 
 function TopicsDisclosure(props: { topics: string[] }) {
@@ -310,7 +312,19 @@ int main(int argc, char** argv) {
     )
 }
 
-function CaseButton(props: { id: number, index: number, removeTestCase: any }) {
+type TestCaseData = {
+    id: string,
+    input: string,
+    output: string,
+}
+
+function CaseButton(props: {
+    testCaseId: string,
+    index: number,
+    isCurrent: boolean,
+    removeTestCase: (id: string) => void,
+    selectCurrentTestCase: (id: string) => void
+}) {
     const [closeButtonVisible, setCloseButtonVisible] = React.useState<boolean>(false)
     const handleMouseEnter = () => {
         setCloseButtonVisible(true)
@@ -320,15 +334,30 @@ function CaseButton(props: { id: number, index: number, removeTestCase: any }) {
         setCloseButtonVisible(false)
     }
 
+    const handleCaseButtonClick = () => {
+        props.selectCurrentTestCase(props.testCaseId)
+    }
+
+    const handleCloseButtonClick = (ev: React.MouseEvent<SVGElement>) => {
+        ev.stopPropagation()
+        props.removeTestCase(props.testCaseId)
+    }
+
     return (
-        <div key={nanoid()} className="bg-slate-100 p-2 relative" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+        <div
+            key={nanoid()}
+            className={`p-2 relative cursor-pointer ${props.isCurrent ? "bg-slate-200" : "bg-slate-50"}`}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+            onClick={handleCaseButtonClick}
+        >
             <span>
                 Case {props.index + 1}
             </span>
-            <div className="absolute -top-1 -right-1 bg-gray-50 rounded-full hover:bg-slate-300">
+            <div className={"absolute -top-1 -right-1 bg-gray-50 rounded-full hover:bg-slate-300 "}>
                 <IoMdCloseCircle
                     className={`h-3.5 w-3.5 rounded-2xl opacity-40 ${closeButtonVisible ? "block" : "hidden"}`}
-                    onClick={() => { props.removeTestCase(props.id) }}
+                    onClick={handleCloseButtonClick}
                 />
             </div>
         </div>
@@ -338,15 +367,74 @@ function CaseButton(props: { id: number, index: number, removeTestCase: any }) {
 }
 
 function TestCasePanel() {
-    const [caseList, setCaseList] = React.useState<number[]>([1, 2, 3])
+    const [testCaseList, setTestCaseList] = React.useState<TestCaseData[]>([
+        { id: nanoid(), input: "", output: "", },
+    ]);
+
+    const [currentTestCaseId, setCurrentTestCaseId] = React.useState<string>(testCaseList[testCaseList.length - 1].id)
+    const inputTextAreaRef: React.Ref<HTMLTextAreaElement> = React.useRef(null)
+
+    const getCurrentTestCase = (): TestCaseData | null => {
+        const foundTestCase: TestCaseData | undefined = testCaseList.find((testCaseData) => { return currentTestCaseId === testCaseData.id })
+        if (foundTestCase) {
+            return foundTestCase
+        } else {
+            return null
+        }
+
+    }
 
     const addTestCase = () => {
-        setCaseList((prevList: number[]) => [...prevList, prevList.length + 1])
+        if (testCaseList.length < 6) {
+            setTestCaseList((prevList: TestCaseData[]) => [...prevList, { id: nanoid(), input: "", output: "" }])
+        } else {
+            toast('Cannot add more than 6 testcases', {
+                position: 'bottom-right',
+                type: 'warning',
+                autoClose: 2000,
+            })
+        }
     }
 
-    const removeTestCase = (id: number) => {
-        setCaseList((prevList: number[]) => prevList.filter((item) => item != id))
+    const removeTestCase = (id: string) => {
+        if (testCaseList.length > 1) {
+            setTestCaseList((prevList: TestCaseData[]) => prevList.filter((testCaseData) => testCaseData.id != id))
+            if (id == currentTestCaseId) {
+                setCurrentTestCaseId(testCaseList[testCaseList.length - 1].id)
+
+            }
+        } else {
+            toast('Must have atleast 1 testcase', {
+                position: 'bottom-right',
+                type: 'warning',
+                autoClose: 2000
+            })
+        }
     }
+
+
+    const handleTextAreaValueChange = (ev: React.ChangeEvent<HTMLTextAreaElement>) => {
+        const currentTestCaseDataInList: TestCaseData | null = getCurrentTestCase()
+        // Warning : modification will not be detected by React
+        // since "set" method is not used
+        // testCaseList does not need to be "state" variable as we don't want there to be any change in UI when testCaseList changes
+        // we simply want it to store the input and output values so that they can be sent to server for remote execution
+        if (currentTestCaseDataInList) {
+            currentTestCaseDataInList.input = ev.target.value
+        }
+
+    }
+
+    const selectCurrentTestCase = (id: string) => {
+        setCurrentTestCaseId(id)
+    }
+
+    React.useEffect(() => {
+        const currentTestCaseInList: TestCaseData | null = getCurrentTestCase()
+        if (inputTextAreaRef && inputTextAreaRef.current && currentTestCaseInList) {
+            inputTextAreaRef.current.value = currentTestCaseInList.input
+        }
+    }, [currentTestCaseId])
 
     return (
         <div className="mt-2">
@@ -362,29 +450,41 @@ function TestCasePanel() {
                 </button>
 
             </div>
-            <div className="bg-white p-4 rounded-bl-2xl rounded-br-2xl ">
+            <div className="bg-white p-4 pb-2 rounded-bl-2xl rounded-br-2xl">
                 <div className="flex gap-2">
                     {
-                        caseList.map((caseButtonId: number, index: number) => {
+                        testCaseList.map((testCaseData: TestCaseData, index: number) => {
                             return (
-                                <CaseButton key={nanoid()} id={caseButtonId} index={index} removeTestCase={removeTestCase} />
+                                <CaseButton key={nanoid()} testCaseId={testCaseData.id} index={index} removeTestCase={removeTestCase} selectCurrentTestCase={selectCurrentTestCase} isCurrent={currentTestCaseId === testCaseData.id} />
                             )
                         })
                     }
 
                     <button className="bg-slate-50 p-2" onClick={addTestCase}>
-                        +
+                        <FaPlus className="h-3 w-3" />
                     </button>
                 </div>
 
-                <div>
+                <div className="mt-2">
+                    <div>
+                        <span className="text-gray-600 text-sm"> Input = </span>
+                    </div>
+                    <textarea
+                        ref={inputTextAreaRef}
+                        className="w-full bg-slate-100 p-3 mt-2 text-sm font-mono rounded-2xl outline-none focus:outline-blue-400 focus:outline-2 overflow-y-visible"
+                        onChange={handleTextAreaValueChange}
+                    />
+
                 </div>
 
-                <div>
+                <div className="mt-1 flex flex-row gap-4">
 
-                    <button className="flex gap-1 items-center">
+                    <button className="flex flex-row gap-1 items-center">
                         <IoCodeSlashOutline className="h-5 w-5" />
                         <span className="text-base text-gray-600"> Source </span>
+                    </button>
+                    <button className="">
+                        <span className="text-base text-gray-500">Reset Testcases</span>
                     </button>
                 </div>
             </div>
@@ -393,7 +493,7 @@ function TestCasePanel() {
 }
 function RightPart() {
     return (
-        <div className={`w-full md:flex md:flex-col hidden p-1 mr-1`}>
+        <div className={`w-full md:flex md:flex-col hidden p-1 mr-1 max-h-screen`}>
             <CodeEditor />
             <TestCasePanel />
         </div>
@@ -404,7 +504,7 @@ function RightPart() {
 function NavBar() {
     const params = useParams<{ id: string }>()
 
-    const handleContextMenu = (ev: any) => {
+    const handleContextMenu = (ev: React.MouseEvent<HTMLButtonElement>) => {
         ev.preventDefault()
         window.open(`https://leetcode.com/problems/${params.id}`, "_blank")
     }
@@ -499,6 +599,7 @@ export default function ProblemPage() {
                 <LeftPart />
                 <RightPart />
             </div>
+            <ToastContainer />
         </main>
     )
 }
