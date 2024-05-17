@@ -1,10 +1,10 @@
 "use client";
 
 import React from "react";
+import { nanoid } from "nanoid";
+import { useParams } from "next/navigation"
 import Image from "next/image";
 import { Editor } from "@monaco-editor/react";
-import { useParams } from "next/navigation"
-import { nanoid } from "nanoid";
 import { Disclosure, DisclosureButton, DisclosurePanel } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
 import { ChevronLeftIcon } from "@heroicons/react/24/solid";
