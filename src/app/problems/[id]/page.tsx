@@ -2,11 +2,13 @@
 
 import React from "react";
 import Image from "next/image";
-import { useParams } from "next/navigation"
 import { Editor } from "@monaco-editor/react";
+import { useParams } from "next/navigation"
 import { nanoid } from "nanoid";
 import { Disclosure, DisclosureButton, DisclosurePanel } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
+import { ChevronLeftIcon } from "@heroicons/react/24/solid";
+import { ChevronRightIcon } from "@heroicons/react/24/solid";
 import { TagIcon } from "@heroicons/react/24/outline";
 import { LightBulbIcon } from "@heroicons/react/24/outline";
 import { HandThumbUpIcon } from "@heroicons/react/24/outline";
@@ -16,6 +18,19 @@ import { StarIcon } from "@heroicons/react/24/outline";
 import { QuestionMarkCircleIcon } from "@heroicons/react/24/outline";
 import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
 import { BuildingOffice2Icon } from "@heroicons/react/24/outline";
+import { RiPlayList2Fill } from "react-icons/ri";
+import { RiShuffleFill } from "react-icons/ri";
+import { VscDebug } from "react-icons/vsc";
+import { FaPlay } from "react-icons/fa"
+import { IoCodeSlashOutline } from "react-icons/io5";
+import { MdOutlineCloudUpload } from "react-icons/md";
+import { IoSettingsOutline } from "react-icons/io5";
+import { MdOutlineDescription } from "react-icons/md";
+import { GoHistory } from "react-icons/go";
+import { IoIosCheckboxOutline } from "react-icons/io";
+import { LuTerminal } from "react-icons/lu";
+import { IoMdCloseCircle } from "react-icons/io";
+import { MdOutlineDashboard } from "react-icons/md";
 
 
 function TopicsDisclosure(props: { topics: string[] }) {
@@ -109,13 +124,7 @@ function LeftPart() {
         <div className="bg-slate-100 p-2 h-full w-full md:m-2 rounded-2xl">
             <div className="flex gap-4 pb-2 pl-2 ">
                 <button className="flex gap-1 items-center rounded-sm hover:shadow-[0_0_100px_rgba(0,0,0,0.05)_inset]" >
-                    <Image
-                        src="/description-icon.png"
-                        alt="description"
-                        width={20}
-                        height={20}
-                        className="hidden md:block"
-                    />
+                    <MdOutlineDescription className="h-5 w-5 hidden md:block" />
                     <span className="text-xs md:text-sm"> Description </span>
                 </button>
                 <button className="flex gap-1 items-center">
@@ -139,13 +148,7 @@ function LeftPart() {
                     <span className="text-xs md:text-sm"> Solutions </span>
                 </button>
                 <button className="flex gap-1 items-center">
-                    <Image
-                        src="/history-icon.png"
-                        alt="submission"
-                        width={20}
-                        height={20}
-                        className="hidden md:block"
-                    />
+                    <GoHistory className="h-5 w-5 hidden md:block" />
                     <span className="text-xs md:text-sm"> Submissions </span>
                 </button>
 
@@ -289,12 +292,7 @@ int main(int argc, char** argv) {
         <div className="">
             <div className="bg-slate-100 py-2 pl-2 rounded-tl-2xl rounded-tr-2xl">
                 <button className="flex gap-1 items-center">
-                    <Image
-                        src="/coding-icon.png"
-                        alt="code"
-                        width={20}
-                        height={20}
-                    />
+                    <IoCodeSlashOutline className="h-5 w-5" />
                     <span className="text-sm"> Code </span>
                 </button>
 
@@ -327,17 +325,10 @@ function CaseButton(props: { id: number, index: number, removeTestCase: any }) {
             <span>
                 Case {props.index + 1}
             </span>
-            <div className="absolute -top-1 -right-1 bg-gray-50 rounded-full hover:bg-slate-300 ">
-
-                <Image
-                    src="/close-icon-1.png"
-                    alt="editorial"
-                    width={10}
-                    height={10}
+            <div className="absolute -top-1 -right-1 bg-gray-50 rounded-full hover:bg-slate-300">
+                <IoMdCloseCircle
+                    className={`h-3.5 w-3.5 rounded-2xl opacity-40 ${closeButtonVisible ? "block" : "hidden"}`}
                     onClick={() => { props.removeTestCase(props.id) }}
-                    style={
-                        { display: closeButtonVisible ? "block" : "none" }
-                    }
                 />
             </div>
         </div>
@@ -361,22 +352,12 @@ function TestCasePanel() {
         <div className="mt-2">
             <div className="bg-slate-100 flex gap-4 py-2 px-2 rounded-tl-2xl rounded-tr-2xl">
                 <button className="flex gap-1 items-center">
-                    <Image
-                        src="/check-box-icon.png"
-                        alt="testcase"
-                        width={20}
-                        height={20}
-                    />
+                    <IoIosCheckboxOutline className="h-5 w-5" />
                     <span className="text-sm"> Testcase </span>
                 </button>
 
                 <button className="flex gap-1 items-center">
-                    <Image
-                        src="/book-icon.png"
-                        alt="editorial"
-                        width={20}
-                        height={20}
-                    />
+                    <LuTerminal className="h-5 w-5" />
                     <span className="text-sm"> Test Result </span>
                 </button>
 
@@ -402,12 +383,7 @@ function TestCasePanel() {
                 <div>
 
                     <button className="flex gap-1 items-center">
-                        <Image
-                            src="/coding-icon.png"
-                            alt="source-mode"
-                            width={20}
-                            height={20}
-                        />
+                        <IoCodeSlashOutline className="h-5 w-5" />
                         <span className="text-base text-gray-600"> Source </span>
                     </button>
                 </div>
@@ -447,65 +423,30 @@ function NavBar() {
                     </button>
                     <div className="hidden md:flex gap-3 items-center">
                         <button>
-                            <Image
-                                src="/playlist-symbolic.svg"
-                                alt="problem list"
-                                width={20}
-                                height={20}
-                            />
+                            <RiPlayList2Fill className="h-5 w-5" />
                         </button>
-                        <span>Problem List</span>
+                        <span className="text-sm">Problem List</span>
                         <button>
-                            <Image
-                                src="/left-small-symbolic.svg"
-                                alt="previous problem"
-                                width={20}
-                                height={20}
-                            />
+                            < ChevronLeftIcon className="h-5 w-5" />
                         </button>
                         <button>
-                            <Image
-                                src="/right-small-symbolic.svg"
-                                alt="next problem"
-                                width={20}
-                                height={20}
-                            />
+                            < ChevronRightIcon className="h-5 w-5" />
                         </button>
                         <button>
-                            <Image
-                                src="/playlist-shuffle-symbolic.svg"
-                                alt="previous problem"
-                                width={18}
-                                height={18}
-                            />
+                            <RiShuffleFill className="h-5 w-5" />
                         </button>
                     </div>
                 </div>
                 <div className="hidden md:flex gap-4">
                     <button className="">
-                        <Image
-                            src="/debug-insect-symbol.png"
-                            alt="Debug"
-                            width={20}
-                            height={20}
-                        />
+                        <VscDebug className="h-4 w-4" />
                     </button>
-                    <button className="flex gap-1 items-center">
-                        <Image
-                            src="/play-symbolic.svg"
-                            alt="Run"
-                            width={20}
-                            height={20}
-                        />
+                    <button className="flex gap-2 items-center">
+                        <FaPlay className="h-3 w-3" />
                         <span>Run</span>
                     </button>
-                    <button className="flex gap-1 items-center">
-                        <Image
-                            src="/cloud-computing.png"
-                            alt="Submit"
-                            width={20}
-                            height={20}
-                        />
+                    <button className="flex gap-2 items-center">
+                        <MdOutlineCloudUpload className="h-5 w-5" />
                         <span>Submit</span>
                     </button>
                     <button className="">
@@ -520,20 +461,10 @@ function NavBar() {
                 </div>
                 <div className="hidden md:flex gap-4 items-center">
                     <button>
-                        <Image
-                            src="/touchpad-symbolic.svg"
-                            alt="layouts"
-                            width={20}
-                            height={20}
-                        />
+                        <MdOutlineDashboard className="h-5 w-5" />
                     </button>
                     <button>
-                        <Image
-                            src="/settings-symbolic.svg"
-                            alt="settings"
-                            width={20}
-                            height={20}
-                        />
+                        <IoSettingsOutline className="h-5 w-5" />
                     </button>
                     <div className="flex gap-2">
                         <button className="">
