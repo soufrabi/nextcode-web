@@ -106,9 +106,9 @@ function LeftPart() {
     const problemNumber = "1"
     const problemName = "Two Sum"
     return (
-        <div className="bg-slate-100 p-2 h-full w-full m-2">
-            <div className="flex gap-4 pb-2 md:pl-1">
-                <button className="flex gap-1 items-center">
+        <div className="bg-slate-100 p-2 h-full w-full m-2 rounded-2xl">
+            <div className="flex gap-4 pb-2 pl-2 ">
+                <button className="flex gap-1 items-center rounded-sm hover:shadow-[0_0_100px_rgba(0,0,0,0.05)_inset]" >
                     <Image
                         src="/description-icon.png"
                         alt="description"
@@ -150,7 +150,7 @@ function LeftPart() {
                 </button>
 
             </div>
-            <div className="bg-white p-4 overflow-y-scroll h-[calc(100vh-8rem)] " >
+            <div className="bg-white p-4 overflow-y-scroll h-[calc(100vh-9rem)] " >
                 <span className="text-2xl font-semibold">{problemNumber}. {problemName}</span>
 
                 <div className="flex flex-row gap-2 mt-4">
@@ -247,7 +247,7 @@ function LeftPart() {
                 </div>
             </div>
 
-            <div className="flex flex-row gap-4 pl-0 py-2">
+            <div className="hidden md:flex md:flex-row gap-4 pl-0 pt-2 h-8">
                 <button className="flex flex-row gap-2 items-center">
                     <HandThumbUpIcon className="h-5 w-5 " />
                     <span> 5.5K </span>
@@ -286,8 +286,8 @@ int main(int argc, char** argv) {
 }
 `
     return (
-        <div className="p-2 flex-shrink">
-            <div className="bg-slate-100 py-2 pl-2">
+        <div className="">
+            <div className="bg-slate-100 py-2 pl-2 rounded-tl-2xl rounded-tr-2xl">
                 <button className="flex gap-1 items-center">
                     <Image
                         src="/coding-icon.png"
@@ -358,8 +358,8 @@ function TestCasePanel() {
     }
 
     return (
-        <div className="p-2">
-            <div className="bg-slate-100 flex gap-4 py-2 px-2">
+        <div className="mt-2">
+            <div className="bg-slate-100 flex gap-4 py-2 px-2 rounded-tl-2xl rounded-tr-2xl">
                 <button className="flex gap-1 items-center">
                     <Image
                         src="/check-box-icon.png"
@@ -381,7 +381,7 @@ function TestCasePanel() {
                 </button>
 
             </div>
-            <div className="bg-white p-4 ">
+            <div className="bg-white p-4 rounded-bl-2xl rounded-br-2xl ">
                 <div className="flex gap-2">
                     {
                         caseList.map((caseButtonId: number, index: number) => {
@@ -417,7 +417,7 @@ function TestCasePanel() {
 }
 function RightPart() {
     return (
-        <div className={`w-full md:flex md:flex-col hidden`}>
+        <div className={`w-full md:flex md:flex-col hidden p-1 mr-1`}>
             <CodeEditor />
             <TestCasePanel />
         </div>
