@@ -32,9 +32,8 @@ import { LuTerminal } from "react-icons/lu";
 import { IoMdCloseCircle } from "react-icons/io";
 import { MdOutlineDashboard } from "react-icons/md";
 import { ToastContainer, toast } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
 import Split from "react-split";
-import SplitPane from "react-split-pane";
+import 'react-toastify/dist/ReactToastify.css';
 
 
 function TopicsDisclosure(props: { topics: string[] }) {
