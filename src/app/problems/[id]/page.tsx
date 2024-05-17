@@ -641,8 +641,14 @@ function NavBar() {
 }
 
 export default function ProblemPage() {
-    const mediaQueryViewPortMd = window.matchMedia('(min-width: 768px)')
-    const [isViewportMd, setIsViewPortMd] = React.useState<boolean>(() => { return mediaQueryViewPortMd.matches })
+    const mediaQueryViewPortMdString = '(min-width: 768px)'
+    const [isViewportMd, setIsViewPortMd] = React.useState<boolean>(() => {
+        if (window) {
+            return window.matchMedia(mediaQueryViewPortMdString).matches
+        } else {
+            return false
+        }
+    })
 
     const mediaQueryEventListener = (e: any) => {
         if (e.matches) {
@@ -654,11 +660,11 @@ export default function ProblemPage() {
     }
     React.useEffect(() => {
         document.body.style.overflow = "hidden"
-        mediaQueryViewPortMd.addEventListener("change", mediaQueryEventListener)
+        window.matchMedia(mediaQueryViewPortMdString).addEventListener("change", mediaQueryEventListener)
 
         return () => {
 
-            mediaQueryViewPortMd.removeEventListener("change", mediaQueryEventListener)
+            window.matchMedia(mediaQueryViewPortMdString).removeEventListener("change", mediaQueryEventListener)
         }
     }, [])
 
