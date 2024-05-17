@@ -120,17 +120,31 @@ function HintsDisclosure(props: { index: number, bodyText: string }) {
     )
 }
 
+enum LeftPartTabType {
+    DESCRIPTION,
+    EDITORIAL,
+    SOLUTIONS,
+    SUBMISSIONS,
+}
+
 function LeftPart() {
     const problemNumber = "1"
     const problemName = "Two Sum"
+    const [currentActiveTab, setCurrentActiveTab] = React.useState<LeftPartTabType>(LeftPartTabType.DESCRIPTION)
     return (
         <div className="bg-slate-100 p-0 h-full w-full md:ml-2 rounded-2xl">
             <div className="flex gap-4 pb-2 pt-2 pl-2 ">
-                <button className="flex gap-1 items-center rounded-sm hover:shadow-[0_0_100px_rgba(0,0,0,0.05)_inset]" >
+                <button
+                    className={`flex gap-1 items-center rounded-sm hover:shadow-customhovereffect ${currentActiveTab !== LeftPartTabType.DESCRIPTION ? "opacity-50" : ""}`}
+                    onClick={() => { setCurrentActiveTab(LeftPartTabType.DESCRIPTION) }}
+                >
                     <MdOutlineDescription className="h-5 w-5 hidden md:block" />
                     <span className="text-xs md:text-sm"> Description </span>
                 </button>
-                <button className="flex gap-1 items-center">
+                <button
+                    className={`flex gap-1 items-center hover:shadow-customhovereffect ${currentActiveTab !== LeftPartTabType.EDITORIAL ? "opacity-50" : ""}`}
+                    onClick={() => { setCurrentActiveTab(LeftPartTabType.EDITORIAL) }}
+                >
                     <Image
                         src="/book-icon.png"
                         alt="editorial"
@@ -140,7 +154,10 @@ function LeftPart() {
                     />
                     <span className="text-xs md:text-sm"> Editorial </span>
                 </button>
-                <button className="flex gap-1 items-center">
+                <button
+                    className={`flex gap-1 items-center hover:shadow-customhovereffect  ${currentActiveTab !== LeftPartTabType.SOLUTIONS ? "opacity-50" : ""}`}
+                    onClick={() => { setCurrentActiveTab(LeftPartTabType.SOLUTIONS) }}
+                >
                     <Image
                         src="/chemistry-icon.png"
                         alt="solution"
@@ -150,31 +167,40 @@ function LeftPart() {
                     />
                     <span className="text-xs md:text-sm"> Solutions </span>
                 </button>
-                <button className="flex gap-1 items-center">
+                <button
+                    className={`flex gap-1 items-center hover:shadow-customhovereffect  ${currentActiveTab !== LeftPartTabType.SUBMISSIONS ? "opacity-50" : ""}`}
+                    onClick={() => { setCurrentActiveTab(LeftPartTabType.SUBMISSIONS) }}
+                >
                     <GoHistory className="h-5 w-5 hidden md:block" />
                     <span className="text-xs md:text-sm"> Submissions </span>
                 </button>
 
             </div>
-            <div className="bg-white p-4 overflow-y-scroll h-[calc(100vh-9rem)] " >
+            <div className="bg-white p-4 overflow-y-scroll h-[calc(100vh-8rem)] " >
                 <span className="text-2xl font-semibold">{problemNumber}. {problemName}</span>
 
                 <div className="flex flex-row gap-2 mt-4">
                     <div>
                         <span className="text-xs text-green-600 bg-slate-100 px-2 py-1">Easy</span>
                     </div>
-                    <div className="flex flex-row gap-1 items-center bg-slate-100 px-2 py-1">
+                    <button
+                        className="flex flex-row gap-1 items-center bg-slate-100 px-2 py-1 hover:shadow-customhovereffect"
+                    >
                         <TagIcon className="h-4 w-4" />
                         <span className="text-xs">Topics</span>
-                    </div>
-                    <div className="flex flex-row gap-1 items-center bg-slate-100 px-2 py-1">
+                    </button>
+                    <button
+                        className="flex flex-row gap-1 items-center bg-slate-100 px-2 py-1 hover:shadow-customhovereffect"
+                    >
                         <BuildingOffice2Icon className="h-4 w-4" />
                         <span className="text-xs">Companies</span>
-                    </div>
-                    <div className="flex flex-row gap-1 items-center bg-slate-100 px-2 py-1">
+                    </button>
+                    <button
+                        className="flex flex-row gap-1 items-center bg-slate-100 px-2 py-1 hover:shadow-customhovereffect"
+                    >
                         <LightBulbIcon className="h-4 w-4" />
                         <span className="text-xs">Hint</span>
-                    </div>
+                    </button>
                 </div>
 
                 <div className="text-sm pt-4">
@@ -254,25 +280,25 @@ function LeftPart() {
             </div>
 
             <div className="hidden md:flex md:flex-row gap-4 pl-2 pt-2 h-8">
-                <button className="flex flex-row gap-2 items-center">
+                <button className="flex flex-row gap-2 items-center hover:shadow-customhovereffect">
                     <HandThumbUpIcon className="h-5 w-5 " />
                     <span> 5.5K </span>
                 </button>
-                <button className="flex flex-row gap-2 items-center">
+                <button className="flex flex-row gap-2 items-center hover:shadow-customhovereffect">
                     <HandThumbDownIcon className="h-5 w-5" />
                     <span> 1.6K </span>
                 </button>
-                <button className="flex flex-row gap-2 items-center">
+                <button className="flex flex-row gap-2 items-center hover:shadow-customhovereffect">
                     <ChatBubbleOvalLeftIcon className="h-5 w-5" />
                     <span> 800 </span>
                 </button>
-                <button className="ml-4">
+                <button className="ml-4 hover:shadow-customhovereffect">
                     <StarIcon className="h-5 w-5" />
                 </button>
-                <button>
+                <button className="hover:shadow-customhovereffect">
                     <ArrowTopRightOnSquareIcon className="h-5 w-5" />
                 </button>
-                <button>
+                <button className="hover:shadow-customhovereffect">
                     <QuestionMarkCircleIcon className="h-5 w-5" />
                 </button>
             </div>
@@ -305,7 +331,7 @@ int main(int argc, char** argv) {
     return (
         <div className="pb-6">
             <div className="bg-slate-100 pl-2 py-2 rounded-tl-2xl rounded-tr-2xl">
-                <button className="flex gap-1 items-center">
+                <button className="flex gap-1 items-center hover:shadow-customhovereffect">
                     <IoCodeSlashOutline className="h-5 w-5" />
                     <span className="text-sm"> Code </span>
                 </button>
@@ -373,7 +399,7 @@ function CaseButton(props: {
     return (
         <div
             key={nanoid()}
-            className={`p-2 relative cursor-pointer ${props.isCurrent ? "bg-slate-200" : "bg-slate-50"}`}
+            className={`p-2 relative cursor-pointer hover:shadow-customhovereffect ${props.isCurrent ? "bg-slate-200" : "bg-slate-50"}`}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
             onClick={handleCaseButtonClick}
@@ -466,12 +492,12 @@ function TestCasePanel() {
     return (
         <div id="testcase-panel" className="flex flex-col">
             <div className="bg-slate-100 flex gap-4 py-2 px-2 rounded-tl-2xl rounded-tr-2xl">
-                <button className="flex gap-1 items-center">
+                <button className="flex gap-1 items-center hover:shadow-customhovereffect">
                     <IoIosCheckboxOutline className="h-5 w-5" />
                     <span className="text-sm"> Testcase </span>
                 </button>
 
-                <button className="flex gap-1 items-center">
+                <button className="flex gap-1 items-center hover:shadow-customhovereffect">
                     <LuTerminal className="h-5 w-5" />
                     <span className="text-sm"> Test Result </span>
                 </button>
@@ -487,7 +513,10 @@ function TestCasePanel() {
                         })
                     }
 
-                    <button className="bg-slate-50 p-2" onClick={addTestCase}>
+                    <button
+                        className="bg-slate-50 p-2 hover:shadow-customhovereffect"
+                        onClick={addTestCase}
+                    >
                         <FaPlus className="h-3 w-3" />
                     </button>
                 </div>
@@ -506,11 +535,11 @@ function TestCasePanel() {
 
                 <div className="mt-1 flex flex-row gap-4">
 
-                    <button className="flex flex-row gap-1 items-center">
+                    <button className="flex flex-row gap-1 items-center hover:shadow-customhovereffect">
                         <IoCodeSlashOutline className="h-5 w-5" />
                         <span className="text-base text-gray-600"> Source </span>
                     </button>
-                    <button className="">
+                    <button className="hover:shadow-customhovereffect">
                         <span className="text-base text-gray-500">Reset Testcases</span>
                     </button>
                 </div>
@@ -576,34 +605,34 @@ function NavBar() {
                         />
                     </button>
                     <div className="hidden md:flex gap-3 items-center">
-                        <button>
-                            <RiPlayList2Fill className="h-5 w-5" />
+                        <button className="flex flex-row gap-2 items-center hover:shadow-customhovereffect">
+                            <RiPlayList2Fill className="h-4 w-4" />
+                            <span className="text-sm">Problem List</span>
                         </button>
-                        <span className="text-sm">Problem List</span>
-                        <button>
+                        <button className="hover:shadow-customhovereffect">
                             < ChevronLeftIcon className="h-5 w-5" />
                         </button>
-                        <button>
+                        <button className="hover:shadow-customhovereffect">
                             < ChevronRightIcon className="h-5 w-5" />
                         </button>
-                        <button>
+                        <button className="hover:shadow-customhovereffect">
                             <RiShuffleFill className="h-5 w-5" />
                         </button>
                     </div>
                 </div>
                 <div className="hidden md:flex gap-4">
-                    <button className="">
+                    <button className="hover:shadow-customhovereffect">
                         <VscDebug className="h-4 w-4" />
                     </button>
-                    <button className="flex gap-2 items-center">
+                    <button className="flex gap-2 items-center hover:shadow-customhovereffect">
                         <FaPlay className="h-3 w-3" />
                         <span className="text-sm">Run</span>
                     </button>
-                    <button className="flex gap-2 items-center">
+                    <button className="flex gap-2 items-center hover:shadow-customhovereffect">
                         <MdOutlineCloudUpload className="h-5 w-5" />
                         <span className="text-sm">Submit</span>
                     </button>
-                    <button className="">
+                    <button className="hover:shadow-customhovereffect">
                         <Image
                             src="/pen-and-paper-notes-symbol.png"
                             alt="Notes"
@@ -614,24 +643,24 @@ function NavBar() {
                     </button>
                 </div>
                 <div className="hidden md:flex gap-4 items-center">
-                    <button>
+                    <button className="hover:shadow-customhovereffect">
                         <MdOutlineDashboard className="h-5 w-5" />
                     </button>
-                    <button>
+                    <button className="hover:shadow-customhovereffect">
                         <IoSettingsOutline className="h-5 w-5" />
                     </button>
                     <div className="flex gap-2">
-                        <button className="">
+                        <button className="hover:shadow-customhovereffect">
                             <span className="text-gray-600 text-sm">Register</span>
                         </button>
                         <div>
                             <span className="text-gray-600 text-sm"> or </span>
                         </div>
-                        <button className="">
+                        <button className="hover:shadow-customhovereffect">
                             <span className="text-gray-600 text-sm">Sign in</span>
                         </button>
                     </div>
-                    <button className="px-2 py-1 bg-yellow-50 text-orange-400">
+                    <button className="px-2 py-1 bg-yellow-50 text-orange-400 hover:shadow-customhovereffect">
                         <span>Premium</span>
                     </button>
                 </div>
