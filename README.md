@@ -1,6 +1,11 @@
 # NextCode - Online Judge
 
-## Getting Started
+
+## QuickStart
+
+Visit hosted instance at [https://nextcode.soufrabi.com](https://nextcode.soufrabi.com)
+
+## Development
 
 Clone the repo
 ```bash
