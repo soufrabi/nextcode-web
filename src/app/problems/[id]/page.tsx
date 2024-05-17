@@ -510,15 +510,15 @@ function NavBar() {
     }
 
     return (
-        <div className="w-full px-6">
-            <nav className="flex justify-center md:justify-between items-center md:mx-auto bg-[f0f0f0] h-12">
+        <div className="w-full px-6 py-1">
+            <nav className="flex justify-center md:justify-between items-center md:mx-auto bg-[f0f0f0] h-10">
                 <div className="flex items-center gap-4">
                     <button onContextMenu={handleContextMenu}>
                         <Image
                             src="/leetcode-logo.png"
                             alt="Leetcode Logo"
-                            width={20}
-                            height={20}
+                            width={17}
+                            height={17}
                         />
                     </button>
                     <div className="hidden md:flex gap-3 items-center">
@@ -543,11 +543,11 @@ function NavBar() {
                     </button>
                     <button className="flex gap-2 items-center">
                         <FaPlay className="h-3 w-3" />
-                        <span>Run</span>
+                        <span className="text-sm">Run</span>
                     </button>
                     <button className="flex gap-2 items-center">
                         <MdOutlineCloudUpload className="h-5 w-5" />
-                        <span>Submit</span>
+                        <span className="text-sm">Submit</span>
                     </button>
                     <button className="">
                         <Image
@@ -568,13 +568,13 @@ function NavBar() {
                     </button>
                     <div className="flex gap-2">
                         <button className="">
-                            <span className="text-gray-600">Register</span>
+                            <span className="text-gray-600 text-sm">Register</span>
                         </button>
                         <div>
-                            <span className="text-gray-600"> or </span>
+                            <span className="text-gray-600 text-sm"> or </span>
                         </div>
                         <button className="">
-                            <span className="text-gray-600">Sign in</span>
+                            <span className="text-gray-600 text-sm">Sign in</span>
                         </button>
                     </div>
                     <button className="px-2 py-1 bg-yellow-50 text-orange-400">
