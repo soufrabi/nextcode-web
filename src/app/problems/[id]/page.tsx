@@ -34,6 +34,7 @@ import { MdOutlineDashboard } from "react-icons/md";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import Split from "react-split";
+import SplitPane from "react-split-pane";
 
 
 function TopicsDisclosure(props: { topics: string[] }) {
@@ -303,15 +304,15 @@ int main(int argc, char** argv) {
     }
 
     return (
-        <div className="mb-4">
-            <div className="bg-slate-100 py-2 pl-2 rounded-tl-2xl rounded-tr-2xl">
+        <div className="pb-6">
+            <div className="bg-slate-100 pl-2 py-2 rounded-tl-2xl rounded-tr-2xl">
                 <button className="flex gap-1 items-center">
                     <IoCodeSlashOutline className="h-5 w-5" />
                     <span className="text-sm"> Code </span>
                 </button>
 
             </div>
-            <div className="h-[calc(100%-1.5rem)] min-h-4">
+            <div className=" h-full min-h-4">
                 <Editor
                     // height="12rem"
                     // height="50vh"
@@ -519,24 +520,30 @@ function TestCasePanel() {
     )
 }
 function RightPart() {
+    // const handleOnDrag = (sizes:number[])=>{
+    //     console.log(sizes)
+    // }
     return (
         <>
             {
-                <Split
-                    sizes={[60, 40]}
-                    minSize={[100, 100]}
-                    expandToMin={false}
-                    gutterSize={10}
-                    gutterAlign="center"
-                    snapOffset={30}
-                    dragInterval={1}
-                    direction="vertical"
-                    cursor="col-resize"
-                    className="split-vertical"
-                >
-                    <CodeEditor />
-                    <TestCasePanel />
-                </Split>
+                <div className="h-svh">
+                    <Split
+                        sizes={[60, 40]}
+                        minSize={[100, 100]}
+                        expandToMin={false}
+                        gutterSize={10}
+                        gutterAlign="center"
+                        snapOffset={30}
+                        dragInterval={1}
+                        direction="vertical"
+                        cursor="col-resize"
+                        className="split-vertical w-full h-full "
+                    // onDrag={handleOnDrag}
+                    >
+                        <CodeEditor />
+                        <TestCasePanel />
+                    </Split>
+                </div>
             }
             {
                 // <div className={`w-full md:flex md:flex-col hidden p-1 mr-1 max-h-screen`}>
