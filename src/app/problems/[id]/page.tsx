@@ -464,7 +464,7 @@ function TestCasePanel() {
     }, [currentTestCaseId])
 
     return (
-        <div className="" id="testcase-panel flex flex-row">
+        <div id="testcase-panel" className="flex flex-col">
             <div className="bg-slate-100 flex gap-4 py-2 px-2 rounded-tl-2xl rounded-tr-2xl">
                 <button className="flex gap-1 items-center">
                     <IoIosCheckboxOutline className="h-5 w-5" />
