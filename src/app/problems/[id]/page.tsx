@@ -125,8 +125,8 @@ function LeftPart() {
     const problemNumber = "1"
     const problemName = "Two Sum"
     return (
-        <div className="bg-slate-100 p-2 h-full w-full md:m-2 md:mr-0 rounded-2xl">
-            <div className="flex gap-4 pb-2 pl-2 ">
+        <div className="bg-slate-100 p-0 h-full w-full md:ml-2 rounded-2xl">
+            <div className="flex gap-4 pb-2 pt-2 pl-2 ">
                 <button className="flex gap-1 items-center rounded-sm hover:shadow-[0_0_100px_rgba(0,0,0,0.05)_inset]" >
                     <MdOutlineDescription className="h-5 w-5 hidden md:block" />
                     <span className="text-xs md:text-sm"> Description </span>
@@ -254,7 +254,7 @@ function LeftPart() {
                 </div>
             </div>
 
-            <div className="hidden md:flex md:flex-row gap-4 pl-0 pt-2 h-8">
+            <div className="hidden md:flex md:flex-row gap-4 pl-2 pt-2 h-8">
                 <button className="flex flex-row gap-2 items-center">
                     <HandThumbUpIcon className="h-5 w-5 " />
                     <span> 5.5K </span>
