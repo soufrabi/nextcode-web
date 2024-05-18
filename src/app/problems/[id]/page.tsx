@@ -6,18 +6,15 @@ import { useParams } from "next/navigation"
 import Image from "next/image";
 import { Editor } from "@monaco-editor/react";
 import { Disclosure, DisclosureButton, DisclosurePanel } from "@headlessui/react";
-import { ChevronDownIcon } from "@heroicons/react/24/solid";
-import { ChevronLeftIcon } from "@heroicons/react/24/solid";
-import { ChevronRightIcon } from "@heroicons/react/24/solid";
-import { TagIcon } from "@heroicons/react/24/outline";
-import { LightBulbIcon } from "@heroicons/react/24/outline";
-import { HandThumbUpIcon } from "@heroicons/react/24/outline";
-import { HandThumbDownIcon } from "@heroicons/react/24/outline";
-import { ChatBubbleOvalLeftIcon } from "@heroicons/react/24/outline";
-import { StarIcon } from "@heroicons/react/24/outline";
-import { QuestionMarkCircleIcon } from "@heroicons/react/24/outline";
-import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
-import { BuildingOffice2Icon } from "@heroicons/react/24/outline";
+import { HiChevronDown, HiChevronLeft, HiChevronRight} from "react-icons/hi2"
+import { HiOutlineBuildingOffice2, HiOutlineTag } from "react-icons/hi2";
+import { HiOutlineLightBulb } from "react-icons/hi2";
+import { HiOutlineHandThumbUp } from "react-icons/hi2";
+import { HiOutlineHandThumbDown } from "react-icons/hi2";
+import { HiOutlineChatBubbleOvalLeft } from "react-icons/hi2";
+import { HiOutlineStar } from "react-icons/hi2";
+import { HiOutlineQuestionMarkCircle } from "react-icons/hi2";
+import { HiOutlineArrowTopRightOnSquare } from "react-icons/hi2";
 import { RiPlayList2Fill } from "react-icons/ri";
 import { RiShuffleFill } from "react-icons/ri";
 import { VscDebug } from "react-icons/vsc";
@@ -44,10 +41,10 @@ function TopicsDisclosure(props: { topics: string[] }) {
                     <>
                         <DisclosureButton className="w-full flex justify-between">
                             <div className="flex gap-1 items-center">
-                                <TagIcon className="h-4 w-4 mr-1" />
+                                <HiOutlineTag className="h-4 w-4 mr-1" />
                                 <span className="text-sm">Topics</span>
                             </div>
-                            <ChevronDownIcon className={`${open ? 'rotate-180 transform' : ''} h-5 w-5`} />
+                            <HiChevronDown className={`${open ? 'rotate-180 transform' : ''} h-5 w-5`} />
                         </DisclosureButton>
                         <DisclosurePanel className="">
                             <div className="pl-4 pt-3 flex gap-2">
@@ -73,10 +70,10 @@ function CompaniesDisclosure(props: { companiesList: string[] }) {
                     <>
                         <DisclosureButton className="w-full flex justify-between">
                             <div className="flex gap-1 items-center">
-                                <BuildingOffice2Icon className="h-4 w-4 mr-1" />
+                                <HiOutlineBuildingOffice2 className="h-4 w-4 mr-1" />
                                 <span className="text-sm">Companies</span>
                             </div>
-                            <ChevronDownIcon className={`${open ? 'rotate-180 transform' : ''} h-5 w-5`} />
+                            <HiChevronDown className={`${open ? 'rotate-180 transform' : ''} h-5 w-5`} />
                         </DisclosureButton>
                         <DisclosurePanel className="">
                             <div className="pl-4 pt-3 flex gap-2">
@@ -102,10 +99,10 @@ function HintsDisclosure(props: { index: number, bodyText: string }) {
                     <>
                         <DisclosureButton className="w-full flex justify-between">
                             <div className="flex gap-1 items-center">
-                                <LightBulbIcon className="h-4 w-4 mr-1" />
+                                <HiOutlineLightBulb className="h-4 w-4 mr-1" />
                                 <span className="text-sm">Hint {props.index + 1}</span>
                             </div>
-                            <ChevronDownIcon className={`${open ? 'rotate-180 transform' : ''} h-5 w-5`} />
+                            <HiChevronDown className={`${open ? 'rotate-180 transform' : ''} h-5 w-5`} />
                         </DisclosureButton>
                         <DisclosurePanel className="">
                             <div className="pl-4 pt-3 flex gap-2">
@@ -186,19 +183,19 @@ function LeftPart() {
                     <button
                         className="flex flex-row gap-1 items-center bg-slate-100 px-2 py-1 hover:shadow-customhovereffect"
                     >
-                        <TagIcon className="h-4 w-4" />
+                        <HiOutlineTag className="h-4 w-4" />
                         <span className="text-xs">Topics</span>
                     </button>
                     <button
                         className="flex flex-row gap-1 items-center bg-slate-100 px-2 py-1 hover:shadow-customhovereffect"
                     >
-                        <BuildingOffice2Icon className="h-4 w-4" />
+                        <HiOutlineBuildingOffice2 className="h-4 w-4" />
                         <span className="text-xs">Companies</span>
                     </button>
                     <button
                         className="flex flex-row gap-1 items-center bg-slate-100 px-2 py-1 hover:shadow-customhovereffect"
                     >
-                        <LightBulbIcon className="h-4 w-4" />
+                        <HiOutlineLightBulb className="h-4 w-4" />
                         <span className="text-xs">Hint</span>
                     </button>
                 </div>
@@ -611,10 +608,10 @@ function NavBar() {
                             <span className="text-sm">Problem List</span>
                         </button>
                         <button className="hover:shadow-customhovereffect">
-                            < ChevronLeftIcon className="h-5 w-5" />
+                            < HiChevronLeft className="h-5 w-5" />
                         </button>
                         <button className="hover:shadow-customhovereffect">
-                            < ChevronRightIcon className="h-5 w-5" />
+                            < HiChevronRight className="h-5 w-5" />
                         </button>
                         <button className="hover:shadow-customhovereffect">
                             <RiShuffleFill className="h-5 w-5" />
