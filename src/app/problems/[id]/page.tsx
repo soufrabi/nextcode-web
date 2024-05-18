@@ -132,8 +132,8 @@ function LeftPart() {
     const problemName = "Two Sum"
     const [currentActiveTab, setCurrentActiveTab] = React.useState<LeftPartTabType>(LeftPartTabType.DESCRIPTION)
     return (
-        <div className="bg-slate-100 p-0 h-full w-full md:ml-2 rounded-2xl">
-            <div className="flex gap-4 pb-2 pt-2 pl-2 ">
+        <div className="bg-slate-100 h-full w-full md:mx-2 rounded-2xl">
+            <div className="flex justify-around md:justify-start gap-4 py-2 px-2 ">
                 <button
                     className={`flex gap-1 items-center rounded-sm hover:shadow-customhovereffect ${currentActiveTab !== LeftPartTabType.DESCRIPTION ? "opacity-50" : ""}`}
                     onClick={() => { setCurrentActiveTab(LeftPartTabType.DESCRIPTION) }}
