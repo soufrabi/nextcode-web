@@ -29,7 +29,7 @@ Next.js Dockerization Example : <https://github.com/vercel/next.js/tree/canary/e
 Docker Image hosted at : <https://hub.docker.com/r/soufrabidev/nextcode/>
 
 ```bash
-docker pull docker.io/soufrabidev/nextcode:latest
-docker run -d -p <YOUR_PORT>:3000 soufrabidev/nextcode:latest
+docker pull docker.io/soufrabidev/nextcode:<TAG_NAME>
+docker run -d -p <YOUR_PORT>:3000 soufrabidev/nextcode:<TAG_NAME>
 ```
 
