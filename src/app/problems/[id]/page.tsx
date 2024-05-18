@@ -598,10 +598,11 @@ function NavBar() {
                 <div className="flex items-center gap-4">
                     <button onContextMenu={handleContextMenu}>
                         <Image
-                            src="/leetcode-logo.png"
-                            alt="Leetcode Logo"
-                            width={17}
-                            height={17}
+                            src="/nextcode-logo.png"
+                            alt="NextCode Logo"
+                            width={20}
+                            height={20}
+                            className="rounded-full"
                         />
                     </button>
                     <div className="hidden md:flex gap-3 items-center">
