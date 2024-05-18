@@ -30,6 +30,7 @@ import { IoMdCloseCircle } from "react-icons/io";
 import { MdOutlineDashboard } from "react-icons/md";
 import { ToastContainer, toast } from "react-toastify";
 import Split from "react-split";
+import { createMedia } from "@artsy/fresnel"
 import 'react-toastify/dist/ReactToastify.css';
 
 
@@ -276,29 +277,31 @@ function LeftPart() {
                 </div>
             </div>
 
-            <div className="hidden md:flex md:flex-row gap-4 pl-2 pt-2 h-8">
-                <button className="flex flex-row gap-2 items-center hover:shadow-customhovereffect">
-                    <HandThumbUpIcon className="h-5 w-5 " />
-                    <span> 5.5K </span>
-                </button>
-                <button className="flex flex-row gap-2 items-center hover:shadow-customhovereffect">
-                    <HandThumbDownIcon className="h-5 w-5" />
-                    <span> 1.6K </span>
-                </button>
-                <button className="flex flex-row gap-2 items-center hover:shadow-customhovereffect">
-                    <ChatBubbleOvalLeftIcon className="h-5 w-5" />
-                    <span> 800 </span>
-                </button>
-                <button className="ml-4 hover:shadow-customhovereffect">
-                    <StarIcon className="h-5 w-5" />
-                </button>
-                <button className="hover:shadow-customhovereffect">
-                    <ArrowTopRightOnSquareIcon className="h-5 w-5" />
-                </button>
-                <button className="hover:shadow-customhovereffect">
-                    <QuestionMarkCircleIcon className="h-5 w-5" />
-                </button>
-            </div>
+            <Media greaterThanOrEqual="md">
+                <div className="flex flex-row gap-4 pl-2 pt-2 h-8">
+                    <button className="flex flex-row gap-2 items-center hover:shadow-customhovereffect">
+                        <HiOutlineHandThumbUp className="h-5 w-5 " />
+                        <span> 5.5K </span>
+                    </button>
+                    <button className="flex flex-row gap-2 items-center hover:shadow-customhovereffect">
+                        <HiOutlineHandThumbDown className="h-5 w-5" />
+                        <span> 1.6K </span>
+                    </button>
+                    <button className="flex flex-row gap-2 items-center hover:shadow-customhovereffect">
+                        <HiOutlineChatBubbleOvalLeft className="h-5 w-5" />
+                        <span> 800 </span>
+                    </button>
+                    <button className="ml-4 hover:shadow-customhovereffect">
+                        <HiOutlineStar className="h-5 w-5" />
+                    </button>
+                    <button className="hover:shadow-customhovereffect">
+                        <HiOutlineArrowTopRightOnSquare className="h-5 w-5" />
+                    </button>
+                    <button className="hover:shadow-customhovereffect">
+                        <HiOutlineQuestionMarkCircle className="h-5 w-5" />
+                    </button>
+                </div>
+            </Media>
         </div>
     )
 }
@@ -667,42 +670,29 @@ function NavBar() {
     )
 }
 
-export default function ProblemPage() {
-    const mediaQueryViewPortMdString = '(min-width: 768px)'
-    const [isViewportMd, setIsViewPortMd] = React.useState<boolean>(() => {
-        if (window) {
-            return window.matchMedia(mediaQueryViewPortMdString).matches
-        } else {
-            return false
-        }
-    })
-
-    const mediaQueryEventListener = (e: any) => {
-        if (e.matches) {
-            setIsViewPortMd(true)
-        } else {
-            setIsViewPortMd(false)
-        }
-
+const { MediaContextProvider, Media } = createMedia({
+    breakpoints: {
+        sm: 0,
+        md: 768,
+        lg: 1024,
+        xl: 1192,
     }
+})
+
+export default function ProblemPage() {
     React.useEffect(() => {
         document.body.style.overflow = "hidden"
-        window.matchMedia(mediaQueryViewPortMdString).addEventListener("change", mediaQueryEventListener)
-
-        return () => {
-
-            window.matchMedia(mediaQueryViewPortMdString).removeEventListener("change", mediaQueryEventListener)
-        }
     }, [])
 
     return (
-        <main className="bg-slate-200 h-screen w-screen max-h-screen max-w-screen">
-            <NavBar />
-            {/* <div className="w-full md:flex md:flex-row overflow-x-hidden"> */}
-
-            <div className="">
-                {
-                    isViewportMd ?
+        <MediaContextProvider>
+            <main className="bg-slate-200 h-screen w-screen max-h-screen max-w-screen">
+                <NavBar />
+                <div className="">
+                    <Media at="sm">
+                        <LeftPart />
+                    </Media>
+                    <Media greaterThanOrEqual="md">
                         <Split
                             sizes={[50, 50]}
                             minSize={200}
@@ -718,13 +708,10 @@ export default function ProblemPage() {
                             <LeftPart />
                             <RightPart />
                         </Split>
-
-                        :
-                        <LeftPart />
-                }
-            </div>
-            {/* </div> */}
-            <ToastContainer />
-        </main>
+                    </Media>
+                </div>
+                <ToastContainer />
+            </main >
+        </MediaContextProvider>
     )
 }

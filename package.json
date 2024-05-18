@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@artsy/fresnel": "^7.1.4",
     "@headlessui/react": "^2.0.3",
     "@monaco-editor/react": "^4.6.0",
     "nanoid": "^5.0.7",
