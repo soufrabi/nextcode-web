@@ -320,7 +320,7 @@ int main(int argc, char** argv) {
 
     const [value, setValue] = React.useState("")
 
-    const handleOnChange = (newValue: string | undefined) => {
+    const handleChange = (newValue: string | undefined) => {
         // event should be passed as the second parameter
         if (newValue) {
             setValue(newValue)
@@ -344,7 +344,7 @@ int main(int argc, char** argv) {
                     // defaultLanguage="javascript"
                     // defaultValue='Deno.serve(req => new Response("Hello"));'
                     value={value}
-                    onChange={handleOnChange}
+                    onChange={handleChange}
                     defaultLanguage="cpp"
                     defaultValue={cppDefaultValue}
                     options={{
@@ -548,7 +548,7 @@ function TestCasePanel() {
     )
 }
 function RightPart() {
-    // const handleOnDrag = (sizes:number[])=>{
+    // const handleDrag = (sizes:number[])=>{
     //     console.log(sizes)
     // }
     return (
@@ -566,7 +566,7 @@ function RightPart() {
                         direction="vertical"
                         cursor="col-resize"
                         className="split-vertical w-full h-full "
-                    // onDrag={handleOnDrag}
+                    // onDrag={handleDrag}
                     >
                         <CodeEditor />
                         <TestCasePanel />
