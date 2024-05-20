@@ -1,11 +1,11 @@
 "use client"
 
-import React, { useState } from "react"
+import React from "react"
 import Image from "next/image"
-import { MediaContextProvider } from "../components/media"
 import { Editor } from "@monaco-editor/react"
 import Split from "react-split"
 import { FaPlay } from "react-icons/fa"
+import axios, { AxiosResponse } from "axios"
 
 function NavBar() {
     return (
@@ -29,23 +29,26 @@ function NavBar() {
 
 }
 
-function CodeEditor() {
+function CodeEditor(props: { sourceCodeValue: string, setSourceCodeValue: React.Dispatch<React.SetStateAction<string>>, runCodeAction: ()=>Promise<void> }) {
     const pythonDefaultValue = `
 print("Hello World from Python")
 `
-    const [value, setValue] = useState("")
 
-    const handleOnChange = (newValue: string | undefined) => {
+    const handleChange = (newValue: string | undefined) => {
 
         // event should be passed as the second parameter
         if (newValue) {
-            setValue(newValue)
+            props.setSourceCodeValue(newValue)
         }
     }
 
-    const handleOnRunCodeButtonClicked = () => {
-
+    const handleRunCodeButtonClicked = async () => {
+        await props.runCodeAction()
     }
+
+    React.useEffect(() => {
+        props.setSourceCodeValue(pythonDefaultValue)
+    }, [])
 
     return (
 
@@ -55,7 +58,7 @@ print("Hello World from Python")
             <div className="pb-2">
                 <button
                     className="bg-green-200 px-4 py-2 rounded-2xl flex flex-row gap-2 items-center hover:shadow-customhovereffect"
-                    onClick={handleOnRunCodeButtonClicked}
+                    onClick={handleRunCodeButtonClicked}
                 >
                     <FaPlay
                         className="h-3 w-3"
@@ -70,8 +73,8 @@ print("Hello World from Python")
                 // height="80vh"
                 defaultLanguage="python"
                 defaultValue={pythonDefaultValue}
-                value={value}
-                onChange={handleOnChange}
+                value={props.sourceCodeValue}
+                onChange={handleChange}
                 options={{
                     readOnly: false,
                     minimap: {
@@ -88,22 +91,56 @@ print("Hello World from Python")
     )
 }
 
-function IoBox(props: { readOnly: boolean }) {
+function InputBox(props: { value: string, setValue: React.Dispatch<React.SetStateAction<string>> }) {
+
+    const handleChange = (ev: React.ChangeEvent<HTMLTextAreaElement>) => {
+        props.setValue(ev.target.value)
+    }
     return (
         <div className="p-2">
             <textarea
-                className="w-full h-full bg-slate-100 p-3 text-sm font-mono rounded-2xl outline-none focus:outline-blue-400 focus:outline-2 resize-none" readOnly={props.readOnly}
+                className="w-full h-full bg-slate-100 p-3 text-sm font-mono rounded-2xl outline-none focus:outline-blue-400 focus:outline-2 resize-none"
+                readOnly={false}
+                value={props.value}
+                onChange={handleChange}
             />
         </div>
     )
 }
-function RightPart() {
+
+function OutputBox(props: { value: string, setValue: React.Dispatch<React.SetStateAction<string>> }) {
+
+    const handleChange = (ev: React.ChangeEvent<HTMLTextAreaElement>) => {
+        props.setValue(ev.target.value)
+    }
+    return (
+        <div className="p-2">
+            <textarea
+                className="w-full h-full bg-slate-100 p-3 text-sm font-mono rounded-2xl outline-none resize-none"
+                readOnly={true}
+                value={props.value}
+                onChange={handleChange}
+            />
+        </div>
+    )
+}
+
+type RightPartProps = {
+    inputTextValue: string,
+    stdoutValue: string,
+    stderrValue: string,
+    setInputTextValue: React.Dispatch<React.SetStateAction<string>>,
+    setStdoutValue: React.Dispatch<React.SetStateAction<string>>,
+    setStderrValue: React.Dispatch<React.SetStateAction<string>>
+}
+
+function RightPart(props: RightPartProps) {
     return (
         <>
             <div>
                 <Split
-                    sizes={[50, 50]}
-                    minSize={[100, 100]}
+                    sizes={[40, 30, 30]}
+                    minSize={[100, 100, 100]}
                     expandToMin={false}
                     gutterSize={10}
                     gutterAlign="center"
@@ -113,8 +150,9 @@ function RightPart() {
                     cursor="row-resize"
                     className="split-vertical w-full h-full "
                 >
-                    <IoBox readOnly={false} />
-                    <IoBox readOnly={true} />
+                    <InputBox value={props.inputTextValue} setValue={props.setInputTextValue} />
+                    <OutputBox value={props.stdoutValue} setValue={props.setStdoutValue} />
+                    <OutputBox value={props.stderrValue} setValue={props.setStderrValue} />
                 </Split>
             </div>
 
@@ -123,30 +161,84 @@ function RightPart() {
 }
 
 export default function EditorPage() {
-    return (
-        <MediaContextProvider>
-            <main className="min-h-screen w-screen">
-                <NavBar />
-                <div>
-                    <Split
-                        sizes={[50, 50]}
-                        minSize={[100, 100]}
-                        expandToMin={false}
-                        gutterSize={10}
-                        gutterAlign="center"
-                        snapOffset={30}
-                        dragInterval={1}
-                        direction="horizontal"
-                        cursor="row-resize"
-                        className="split-horizontal w-full h-full "
-                    >
-                        <CodeEditor />
-                        <RightPart />
+    const [sourceCodeValue, setSourceCodeValue] = React.useState<string>("")
+    const [inputTextValue, setInputTextValue] = React.useState<string>("")
+    const [stdoutValue, setStdoutValue] = React.useState<string>("")
+    const [stderrValue, setStderrValue] = React.useState<string>("")
 
-                    </Split>
-                </div>
-            </main>
-        </MediaContextProvider>
+    const runCodeAction = async () => {
+        const bodyObj = {
+            sourceCode: sourceCodeValue,
+            inputText: inputTextValue,
+            timeLimit: 3000,
+        }
+
+        try {
+            const res: AxiosResponse = await axios.post(
+                "/api/v1/run",
+                bodyObj
+            )
+            // console.log(res)
+
+
+            try {
+                const stdoutValueObtained: string = res.data.data.stdout
+                const stderrValueObtained: string = res.data.data.stderr
+
+                if (typeof stdoutValueObtained !== 'string') {
+                    console.error("Stdout Value Obtained is not string")
+                }
+
+                if (typeof stderrValueObtained !== 'string') {
+                    console.error("Stderr Value obtained is not string")
+                }
+
+                // console.log("Stdout : ", stdoutValueObtained)
+                // console.log("Stderr : ", stderrValueObtained)
+                setStdoutValue(stdoutValueObtained)
+                setStderrValue(stderrValueObtained)
+            } catch (err) {
+                console.error(err)
+            }
+
+            // setStdoutValue(JSON.stringify(res.data))
+        } catch (err) {
+            console.error(err)
+
+
+        }
+    }
+
+    return (
+        <main className="min-h-screen w-screen">
+            <NavBar />
+            <div>
+                <Split
+                    sizes={[50, 50]}
+                    minSize={[100, 100]}
+                    expandToMin={false}
+                    gutterSize={10}
+                    gutterAlign="center"
+                    snapOffset={30}
+                    dragInterval={1}
+                    direction="horizontal"
+                    cursor="row-resize"
+                    className="split-horizontal w-full h-full "
+                >
+                    <CodeEditor sourceCodeValue={sourceCodeValue} setSourceCodeValue={setSourceCodeValue} runCodeAction={runCodeAction} />
+                    <RightPart
+                        inputTextValue={inputTextValue}
+                        setInputTextValue={setInputTextValue}
+                        stdoutValue={stdoutValue}
+                        setStdoutValue={setStdoutValue}
+                        stderrValue={stderrValue}
+                        setStderrValue={setStderrValue}
+
+                    />
+
+                </Split>
+            </div>
+        </main>
     )
 
 
