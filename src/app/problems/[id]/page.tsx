@@ -30,7 +30,7 @@ import { IoMdCloseCircle } from "react-icons/io";
 import { MdOutlineDashboard } from "react-icons/md";
 import { ToastContainer, toast } from "react-toastify";
 import Split from "react-split";
-import { createMedia } from "@artsy/fresnel"
+import {MediaContextProvider, Media} from "../../components/media"
 import 'react-toastify/dist/ReactToastify.css';
 
 
@@ -670,14 +670,6 @@ function NavBar() {
     )
 }
 
-const { MediaContextProvider, Media } = createMedia({
-    breakpoints: {
-        sm: 0,
-        md: 768,
-        lg: 1024,
-        xl: 1192,
-    }
-})
 
 export default function ProblemPage() {
     React.useEffect(() => {
