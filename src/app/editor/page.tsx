@@ -6,16 +6,13 @@ import { Editor } from "@monaco-editor/react"
 import Split from "react-split"
 import { FaPlay } from "react-icons/fa"
 import axios, { AxiosResponse } from "axios"
-// import { nanoid } from "nanoid"
 import { Listbox, ListboxButton, ListboxOption, ListboxOptions } from "@headlessui/react"
 import { HiChevronDown } from "react-icons/hi2"
+import { MdErrorOutline } from "react-icons/md"
+import { IoIosCheckboxOutline } from "react-icons/io"
+import { IoTimeOutline } from "react-icons/io5";
+import clsx from "clsx"
 
-import { ToastContainer } from 'react-toastify'
-// import {toast} from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css';
-
-// import { HiCheck } from 'react-icons/hi2'
-// import { HiChevronDown } from 'react-icons/hi2'
 
 function NavBar() {
     return (
@@ -42,17 +39,19 @@ function NavBar() {
 type ProgrammingLanguage = {
     id: number,
     name: string,
+    monaco: string,
     defaultCode: string,
     available: boolean,
 }
 
 const defaultCodeText = "Write your code here ..."
+const defaultCodePython = "print(\"Subscribe to Premium for more features\")"
 
 const languageList: Array<ProgrammingLanguage> = [
-    { id: 1, name: 'Python 3.11', defaultCode: `# ${defaultCodeText}`, available: true },
-    { id: 2, name: 'C++ 23', defaultCode: `// ${defaultCodeText}`, available: false },
-    { id: 3, name: 'Java 17', defaultCode: `// ${defaultCodeText}`, available: true },
-    { id: 4, name: 'Go 1.21', defaultCode: `// ${defaultCodeText}`, available: true },
+    { id: 1, name: 'Python 3.11', monaco:"python", defaultCode: `# ${defaultCodeText}\n\n${defaultCodePython}`, available: true },
+    { id: 2, name: 'C++ 23', monaco:"cpp", defaultCode: `// ${defaultCodeText}\n\n`, available: false },
+    { id: 3, name: 'Java 17', monaco:"java", defaultCode: `// ${defaultCodeText}\n\n`, available: true },
+    { id: 4, name: 'Go 1.21', monaco:"go", defaultCode: `// ${defaultCodeText}\n\n`, available: true },
 ]
 
 function LanguageSelector(
@@ -90,7 +89,7 @@ function LanguageSelector(
                                 key={language.id}
                                 value={language}
                                 disabled={!language.available}
-                                className={"p-2 hover:shadow-customhovereffect"}
+                                className={"p-2 cursor-pointer hover:shadow-customhovereffect"}
                             >
                                 <span>{language.name}{language.available ? "" : " (Coming Soon)"}</span>
                             </ListboxOption>
@@ -106,27 +105,37 @@ function LanguageSelector(
 }
 
 
+type CodeEditorProps = {
+    sourceCodeValue : string,
+    setSourceCodeValue : React.Dispatch<React.SetStateAction<string>>,
+    runCodeAction: (language: ProgrammingLanguage) => Promise<void>,
+}
 
 
-function CodeEditor(props: { sourceCodeValue: string, setSourceCodeValue: React.Dispatch<React.SetStateAction<string>>, runCodeAction: (language: ProgrammingLanguage) => Promise<void> }) {
-    const [selectedLanguage, setSelectedLanguage] = React.useState<ProgrammingLanguage>(languageList[2])
+
+function CodeEditor( { sourceCodeValue, setSourceCodeValue, runCodeAction } : CodeEditorProps) {
+    const [selectedLanguage, setSelectedLanguage] = React.useState<ProgrammingLanguage>(languageList[0])
 
     const handleChange = (newValue: string | undefined) => {
 
         // event should be passed as the second parameter
         if (newValue) {
-            props.setSourceCodeValue(newValue)
+            setSourceCodeValue(newValue)
         }
     }
 
     const handleRunCodeButtonClicked = async () => {
-        await props.runCodeAction(languageList[0])
+        await runCodeAction(languageList[0])
     }
+
+    React.useEffect(()=>{
+        setSourceCodeValue(selectedLanguage.defaultCode)
+    },[selectedLanguage,setSourceCodeValue])
 
     return (
 
         <div
-            className="min-h-4 p-4 pt-0 h-[calc(100vh-7rem)]"
+            className="min-h-4 p-4 pt-0 pr-2 h-[calc(100vh-7rem)]"
         >
             <div className="pb-2 flex flex-row justify-between">
                 <button
@@ -148,9 +157,10 @@ function CodeEditor(props: { sourceCodeValue: string, setSourceCodeValue: React.
             </div>
             <Editor
                 // height="80vh"
-                defaultLanguage="python"
+                // defaultLanguage="python"
                 // defaultValue={selectedLanguage.defaultCode}
-                value={props.sourceCodeValue}
+                language={selectedLanguage.monaco}
+                value={sourceCodeValue}
                 onChange={handleChange}
                 options={{
                     readOnly: false,
@@ -175,12 +185,13 @@ function InputBox(props: { value: string, setValue: React.Dispatch<React.SetStat
         props.setValue(ev.target.value)
     }
     return (
-        <div className="p-2">
+        <div className="p-0 h-full">
             <textarea
-                className="w-full h-full bg-slate-100 p-3 text-sm font-mono rounded-2xl outline-none focus:outline-blue-400 focus:outline-2 resize-none"
+                className="w-full h-full bg-slate-50/10 p-3 text-sm font-mono rounded-none outline-none resize-none focus:border-blue-400 focus:border-2 "
                 readOnly={false}
                 value={props.value}
                 onChange={handleChange}
+                placeholder="stdin"
             />
         </div>
     )
@@ -192,12 +203,31 @@ function OutputBox(props: { value: string, setValue: React.Dispatch<React.SetSta
         props.setValue(ev.target.value)
     }
     return (
-        <div className="p-2">
+        <div className="p-0 h-full">
             <textarea
-                className="w-full h-full bg-slate-100 p-3 text-sm font-mono rounded-2xl outline-none resize-none"
+                className="w-full h-full bg-slate-50/10 p-3 text-sm font-mono rounded-none outline-none resize-none"
                 readOnly={true}
                 value={props.value}
                 onChange={handleChange}
+                placeholder="stdout"
+            />
+        </div>
+    )
+}
+
+function ErrorBox(props: { value: string, setValue: React.Dispatch<React.SetStateAction<string>> }) {
+
+    const handleChange = (ev: React.ChangeEvent<HTMLTextAreaElement>) => {
+        props.setValue(ev.target.value)
+    }
+    return (
+        <div className="p-0 h-full">
+            <textarea
+                className="w-full h-full bg-slate-50/10 p-3 text-sm font-mono rounded-none outline-none resize-none"
+                readOnly={true}
+                value={props.value}
+                onChange={handleChange}
+                placeholder="Error Messages will show up here"
             />
         </div>
     )
@@ -209,40 +239,111 @@ type RightPartProps = {
     stderrValue: string,
     setInputTextValue: React.Dispatch<React.SetStateAction<string>>,
     setStdoutValue: React.Dispatch<React.SetStateAction<string>>,
-    setStderrValue: React.Dispatch<React.SetStateAction<string>>
+    setStderrValue: React.Dispatch<React.SetStateAction<string>>,
+    timeElpased: string,
+    setTimeElapsed: React.Dispatch<React.SetStateAction<string>>,
+    selectedTab: RightPartTab,
+    setSelectedTab: React.Dispatch<React.SetStateAction<RightPartTab>>,
+}
+
+enum RightPartTab {
+    IO,
+    Error,
 }
 
 function RightPart(props: RightPartProps) {
+
     return (
         <>
-            <div>
-                <Split
-                    sizes={[40, 30, 30]}
-                    minSize={[100, 100, 100]}
-                    expandToMin={false}
-                    gutterSize={10}
-                    gutterAlign="center"
-                    snapOffset={30}
-                    dragInterval={1}
-                    direction="vertical"
-                    cursor="row-resize"
-                    className="split-vertical w-full h-full "
-                >
-                    <InputBox value={props.inputTextValue} setValue={props.setInputTextValue} />
-                    <OutputBox value={props.stdoutValue} setValue={props.setStdoutValue} />
-                    <OutputBox value={props.stderrValue} setValue={props.setStderrValue} />
-                </Split>
+            <div className="flex flex-col h-[calc(100vh-5rem)]" >
+                <div className="w-full flex flex-row pl-0 border-b-gray-200 border-b-2">
+                    <button
+                        className={clsx("bg-slate-100 px-4 py-1 rounded-lg flex flex-row gap-2 items-center hover:shadow-customhovereffect",
+                            {
+                                "opacity-50": props.selectedTab != RightPartTab.IO
+                            }
+                        )}
+                        onClick={() => { props.setSelectedTab(RightPartTab.IO) }}
+                    >
+                        <IoIosCheckboxOutline
+                            height={5}
+                            width={5}
+                            className="fill-green-800"
+                        />
+                        <span className="text-sm/6">I/O</span>
+                    </button>
+                    <button
+                        className={clsx("bg-slate-100 px-4 py-1 rounded-lg flex flex-row gap-2 items-center hover:shadow-customhovereffect",
+                            {
+                                "opacity-50": props.selectedTab != RightPartTab.Error
+                            }
+                        )}
+                        onClick={() => { props.setSelectedTab(RightPartTab.Error) }}
+                    >
+                        <MdErrorOutline
+                            height={5}
+                            width={5}
+                            className="fill-red-800"
+                        />
+                        <span className="text-sm/6">Error</span>
+                    </button>
+                </div>
+                <div className="w-full h-full">
+                    {props.selectedTab === RightPartTab.IO &&
+                        <Split
+                            sizes={[50, 50]}
+                            minSize={[100, 100]}
+                            expandToMin={false}
+                            gutterSize={10}
+                            gutterAlign="center"
+                            snapOffset={30}
+                            dragInterval={1}
+                            direction="vertical"
+                            cursor="row-resize"
+                            className="split-vertical w-full h-full "
+                        >
+                            <InputBox value={props.inputTextValue} setValue={props.setInputTextValue} />
+                            <OutputBox value={props.stdoutValue} setValue={props.setStdoutValue} />
+                        </Split>
+                    }
+                    {
+                        props.selectedTab === RightPartTab.Error &&
+                        <div className="w-full h-full">
+                            <ErrorBox value={props.stderrValue} setValue={props.setStderrValue} />
+                        </div>
+                    }
+                </div>
+                <div>
+                    <div className="flex flex-row gap-2 items-center pl-2 py-2 border-t-gray-200 border-t-2 border-b-gray-200 border-b-2">
+                        <IoTimeOutline
+                            width={5}
+                            height={5}
+                            className=""
+                        />
+                        <div className="font-serif pr-2">Time Elapsed </div>
+                        <div className="bg-slate-100 px-2">{props.timeElpased}</div>
+                    </div>
+                </div>
             </div>
 
         </>
     )
 }
 
+// type RunResponse = {
+//     stdOut: string,
+//     stdErr: string,
+//     execErr: string,
+//     timeElapsed: string,
+// }
+
 export default function EditorPage() {
     const [sourceCodeValue, setSourceCodeValue] = React.useState<string>("")
     const [inputTextValue, setInputTextValue] = React.useState<string>("")
     const [stdoutValue, setStdoutValue] = React.useState<string>("")
     const [stderrValue, setStderrValue] = React.useState<string>("")
+    const [timeElpased, setTimeElapsed] = React.useState<string>("nil")
+    const [selectedRightPartTab, setSelectedRightPartTab] = React.useState<RightPartTab>(RightPartTab.IO)
 
     const runCodeAction = async (language: ProgrammingLanguage) => {
         const bodyObj = {
@@ -261,8 +362,11 @@ export default function EditorPage() {
 
 
             try {
-                const stdoutValueObtained: string = res.data.data.stdout
-                const stderrValueObtained: string = res.data.data.stderr
+                // const resData: RunResponse = res.data
+                const stdoutValueObtained: string = res.data.stdOut
+                const stderrValueObtained: string = res.data.stdErr
+                const execErrValueObtained: string = res.data.execErr
+                const timeElasedValueObtained: string = res.data.timeElapsed
 
                 if (typeof stdoutValueObtained !== 'string') {
                     console.error("Stdout Value Obtained is not string")
@@ -272,24 +376,46 @@ export default function EditorPage() {
                     console.error("Stderr Value obtained is not string")
                 }
 
+                if (typeof timeElasedValueObtained !== 'string') {
+                    console.error("TimeElapsed Value obtained is not string")
+                }
+
+                if (typeof execErrValueObtained !== 'string') {
+                    console.error("execErrValueObtained is not string")
+                }
+
                 // console.log("Stdout : ", stdoutValueObtained)
                 // console.log("Stderr : ", stderrValueObtained)
                 setStdoutValue(stdoutValueObtained)
                 setStderrValue(stderrValueObtained)
+                setTimeElapsed(timeElasedValueObtained)
+
+                if (execErrValueObtained === "") {
+                    setSelectedRightPartTab(RightPartTab.IO)
+                } else {
+                    // console.log("ExecErrValue Obtained : ", execErrValueObtained)
+                    setSelectedRightPartTab(RightPartTab.Error)
+                    setStderrValue(execErrValueObtained + "\n" + stderrValueObtained)
+
+                }
             } catch (err) {
-                console.error(err)
+                // console.error(err)
+                setSelectedRightPartTab(RightPartTab.Error)
+                setStderrValue("Error : Could not parse data coming from server")
             }
 
             // setStdoutValue(JSON.stringify(res.data))
         } catch (err) {
-            console.error(err)
+            setSelectedRightPartTab(RightPartTab.Error)
+            setStderrValue("Error : Could not connect to api server")
+            // console.error(err)
 
 
         }
     }
 
     return (
-        <main className="min-h-screen w-screen">
+        <main className="h-screen w-screen">
             <NavBar />
             <div>
                 <Split
@@ -312,12 +438,15 @@ export default function EditorPage() {
                         setStdoutValue={setStdoutValue}
                         stderrValue={stderrValue}
                         setStderrValue={setStderrValue}
+                        timeElpased={timeElpased}
+                        setTimeElapsed={setTimeElapsed}
+                        selectedTab={selectedRightPartTab}
+                        setSelectedTab={setSelectedRightPartTab}
 
                     />
 
                 </Split>
             </div>
-            <ToastContainer />
         </main>
     )
 
