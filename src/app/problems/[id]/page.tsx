@@ -40,7 +40,7 @@ function TopicsDisclosure(props: { topics: string[] }) {
             <Disclosure>
                 {({ open }) => (
                     <>
-                        <DisclosureButton className="w-full flex justify-between">
+                        <DisclosureButton className="w-full flex justify-between py-4">
                             <div className="flex gap-1 items-center">
                                 <HiOutlineTag className="h-4 w-4 mr-1" />
                                 <span className="text-sm">Topics</span>
@@ -48,7 +48,7 @@ function TopicsDisclosure(props: { topics: string[] }) {
                             <HiChevronDown className={`${open ? 'rotate-180 transform' : ''} h-5 w-5`} />
                         </DisclosureButton>
                         <DisclosurePanel className="">
-                            <div className="pl-4 pt-3 flex gap-2">
+                            <div className="pl-4 pb-3 flex gap-2">
                                 {props.topics.map((topicName: string) => (
                                     <span key={nanoid()} className="bg-slate-100 text-xs px-2 py-1">{topicName}</span>
                                 ))
@@ -69,7 +69,7 @@ function CompaniesDisclosure(props: { companiesList: string[] }) {
             <Disclosure>
                 {({ open }) => (
                     <>
-                        <DisclosureButton className="w-full flex justify-between">
+                        <DisclosureButton className="w-full flex justify-between py-4">
                             <div className="flex gap-1 items-center">
                                 <HiOutlineBuildingOffice2 className="h-4 w-4 mr-1" />
                                 <span className="text-sm">Companies</span>
@@ -77,7 +77,7 @@ function CompaniesDisclosure(props: { companiesList: string[] }) {
                             <HiChevronDown className={`${open ? 'rotate-180 transform' : ''} h-5 w-5`} />
                         </DisclosureButton>
                         <DisclosurePanel className="">
-                            <div className="pl-4 pt-3 flex gap-2">
+                            <div className="pl-4 pb-3 flex gap-2">
                                 {props.companiesList.map((companyName: string) => (
                                     <span key={nanoid()} className="bg-slate-100 text-xs px-2 py-1">{companyName}</span>
                                 ))
@@ -98,7 +98,7 @@ function HintsDisclosure(props: { index: number, bodyText: string }) {
             <Disclosure>
                 {({ open }) => (
                     <>
-                        <DisclosureButton className="w-full flex justify-between">
+                        <DisclosureButton className="w-full flex justify-between py-4">
                             <div className="flex gap-1 items-center">
                                 <HiOutlineLightBulb className="h-4 w-4 mr-1" />
                                 <span className="text-sm">Hint {props.index + 1}</span>
@@ -106,7 +106,7 @@ function HintsDisclosure(props: { index: number, bodyText: string }) {
                             <HiChevronDown className={`${open ? 'rotate-180 transform' : ''} h-5 w-5`} />
                         </DisclosureButton>
                         <DisclosurePanel className="">
-                            <div className="pl-4 pt-3 flex gap-2">
+                            <div className="pl-4 pb-3 flex gap-2">
                                 <span className="text-xs px-2 py-1">{props.bodyText}</span>
                             </div>
                         </DisclosurePanel>
@@ -252,22 +252,22 @@ function LeftPart() {
                     </div>
                 </div>
 
-                <div className="flex flex-col gap-6">
+                <div className="flex flex-col gap-0">
                     <div className="w-full border-b-slate-100 border-b-2"> </div>
 
-                    <div className="w-full border-b-slate-100 border-b-2 pb-3">
+                    <div className="w-full border-b-slate-100 border-b-2 pb-0">
                         <TopicsDisclosure topics={["Array", "2-pointer"]} />
                     </div>
-                    <div className="w-full border-b-slate-100 border-b-2 pb-3">
+                    <div className="w-full border-b-slate-100 border-b-2 pb-0">
                         <CompaniesDisclosure companiesList={["Google", "Microsoft"]} />
                     </div>
 
 
-                    <div className="w-full border-b-slate-100 border-b-2 pb-3">
+                    <div className="w-full border-b-slate-100 border-b-2 pb-0">
                         <HintsDisclosure index={0} bodyText={`A really brute force way would be to search for all possible pairs of numbers but that would be too slow. Again, it's best to try out brute force solutions for just for completeness. It is from these brute force solutions that you can come up with optimizations`} />
                     </div>
 
-                    <div className="w-full border-b-slate-100 border-b-2 pb-3">
+                    <div className="w-full border-b-slate-100 border-b-2 pb-0">
                         <HintsDisclosure index={1} bodyText={`The second train of thought is, without changing the array, can we use additional space somehow? Like maybe a hash map to speed up the search?`} />
                     </div>
                 </div>
@@ -329,7 +329,7 @@ int main(int argc, char** argv) {
     }
 
     return (
-        <div className="pb-6">
+        <div className="pb-9">
             <div className="bg-slate-100 pl-2 py-2 rounded-tl-2xl rounded-tr-2xl">
                 <button className="flex gap-1 items-center hover:shadow-customhovereffect">
                     <IoCodeSlashOutline className="h-5 w-5" />
