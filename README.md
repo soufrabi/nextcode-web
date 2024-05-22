@@ -33,3 +33,9 @@ docker pull docker.io/soufrabidev/nextcode:<TAG_NAME>
 docker run -d -p <YOUR_PORT>:3000 soufrabidev/nextcode:<TAG_NAME>
 ```
 
+## Environment Variables
+
+```
+RCEE_SERVER_ADDRESS="http://<IP_ADDRESS>:<PORT>"
+```
+
