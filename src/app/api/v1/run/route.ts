@@ -8,6 +8,17 @@ export async function POST(request: NextRequest) {
         const { sourceCode, inputText, timeLimit, language } = reqBody
         console.log(reqBody)
 
+        if (typeof process.env.RCEE_SERVER_ADDRESS === undefined ||
+            typeof process.env.RCEE_SERVER_ADDRESS !== 'string' ||
+            process.env.RCEE_SERVER_ADDRESS === ""
+        ) {
+            return NextResponse.json({
+                error: "Internal Server Error : 4"
+            }, {
+                status: 500
+            })
+        }
+
 
         try {
             const res: AxiosResponse = await axios.post(`${process.env.RCEE_SERVER_ADDRESS}/api/v1/run`, {
@@ -34,18 +45,18 @@ export async function POST(request: NextRequest) {
                 error: "Internal Server Error : 1",
                 // errorDetail: JSON.stringify(err)
             }, {
-                status: 503
+                status: 500
             })
         }
 
-    } catch (error: any) {
-        // console.error(error)
+    } catch (err: any) {
+        // console.error(err)
         return NextResponse.json({
             // Encountered error at the outermost level
             error: "Internal Server Error : 2",
-            // errorDetail: JSON.stringify(error)
+            // errorDetail: JSON.stringify(err)
         }, {
-            status: 501
+            status: 500
         })
     }
 }
