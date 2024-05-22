@@ -11,6 +11,7 @@ import { HiChevronDown } from "react-icons/hi2"
 import { MdErrorOutline } from "react-icons/md"
 import { IoIosCheckboxOutline } from "react-icons/io"
 import { IoTimeOutline } from "react-icons/io5";
+import { languageDefaultCodeMap } from "../data/editor"
 import clsx from "clsx"
 
 
@@ -44,14 +45,12 @@ type ProgrammingLanguage = {
     available: boolean,
 }
 
-const defaultCodeText = "Write your code here ..."
-const defaultCodePython = "print(\"Subscribe to Premium for more features\")"
 
 const languageList: Array<ProgrammingLanguage> = [
-    { id: 1, name: 'Python 3.11', monaco:"python", defaultCode: `# ${defaultCodeText}\n\n${defaultCodePython}`, available: true },
-    { id: 2, name: 'C++ 17', monaco:"cpp", defaultCode: `// ${defaultCodeText}\n\n`, available: true },
-    { id: 3, name: 'Java 17', monaco:"java", defaultCode: `// ${defaultCodeText}\n\n`, available: true },
-    { id: 4, name: 'Go 1.21', monaco:"go", defaultCode: `// ${defaultCodeText}\n\n`, available: true },
+    { id: 1, name: 'Python 3.11', monaco:"python", defaultCode: languageDefaultCodeMap.python, available: true },
+    { id: 2, name: 'C++ 17', monaco:"cpp", defaultCode: languageDefaultCodeMap.cpp, available: true },
+    { id: 3, name: 'Java 17', monaco:"java", defaultCode: languageDefaultCodeMap.java, available: true },
+    { id: 4, name: 'Go 1.21', monaco:"go", defaultCode: languageDefaultCodeMap.go, available: true },
 ]
 
 function LanguageSelector(
