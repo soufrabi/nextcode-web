@@ -49,7 +49,7 @@ const defaultCodePython = "print(\"Subscribe to Premium for more features\")"
 
 const languageList: Array<ProgrammingLanguage> = [
     { id: 1, name: 'Python 3.11', monaco:"python", defaultCode: `# ${defaultCodeText}\n\n${defaultCodePython}`, available: true },
-    { id: 2, name: 'C++ 23', monaco:"cpp", defaultCode: `// ${defaultCodeText}\n\n`, available: false },
+    { id: 2, name: 'C++ 17', monaco:"cpp", defaultCode: `// ${defaultCodeText}\n\n`, available: true },
     { id: 3, name: 'Java 17', monaco:"java", defaultCode: `// ${defaultCodeText}\n\n`, available: true },
     { id: 4, name: 'Go 1.21', monaco:"go", defaultCode: `// ${defaultCodeText}\n\n`, available: true },
 ]
