@@ -125,7 +125,7 @@ function CodeEditor( { sourceCodeValue, setSourceCodeValue, runCodeAction } : Co
     }
 
     const handleRunCodeButtonClicked = async () => {
-        await runCodeAction(languageList[0])
+        await runCodeAction(selectedLanguage)
     }
 
     React.useEffect(()=>{
