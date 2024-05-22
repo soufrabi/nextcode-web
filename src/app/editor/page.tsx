@@ -348,7 +348,7 @@ export default function EditorPage() {
         const bodyObj = {
             sourceCode: sourceCodeValue,
             inputText: inputTextValue,
-            timeLimit: 3000,
+            timeLimit: 500,
             language: language.name,
         }
 
