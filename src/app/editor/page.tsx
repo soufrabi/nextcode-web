@@ -105,14 +105,14 @@ function LanguageSelector(
 
 
 type CodeEditorProps = {
-    sourceCodeValue : string,
-    setSourceCodeValue : React.Dispatch<React.SetStateAction<string>>,
+    sourceCodeValue: string,
+    setSourceCodeValue: React.Dispatch<React.SetStateAction<string>>,
     runCodeAction: (language: ProgrammingLanguage) => Promise<void>,
 }
 
 
 
-function CodeEditor( { sourceCodeValue, setSourceCodeValue, runCodeAction } : CodeEditorProps) {
+function CodeEditor({ sourceCodeValue, setSourceCodeValue, runCodeAction }: CodeEditorProps) {
     const [selectedLanguage, setSelectedLanguage] = React.useState<ProgrammingLanguage>(languageList[0])
 
     const handleChange = (newValue: string | undefined) => {
@@ -127,9 +127,9 @@ function CodeEditor( { sourceCodeValue, setSourceCodeValue, runCodeAction } : Co
         await runCodeAction(selectedLanguage)
     }
 
-    React.useEffect(()=>{
+    React.useEffect(() => {
         setSourceCodeValue(selectedLanguage.defaultCode)
-    },[selectedLanguage,setSourceCodeValue])
+    }, [selectedLanguage, setSourceCodeValue])
 
     return (
 
