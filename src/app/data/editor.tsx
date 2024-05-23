@@ -6,13 +6,12 @@ print("Hello World from Python")
 print("Subscribe to Premium for more features")
 `
 
-const defaultCodeCpp: string = `#include<bits/stdc++.h>
-using namespace std;
+const defaultCodeCpp: string = `#include<iostream>
 
-int32_t main(int32_t argc, char *argv[]){
+int main(int argc, char *argv[]){
     // Write your C++ code here ...
-    cout << "Hello World from C++" <<endl;
-    cout << "Subscribe to Premium for more features "<< endl;
+    std::cout << "Hello World from C++" << std::endl;
+    std::cout << "Subscribe to Premium for more features " << std::endl;
     return 0;
 }
 
