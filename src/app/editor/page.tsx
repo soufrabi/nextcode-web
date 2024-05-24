@@ -13,8 +13,10 @@ import { IoIosCheckboxOutline } from "react-icons/io"
 import { IoTimeOutline } from "react-icons/io5";
 import clsx from "clsx"
 import Link from "next/link"
+import { ToastContainer, toast } from "react-toastify";
 import type { ProgrammingLanguage } from "@/app/data/editor"
 import { programmingLanguageList } from "@/app/data/editor"
+import 'react-toastify/dist/ReactToastify.css';
 
 
 function NavBar() {
@@ -105,6 +107,9 @@ type CodeEditorProps = {
 
 function CodeEditor({ sourceCodeValue, setSourceCodeValue, runCodeAction }: CodeEditorProps) {
     const [selectedLanguage, setSelectedLanguage] = React.useState<ProgrammingLanguage>(programmingLanguageList[0])
+    // time and delay are measured in milliseconds
+    const [runCodeButtonLastClicked, setRunCodeButtonLastClicked] = React.useState<number | null>(null)
+    const delayBetweenConsecutiveRunCodeButtonPresses: number = 3000
 
     const handleChange = (newValue: string | undefined) => {
 
@@ -115,7 +120,21 @@ function CodeEditor({ sourceCodeValue, setSourceCodeValue, runCodeAction }: Code
     }
 
     const handleRunCodeButtonClicked = async () => {
-        await runCodeAction(selectedLanguage)
+        const currentTime: number = new Date().getTime()
+        if (runCodeButtonLastClicked !== null &&
+            currentTime - runCodeButtonLastClicked < delayBetweenConsecutiveRunCodeButtonPresses
+        ) {
+            toast('You have attempted to run code too soon. Please try again in a few seconds, or Subscribe to reduce wait time', {
+                position: 'top-right',
+                type: 'warning',
+                autoClose: 2000,
+                className: "text-xs",
+            })
+
+        } else {
+            setRunCodeButtonLastClicked(currentTime)
+            await runCodeAction(selectedLanguage)
+        }
     }
 
     React.useEffect(() => {
@@ -437,6 +456,7 @@ export default function EditorPage() {
 
                 </Split>
             </div>
+            <ToastContainer />
         </main>
     )
 
