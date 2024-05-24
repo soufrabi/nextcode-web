@@ -377,21 +377,21 @@ export default function EditorPage() {
                 const execErrValueObtained: string = res.data.execErr
                 const timeElasedValueObtained: string = res.data.timeElapsed
 
-                if (typeof stdoutValueObtained !== 'string') {
-                    console.error("Stdout Value Obtained is not string")
-                }
+                // if (typeof stdoutValueObtained !== 'string') {
+                //     console.error("Stdout Value Obtained is not string")
+                // }
 
-                if (typeof stderrValueObtained !== 'string') {
-                    console.error("Stderr Value obtained is not string")
-                }
+                // if (typeof stderrValueObtained !== 'string') {
+                //     console.error("Stderr Value obtained is not string")
+                // }
 
-                if (typeof timeElasedValueObtained !== 'string') {
-                    console.error("TimeElapsed Value obtained is not string")
-                }
+                // if (typeof timeElasedValueObtained !== 'string') {
+                //     console.error("TimeElapsed Value obtained is not string")
+                // }
 
-                if (typeof execErrValueObtained !== 'string') {
-                    console.error("execErrValueObtained is not string")
-                }
+                // if (typeof execErrValueObtained !== 'string') {
+                //     console.error("execErrValueObtained is not string")
+                // }
 
                 // console.log("Stdout : ", stdoutValueObtained)
                 // console.log("Stderr : ", stderrValueObtained)
