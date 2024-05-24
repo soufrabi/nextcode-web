@@ -1,9 +1,22 @@
 
+type ProgrammingLanguage = {
+    id: number,
+    name: string,
+    monaco: string,
+    defaultCode: string,
+    available: boolean,
+}
 
-const defaultCodePython = `""" Write your python code here """
+const defaultCodeC: string = `#include<stdio.h>
 
-print("Hello World from Python")
-print("Subscribe to Premium for more features")
+int main(int argc, char *argv[]){
+    // Write your C code here ...
+    printf("Hello World from C\\n");
+    printf("Subscribe to Premium for more features\\n");
+
+    return 0;
+}
+
 `
 
 const defaultCodeCpp: string = `#include<iostream>
@@ -12,21 +25,8 @@ int main(int argc, char *argv[]){
     // Write your C++ code here ...
     std::cout << "Hello World from C++" << std::endl;
     std::cout << "Subscribe to Premium for more features " << std::endl;
+
     return 0;
-}
-
-`
-
-const defaultCodeGo = `package main
-
-import (
-    "fmt"
-)
-
-func main() {
-    // Write your go code here ...
-    fmt.Println("Hello World from Golang")
-    fmt.Println("Subscribe to Premium for more features")
 }
 
 `
@@ -43,13 +43,46 @@ public class Main {
 
 `
 
-const languageDefaultCodeMap = {
+const defaultCodePython = `""" Write your python code here """
+
+print("Hello World from Python")
+print("Subscribe to Premium for more features")
+`
+
+const defaultCodeGo = `package main
+
+import (
+    "fmt"
+)
+
+func main() {
+    // Write your go code here ...
+    fmt.Println("Hello World from Golang")
+    fmt.Println("Subscribe to Premium for more features")
+}
+
+`
+
+
+
+const programmingLanguageDefaultCodeMap = {
+    "c": defaultCodeC,
     "cpp": defaultCodeCpp,
-    "python": defaultCodePython,
     "java": defaultCodeJava,
+    "python": defaultCodePython,
     "go": defaultCodeGo,
 }
 
-export { languageDefaultCodeMap }
+const programmingLanguageList: Array<ProgrammingLanguage> = [
+    { id: 1, name: 'GNU GCC C11', monaco: "c", defaultCode: defaultCodeC, available: true },
+    { id: 2, name: 'GNU G++20', monaco: "cpp", defaultCode: defaultCodeCpp, available: true },
+    // { id: 3, name: 'Java 17', monaco: "java", defaultCode: defaultCodeJava, available: true },
+    // { id: 4, name: 'Python 3.12', monaco: "python", defaultCode: defaultCodePython, available: true },
+    // { id: 5, name: 'Go 1.21', monaco:"go", defaultCode: defaultCodeGo, available: true },
+]
+
+
+export { programmingLanguageDefaultCodeMap, programmingLanguageList }
+export type { ProgrammingLanguage }
 
 

@@ -11,8 +11,9 @@ import { HiChevronDown } from "react-icons/hi2"
 import { MdErrorOutline } from "react-icons/md"
 import { IoIosCheckboxOutline } from "react-icons/io"
 import { IoTimeOutline } from "react-icons/io5";
-import { languageDefaultCodeMap } from "../data/editor"
 import clsx from "clsx"
+import type { ProgrammingLanguage } from "@/app/data/editor"
+import { programmingLanguageList } from "@/app/data/editor"
 
 
 function NavBar() {
@@ -37,21 +38,8 @@ function NavBar() {
 
 }
 
-type ProgrammingLanguage = {
-    id: number,
-    name: string,
-    monaco: string,
-    defaultCode: string,
-    available: boolean,
-}
 
 
-const languageList: Array<ProgrammingLanguage> = [
-    // { id: 1, name: 'Python 3.11', monaco: "python", defaultCode: languageDefaultCodeMap.python, available: true },
-    { id: 2, name: 'C++ 17', monaco: "cpp", defaultCode: languageDefaultCodeMap.cpp, available: true },
-    { id: 3, name: 'Java 17', monaco: "java", defaultCode: languageDefaultCodeMap.java, available: true },
-    // { id: 4, name: 'Go 1.21', monaco:"go", defaultCode: languageDefaultCodeMap.go, available: true },
-]
 
 function LanguageSelector(
     props: {
@@ -83,7 +71,7 @@ function LanguageSelector(
                     className={"text-sm shadow-lg bg-white rounded-lg"}
                 >
                     {
-                        languageList.map((language) => (
+                        programmingLanguageList.map((language) => (
                             <ListboxOption
                                 key={language.id}
                                 value={language}
@@ -113,7 +101,7 @@ type CodeEditorProps = {
 
 
 function CodeEditor({ sourceCodeValue, setSourceCodeValue, runCodeAction }: CodeEditorProps) {
-    const [selectedLanguage, setSelectedLanguage] = React.useState<ProgrammingLanguage>(languageList[0])
+    const [selectedLanguage, setSelectedLanguage] = React.useState<ProgrammingLanguage>(programmingLanguageList[0])
 
     const handleChange = (newValue: string | undefined) => {
 
