@@ -376,6 +376,8 @@ export default function EditorPage() {
                 const stderrValueObtained: string = res.data.stdErr
                 const execErrValueObtained: string = res.data.execErr
                 const timeElasedValueObtained: string = res.data.timeElapsed
+                const isErrorValueObtained: boolean = res.data.isError
+                const errorTypeValueObtained: string = res.data.errorType
 
                 // if (typeof stdoutValueObtained !== 'string') {
                 //     console.error("Stdout Value Obtained is not string")
@@ -399,12 +401,13 @@ export default function EditorPage() {
                 setStderrValue(stderrValueObtained)
                 setTimeElapsed(timeElasedValueObtained)
 
-                if (execErrValueObtained === "") {
-                    setSelectedRightPartTab(RightPartTab.IO)
-                } else {
+                if (isErrorValueObtained) {
                     // console.log("ExecErrValue Obtained : ", execErrValueObtained)
                     setSelectedRightPartTab(RightPartTab.Error)
-                    setStderrValue(execErrValueObtained + "\n" + stderrValueObtained)
+                    setStderrValue(errorTypeValueObtained + "\n" + execErrValueObtained + "\n" + stderrValueObtained)
+                } else {
+                    // success
+                    setSelectedRightPartTab(RightPartTab.IO)
 
                 }
             } catch (err) {
