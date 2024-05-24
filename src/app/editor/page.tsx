@@ -12,6 +12,7 @@ import { MdErrorOutline } from "react-icons/md"
 import { IoIosCheckboxOutline } from "react-icons/io"
 import { IoTimeOutline } from "react-icons/io5";
 import clsx from "clsx"
+import Link from "next/link"
 import type { ProgrammingLanguage } from "@/app/data/editor"
 import { programmingLanguageList } from "@/app/data/editor"
 
@@ -19,20 +20,22 @@ import { programmingLanguageList } from "@/app/data/editor"
 function NavBar() {
     return (
         <div className="w-full h-12 flex flex-row items-center bg-slate-100 px-6 py-4 mb-4">
-            <div className="flex flex-row gap-4 items-center">
-                <Image
-                    src={"/nextcode-logo.png"}
-                    alt="nextcode logo"
-                    width={25}
-                    height={25}
+            <Link href={"/"} >
+                <div className="flex flex-row gap-4 items-center cursor-pointer">
+                    <Image
+                        src={"/nextcode-logo.png"}
+                        alt="nextcode logo"
+                        width={25}
+                        height={25}
 
-                    className="rounded-2xl"
-                />
-                <span>
-                    NextCode
-                </span>
+                        className="rounded-2xl"
+                    />
+                    <span>
+                        NextCode
+                    </span>
 
-            </div>
+                </div>
+            </Link>
         </div>
     )
 
