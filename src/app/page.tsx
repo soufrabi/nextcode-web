@@ -34,15 +34,15 @@ function NavBar() {
                     </button>
                     <button
                         className="hover:bg-gray-500 hover:text-white px-4 py-2 rounded-2xl"
-                        onClick={() => { router.push("/editor") }}
-                    >
-                        <span>Editor</span>
-                    </button>
-                    <button
-                        className="hover:bg-gray-500 hover:text-white px-4 py-2 rounded-2xl"
                         onClick={() => { router.push("/problemset") }}
                     >
                         <span>Problems</span>
+                    </button>
+                    <button
+                        className="hover:bg-gray-500 hover:text-white px-4 py-2 rounded-2xl"
+                        onClick={() => { router.push("/editor") }}
+                    >
+                        <span>Editor</span>
                     </button>
                 </div>
             </Media>
