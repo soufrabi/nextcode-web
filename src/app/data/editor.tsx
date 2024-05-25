@@ -20,11 +20,12 @@ int main(int argc, char *argv[]){
 `
 
 const defaultCodeCpp: string = `#include<iostream>
+using namespace std;
 
 int main(int argc, char *argv[]){
     // Write your C++ code here ...
-    std::cout << "Hello World from C++" << std::endl;
-    std::cout << "Subscribe to Premium for more features " << std::endl;
+    cout << "Hello World from C++" << endl;
+    cout << "Subscribe to Premium for more features " << endl;
 
     return 0;
 }
