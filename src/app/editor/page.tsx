@@ -2,6 +2,7 @@
 
 import React from "react"
 import Image from "next/image"
+import { useRouter } from "next/navigation"
 import { Editor } from "@monaco-editor/react"
 import Split from "react-split"
 import { FaPlay } from "react-icons/fa"
@@ -12,7 +13,6 @@ import { MdErrorOutline } from "react-icons/md"
 import { IoIosCheckboxOutline } from "react-icons/io"
 import { IoTimeOutline } from "react-icons/io5";
 import clsx from "clsx"
-import Link from "next/link"
 import { ToastContainer, toast } from "react-toastify";
 import type { ProgrammingLanguage } from "@/app/data/editor"
 import { programmingLanguageList } from "@/app/data/editor"
@@ -20,24 +20,26 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 function NavBar() {
+    const router = useRouter()
     return (
         <div className="w-full h-12 flex flex-row items-center bg-slate-100 px-6 py-4 mb-4">
-            <Link href={"/"} >
-                <div className="flex flex-row gap-4 items-center cursor-pointer">
-                    <Image
-                        src={"/nextcode-logo.png"}
-                        alt="nextcode logo"
-                        width={25}
-                        height={25}
+            <div
+                className="flex flex-row gap-4 items-center cursor-pointer"
+                onClick={() => { router.push("/") }}
+            >
+                <Image
+                    src={"/nextcode-logo.png"}
+                    alt="nextcode logo"
+                    width={25}
+                    height={25}
 
-                        className="rounded-2xl"
-                    />
-                    <span>
-                        NextCode
-                    </span>
+                    className="rounded-2xl"
+                />
+                <span>
+                    NextCode
+                </span>
 
-                </div>
-            </Link>
+            </div>
         </div>
     )
 

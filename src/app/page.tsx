@@ -2,10 +2,12 @@
 "use client"
 
 import Image from "next/image"
-import Link from "next/link"
-import { MediaContextProvider, Media } from "./components/media"
+import { useRouter } from "next/navigation"
+import { MediaContextProvider, Media } from "@/app/components/media"
 
 function NavBar() {
+    const router = useRouter()
+
     return (
         <div className="w-full h-12 bg-white flex flex-row items-center justify-center md:justify-around  py-8 shadow-md">
             <div className="flex flex-row gap-4 items-center">
@@ -24,27 +26,24 @@ function NavBar() {
 
             <Media greaterThanOrEqual="md" >
                 <div className="flex flex-row gap-10 text-md">
-                    <Link href="/premium">
-                        <button
-                            className="hover:bg-orange-400 hover:text-white px-4 py-2 rounded-2xl"
-                        >
-                            <span>Premium</span>
-                        </button>
-                    </Link>
-                    <Link href="/editor">
-                        <button
-                            className="hover:bg-gray-500 hover:text-white px-4 py-2 rounded-2xl"
-                        >
-                            <span>Editor</span>
-                        </button>
-                    </Link>
-                    <Link href="/problems">
-                        <button
-                            className="hover:bg-gray-500 hover:text-white px-4 py-2 rounded-2xl"
-                        >
-                            <span>Problems</span>
-                        </button>
-                    </Link>
+                    <button
+                        className="hover:bg-orange-400 hover:text-white px-4 py-2 rounded-2xl"
+                        onClick={() => { router.push("/premium") }}
+                    >
+                        <span>Premium</span>
+                    </button>
+                    <button
+                        className="hover:bg-gray-500 hover:text-white px-4 py-2 rounded-2xl"
+                        onClick={() => { router.push("/editor") }}
+                    >
+                        <span>Editor</span>
+                    </button>
+                    <button
+                        className="hover:bg-gray-500 hover:text-white px-4 py-2 rounded-2xl"
+                        onClick={() => { router.push("/problemset") }}
+                    >
+                        <span>Problems</span>
+                    </button>
                 </div>
             </Media>
         </div>

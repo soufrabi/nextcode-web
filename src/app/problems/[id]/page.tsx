@@ -2,11 +2,11 @@
 
 import React from "react";
 import { nanoid } from "nanoid";
-import { useParams } from "next/navigation"
+import { useParams, useRouter } from "next/navigation"
 import Image from "next/image";
 import { Editor } from "@monaco-editor/react";
 import { Disclosure, DisclosureButton, DisclosurePanel } from "@headlessui/react";
-import { HiChevronDown, HiChevronLeft, HiChevronRight} from "react-icons/hi2"
+import { HiChevronDown, HiChevronLeft, HiChevronRight } from "react-icons/hi2"
 import { HiOutlineBuildingOffice2, HiOutlineTag } from "react-icons/hi2";
 import { HiOutlineLightBulb } from "react-icons/hi2";
 import { HiOutlineHandThumbUp } from "react-icons/hi2";
@@ -30,7 +30,7 @@ import { IoMdCloseCircle } from "react-icons/io";
 import { MdOutlineDashboard } from "react-icons/md";
 import { ToastContainer, toast } from "react-toastify";
 import Split from "react-split";
-import {MediaContextProvider, Media} from "../../components/media"
+import { MediaContextProvider, Media } from "../../components/media"
 import 'react-toastify/dist/ReactToastify.css';
 
 
@@ -586,8 +586,12 @@ function RightPart() {
 
 function NavBar() {
     const params = useParams<{ id: string }>()
+    const router = useRouter()
 
-    const handleContextMenu = (ev: React.MouseEvent<HTMLButtonElement>) => {
+    const handleAppLogoIconClick = () => {
+        router.push("/")
+    }
+    const handleAppLogoIconContextMenu = (ev: React.MouseEvent<HTMLButtonElement>) => {
         ev.preventDefault()
         window.open(`https://leetcode.com/problems/${params.id}`, "_blank")
     }
@@ -596,7 +600,10 @@ function NavBar() {
         <div className="w-full px-6 py-1">
             <nav className="flex justify-center md:justify-between items-center md:mx-auto bg-[f0f0f0] h-10">
                 <div className="flex items-center gap-4">
-                    <button onContextMenu={handleContextMenu}>
+                    <button
+                        onClick={handleAppLogoIconClick}
+                        onContextMenu={handleAppLogoIconContextMenu}
+                    >
                         <Image
                             src="/nextcode-logo.png"
                             alt="NextCode Logo"
