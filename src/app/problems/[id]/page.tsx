@@ -620,13 +620,19 @@ function NavBar() {
                             <RiPlayList2Fill className="h-4 w-4" />
                             <span className="text-sm">Problem List</span>
                         </button>
-                        <button className="hover:shadow-customhovereffect">
+                        <button
+                            className="hover:shadow-customhovereffect"
+                        >
                             < HiChevronLeft className="h-5 w-5" />
                         </button>
-                        <button className="hover:shadow-customhovereffect">
+                        <button
+                            className="hover:shadow-customhovereffect"
+                        >
                             < HiChevronRight className="h-5 w-5" />
                         </button>
-                        <button className="hover:shadow-customhovereffect">
+                        <button
+                            className="hover:shadow-customhovereffect"
+                        >
                             <RiShuffleFill className="h-5 w-5" />
                         </button>
                     </div>
