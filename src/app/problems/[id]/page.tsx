@@ -613,7 +613,10 @@ function NavBar() {
                         />
                     </button>
                     <div className="hidden md:flex gap-3 items-center">
-                        <button className="flex flex-row gap-2 items-center hover:shadow-customhovereffect">
+                        <button
+                            className="flex flex-row gap-2 items-center hover:shadow-customhovereffect"
+                            onClick={() => { router.push("/problemset") }}
+                        >
                             <RiPlayList2Fill className="h-4 w-4" />
                             <span className="text-sm">Problem List</span>
                         </button>
