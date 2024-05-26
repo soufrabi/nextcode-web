@@ -77,7 +77,7 @@ const programmingLanguageDefaultCodeMap = {
 const programmingLanguageList: Array<ProgrammingLanguage> = [
     { id: 1, name: 'GNU GCC C11', monaco: "c", defaultCode: defaultCodeC, available: true },
     { id: 2, name: 'GNU G++20', monaco: "cpp", defaultCode: defaultCodeCpp, available: true },
-    // { id: 3, name: 'Java 17', monaco: "java", defaultCode: defaultCodeJava, available: true },
+    { id: 3, name: 'Java 17', monaco: "java", defaultCode: defaultCodeJava, available: true },
     // { id: 4, name: 'Python 3.12', monaco: "python", defaultCode: defaultCodePython, available: true },
     // { id: 5, name: 'Go 1.21', monaco:"go", defaultCode: defaultCodeGo, available: true },
 ]
