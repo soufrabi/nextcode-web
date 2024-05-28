@@ -8,14 +8,18 @@ Visit hosted instance at [https://nextcode.soufrabi.com](https://nextcode.soufra
 ## Development
 
 Clone the repo
-```bash
+```sh
 git clone https://github.com/soufrabi/nextcode.git
 cd nextcode
 ```
 
-Run the development server:
+Install dependencies
+```sh
+npm i
+```
 
-```bash
+Run the development server:
+```sh
 npm run dev
 ```
 
@@ -28,7 +32,7 @@ Next.js Dockerization Example : <https://github.com/vercel/next.js/tree/canary/e
 
 Docker Image hosted at : <https://hub.docker.com/r/soufrabidev/nextcode/>
 
-```bash
+```sh
 docker pull docker.io/soufrabidev/nextcode:<TAG_NAME>
 docker run -d -p <YOUR_PORT>:3000 soufrabidev/nextcode:<TAG_NAME>
 ```
