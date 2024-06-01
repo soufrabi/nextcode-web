@@ -579,7 +579,7 @@ function RightPart() {
                     {
                         <Allotment
                             vertical={true}
-                            defaultSizes={[250, 100]}
+                            defaultSizes={[360, 240]}
                             minSize={35}
                             separator={true}
                         >
