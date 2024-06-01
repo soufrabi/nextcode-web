@@ -498,13 +498,13 @@ function TestCasePanel() {
 
     return (
         <div id="testcase-panel" className="flex flex-col">
-            <div className="bg-slate-100 flex gap-4 py-2 px-2 rounded-tl-2xl rounded-tr-2xl">
-                <button className="flex gap-1 items-center hover:shadow-customhovereffect">
+            <div className="bg-slate-100 flex gap-0 py-0 px-0 rounded-tl-2xl rounded-tr-2xl">
+                <button className="flex gap-1 px-3 py-2 items-center hover:shadow-customhovereffect">
                     <IoIosCheckboxOutline className="h-5 w-5" />
                     <span className="text-sm"> Testcase </span>
                 </button>
 
-                <button className="flex gap-1 items-center hover:shadow-customhovereffect">
+                <button className="flex gap-1 px-3 py-2 items-center hover:shadow-customhovereffect">
                     <LuTerminal className="h-5 w-5" />
                     <span className="text-sm"> Test Result </span>
                 </button>
