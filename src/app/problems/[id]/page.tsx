@@ -375,6 +375,7 @@ function CaseButton(props: {
     testCaseId: string,
     index: number,
     isCurrent: boolean,
+    canClose: boolean,
     removeTestCase: (id: string) => void,
     selectCurrentTestCase: (id: string) => void
 }) {
@@ -407,12 +408,15 @@ function CaseButton(props: {
             <span>
                 Case {props.index + 1}
             </span>
-            <div className={"absolute -top-1 -right-1 bg-gray-50 rounded-full hover:bg-slate-300 "}>
-                <IoMdCloseCircle
-                    className={`h-3.5 w-3.5 rounded-2xl opacity-40 ${closeButtonVisible ? "block" : "hidden"}`}
-                    onClick={handleCloseButtonClick}
-                />
-            </div>
+            {
+                props.canClose &&
+                <div className={"absolute -top-1 -right-1 bg-gray-50 rounded-full hover:bg-slate-300 "}>
+                    <IoMdCloseCircle
+                        className={`h-3.5 w-3.5 rounded-2xl opacity-40 ${closeButtonVisible ? "block" : "hidden"}`}
+                        onClick={handleCloseButtonClick}
+                    />
+                </div>
+            }
         </div>
 
     )
@@ -420,6 +424,7 @@ function CaseButton(props: {
 }
 
 function TestCasePanel() {
+    const MAX_TESTCASES: number = 4
     const [testCaseList, setTestCaseList] = React.useState<TestCaseData[]>([
         { id: nanoid(), input: "", output: "", },
     ]);
@@ -441,11 +446,12 @@ function TestCasePanel() {
         if (testCaseList.length < 6) {
             setTestCaseList((prevList: TestCaseData[]) => [...prevList, { id: nanoid(), input: "", output: "" }])
         } else {
-            toast('Cannot add more than 6 testcases', {
-                position: 'bottom-right',
-                type: 'warning',
-                autoClose: 2000,
-            })
+            // not needed  as UI add button becomes visible only when testCaseList.length exceeds 6
+            // toast(`Cannot add more than ${MAX_TESTCASES} testcases`, {
+            //     position: 'bottom-right',
+            //     type: 'warning',
+            //     autoClose: 2000,
+            // })
         }
     }
 
@@ -457,11 +463,12 @@ function TestCasePanel() {
 
             }
         } else {
-            toast('Must have atleast 1 testcase', {
-                position: 'bottom-right',
-                type: 'warning',
-                autoClose: 2000
-            })
+            // not needed as UI closeButton becomes visible only when testCaseList.length > 1
+            // toast('Must have atleast 1 testcase', {
+            //     position: 'bottom-right',
+            //     type: 'warning',
+            //     autoClose: 2000
+            // })
         }
     }
 
@@ -508,17 +515,27 @@ function TestCasePanel() {
                     {
                         testCaseList.map((testCaseData: TestCaseData, index: number) => {
                             return (
-                                <CaseButton key={nanoid()} testCaseId={testCaseData.id} index={index} removeTestCase={removeTestCase} selectCurrentTestCase={selectCurrentTestCase} isCurrent={currentTestCaseId === testCaseData.id} />
+                                <CaseButton
+                                    key={nanoid()}
+                                    testCaseId={testCaseData.id}
+                                    index={index}
+                                    removeTestCase={removeTestCase}
+                                    selectCurrentTestCase={selectCurrentTestCase}
+                                    isCurrent={currentTestCaseId === testCaseData.id}
+                                    canClose={testCaseList.length > 1}
+                                />
                             )
                         })
                     }
-
-                    <button
-                        className="bg-slate-50 p-2 hover:shadow-customhovereffect"
-                        onClick={addTestCase}
-                    >
-                        <FaPlus className="h-3 w-3" />
-                    </button>
+                    {
+                        testCaseList.length < MAX_TESTCASES &&
+                        <button
+                            className="bg-slate-50 p-2 hover:shadow-customhovereffect"
+                            onClick={addTestCase}
+                        >
+                            <FaPlus className="h-3 w-3" />
+                        </button>
+                    }
                 </div>
 
                 <div className="mt-2">
