@@ -258,7 +258,7 @@ export default function ProblemSetPage() {
         <main>
             <div className="h-screen w-screen">
                 <NavBar />
-                <div className="h-full w-screen flex justify-center items-center">
+                <div className="h-full w-screen flex justify-center pt-6">
                     <ProblemTable />
                 </div>
             </div>
