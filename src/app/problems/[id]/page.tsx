@@ -330,8 +330,8 @@ int main(int argc, char** argv) {
 
     return (
         <div className="pb-9">
-            <div className="bg-slate-100 pl-2 py-2 rounded-tl-2xl rounded-tr-2xl">
-                <button className="flex gap-1 items-center hover:shadow-customhovereffect">
+            <div className="bg-slate-100 rounded-tl-2xl rounded-tr-2xl">
+                <button className="flex gap-1 px-2 py-2 items-center hover:shadow-customhovereffect">
                     <IoCodeSlashOutline className="h-5 w-5" />
                     <span className="text-sm"> Code </span>
                 </button>
@@ -614,7 +614,7 @@ function NavBar() {
     }
 
     return (
-        <div className="w-full px-6 py-1">
+        <div className="w-full px-6 ">
             <nav className="flex justify-center md:justify-between items-center md:mx-auto bg-[f0f0f0] h-10">
                 <div className="flex items-center gap-4">
                     <button
@@ -629,44 +629,44 @@ function NavBar() {
                             className="rounded-full"
                         />
                     </button>
-                    <div className="hidden md:flex gap-3 items-center">
+                    <div className="hidden md:flex gap-0 items-center">
                         <button
-                            className="flex flex-row gap-2 items-center hover:shadow-customhovereffect"
+                            className="flex flex-row gap-2 items-center px-2 py-1 hover:shadow-customhovereffect"
                             onClick={() => { router.push("/problemset") }}
                         >
                             <RiPlayList2Fill className="h-4 w-4" />
                             <span className="text-sm">Problem List</span>
                         </button>
                         <button
-                            className="hover:shadow-customhovereffect"
+                            className="px-1.5 py-1 hover:shadow-customhovereffect"
                         >
                             < HiChevronLeft className="h-5 w-5" />
                         </button>
                         <button
-                            className="hover:shadow-customhovereffect"
+                            className="px-1.5 py-1 hover:shadow-customhovereffect"
                         >
                             < HiChevronRight className="h-5 w-5" />
                         </button>
                         <button
-                            className="hover:shadow-customhovereffect"
+                            className="px-1.5 py-1 hover:shadow-customhovereffect"
                         >
                             <RiShuffleFill className="h-5 w-5" />
                         </button>
                     </div>
                 </div>
-                <div className="hidden md:flex gap-4">
-                    <button className="hover:shadow-customhovereffect">
+                <div className="hidden md:flex md:flex-row gap-0">
+                    <button className="px-2 py-1 hover:shadow-customhovereffect">
                         <VscDebug className="h-4 w-4" />
                     </button>
-                    <button className="flex gap-2 items-center hover:shadow-customhovereffect">
+                    <button className="px-2 py-1 flex gap-2 items-center hover:shadow-customhovereffect">
                         <FaPlay className="h-3 w-3" />
                         <span className="text-sm">Run</span>
                     </button>
-                    <button className="flex gap-2 items-center hover:shadow-customhovereffect">
-                        <MdOutlineCloudUpload className="h-5 w-5" />
-                        <span className="text-sm">Submit</span>
+                    <button className="px-2 py-1 flex gap-2 items-center hover:shadow-customhovereffect">
+                        <MdOutlineCloudUpload className="h-5 w-5 text-green-600" />
+                        <span className="text-sm text-green-600">Submit</span>
                     </button>
-                    <button className="hover:shadow-customhovereffect">
+                    <button className="px-2 py-1 hover:shadow-customhovereffect">
                         <Image
                             src="/pen-and-paper-notes-symbol.png"
                             alt="Notes"
@@ -676,21 +676,21 @@ function NavBar() {
 
                     </button>
                 </div>
-                <div className="hidden md:flex gap-4 items-center">
-                    <button className="hover:shadow-customhovereffect">
+                <div className="hidden md:flex gap-2 items-center">
+                    <button className="px-2 py-1 hover:shadow-customhovereffect">
                         <MdOutlineDashboard className="h-5 w-5" />
                     </button>
-                    <button className="hover:shadow-customhovereffect">
+                    <button className="px-2 py-1 hover:shadow-customhovereffect">
                         <IoSettingsOutline className="h-5 w-5" />
                     </button>
-                    <div className="flex gap-2">
-                        <button className="hover:shadow-customhovereffect">
+                    <div className="flex flex-row gap-0">
+                        <button className="px-1 py-1  hover:shadow-customhovereffect">
                             <span className="text-gray-600 text-sm">Register</span>
                         </button>
-                        <div>
+                        <div className="px-1 py-1">
                             <span className="text-gray-600 text-sm"> or </span>
                         </div>
-                        <button className="hover:shadow-customhovereffect">
+                        <button className="px-1 py-1 hover:shadow-customhovereffect">
                             <span className="text-gray-600 text-sm">Sign in</span>
                         </button>
                     </div>
