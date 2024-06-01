@@ -548,7 +548,7 @@ function TestCasePanel() {
                     </div>
                     <textarea
                         ref={inputTextAreaRef}
-                        className="flex-1 h-full w-full bg-slate-100 p-3 mt-2 text-sm font-mono rounded-2xl outline-none focus:outline-blue-400 focus:outline-2 overflow-y-visible"
+                        className="flex-1 h-full w-full bg-slate-100 p-3 mt-2 text-sm font-mono rounded-2xl outline-none focus:outline-blue-400 focus:outline-2 overflow-y-visible resize-none"
                         onChange={handleTextAreaValueChange}
                     />
 
