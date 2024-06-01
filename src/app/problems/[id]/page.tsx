@@ -30,8 +30,11 @@ import { IoMdCloseCircle } from "react-icons/io";
 import { MdOutlineDashboard } from "react-icons/md";
 import { ToastContainer, toast } from "react-toastify";
 import Split from "react-split";
+import { Allotment } from "allotment";
 import { MediaContextProvider, Media } from "../../components/media"
 import 'react-toastify/dist/ReactToastify.css';
+import "allotment/dist/style.css";
+
 
 
 function TopicsDisclosure(props: { topics: string[] }) {
@@ -329,7 +332,7 @@ int main(int argc, char** argv) {
     }
 
     return (
-        <div className="pb-9">
+        <div className="h-full pb-9">
             <div className="bg-slate-100 rounded-tl-2xl rounded-tr-2xl">
                 <button className="flex gap-1 px-2 py-2 items-center hover:shadow-customhovereffect">
                     <IoCodeSlashOutline className="h-5 w-5" />
@@ -337,7 +340,7 @@ int main(int argc, char** argv) {
                 </button>
 
             </div>
-            <div className=" h-full min-h-4">
+            <div className="h-full min-h-4">
                 <Editor
                     // height="12rem"
                     // height="50vh"
@@ -355,6 +358,7 @@ int main(int argc, char** argv) {
                         suggest: {
                             showWords: false,
                         },
+                        contextmenu: false,
                         // fixedOverflowWidgets: true,
                     }}
 
@@ -497,7 +501,7 @@ function TestCasePanel() {
     }, [currentTestCaseId])
 
     return (
-        <div id="testcase-panel" className="flex flex-col">
+        <div id="testcase-panel" className="h-full flex flex-col overflow-auto">
             <div className="bg-slate-100 flex gap-0 py-0 px-0 rounded-tl-2xl rounded-tr-2xl">
                 <button className="flex gap-1 px-3 py-2 items-center hover:shadow-customhovereffect">
                     <IoIosCheckboxOutline className="h-5 w-5" />
@@ -510,8 +514,8 @@ function TestCasePanel() {
                 </button>
 
             </div>
-            <div className="bg-white p-4 pb-2 rounded-bl-2xl rounded-br-2xl">
-                <div className="flex gap-2">
+            <div className="flex-1 flex flex-col bg-white p-4 pb-2 rounded-bl-2xl rounded-br-2xl">
+                <div className="flex flex-row gap-2">
                     {
                         testCaseList.map((testCaseData: TestCaseData, index: number) => {
                             return (
@@ -538,13 +542,13 @@ function TestCasePanel() {
                     }
                 </div>
 
-                <div className="mt-2">
+                <div className="flex-1 flex flex-col mt-2">
                     <div>
                         <span className="text-gray-600 text-sm"> Input = </span>
                     </div>
                     <textarea
                         ref={inputTextAreaRef}
-                        className="w-full bg-slate-100 p-3 mt-2 text-sm font-mono rounded-2xl outline-none focus:outline-blue-400 focus:outline-2 overflow-y-visible"
+                        className="flex-1 h-full w-full bg-slate-100 p-3 mt-2 text-sm font-mono rounded-2xl outline-none focus:outline-blue-400 focus:outline-2 overflow-y-visible"
                         onChange={handleTextAreaValueChange}
                     />
 
@@ -571,24 +575,41 @@ function RightPart() {
     return (
         <>
             {
-                <div className="h-svh">
-                    <Split
-                        sizes={[60, 40]}
-                        minSize={[100, 100]}
-                        expandToMin={false}
-                        gutterSize={10}
-                        gutterAlign="center"
-                        snapOffset={30}
-                        dragInterval={1}
-                        direction="vertical"
-                        cursor="col-resize"
-                        className="split-vertical w-full h-full "
-                    // onDrag={handleDrag}
-                    >
-                        <CodeEditor />
-                        <TestCasePanel />
-                    </Split>
-                </div>
+                <div className="h-[calc(100vh-4rem)]">
+                    {
+                        <Allotment
+                            vertical={true}
+                            defaultSizes={[250, 100]}
+                            minSize={35}
+                            separator={true}
+                        >
+                            <Allotment.Pane>
+                                <CodeEditor />
+                            </Allotment.Pane>
+                            <Allotment.Pane>
+                                <TestCasePanel />
+                            </Allotment.Pane>
+                        </Allotment>
+                    }
+                    {
+                        // <Split
+                        //     sizes={[60, 40]}
+                        //     minSize={[100, 100]}
+                        //     expandToMin={false}
+                        //     gutterSize={10}
+                        //     gutterAlign="center"
+                        //     snapOffset={30}
+                        //     dragInterval={1}
+                        //     direction="vertical"
+                        //     cursor="col-resize"
+                        //     className="split-vertical w-full h-full "
+                        // // onDrag={handleDrag}
+                        // >
+                        //     <CodeEditor />
+                        //     <TestCasePanel />
+                        // </Split>
+                    }
+                </div >
             }
             {
                 // <div className={`w-full md:flex md:flex-col hidden p-1 mr-1 max-h-screen`}>
