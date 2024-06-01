@@ -131,16 +131,16 @@ function LeftPart() {
     const [currentActiveTab, setCurrentActiveTab] = React.useState<LeftPartTabType>(LeftPartTabType.DESCRIPTION)
     return (
         <div className="bg-slate-100 h-full w-full md:pl-2 rounded-2xl">
-            <div className="flex justify-around md:justify-start gap-4 py-2 px-2 ">
+            <div className="flex justify-around md:justify-start gap-4 ">
                 <button
-                    className={`flex gap-1 items-center rounded-sm hover:shadow-customhovereffect ${currentActiveTab !== LeftPartTabType.DESCRIPTION ? "opacity-50" : ""}`}
+                    className={`w-full md:w-auto flex gap-1 justify-center items-center rounded-xl p-2 hover:shadow-customhovereffect ${currentActiveTab !== LeftPartTabType.DESCRIPTION ? "opacity-50" : ""}`}
                     onClick={() => { setCurrentActiveTab(LeftPartTabType.DESCRIPTION) }}
                 >
                     <MdOutlineDescription className="h-5 w-5 hidden md:block" />
                     <span className="text-xs md:text-sm"> Description </span>
                 </button>
                 <button
-                    className={`flex gap-1 items-center hover:shadow-customhovereffect ${currentActiveTab !== LeftPartTabType.EDITORIAL ? "opacity-50" : ""}`}
+                    className={`w-full md:w-auto flex gap-1 justify-center items-center rounded-xl p-2 hover:shadow-customhovereffect ${currentActiveTab !== LeftPartTabType.EDITORIAL ? "opacity-50" : ""}`}
                     onClick={() => { setCurrentActiveTab(LeftPartTabType.EDITORIAL) }}
                 >
                     <Image
@@ -153,7 +153,7 @@ function LeftPart() {
                     <span className="text-xs md:text-sm"> Editorial </span>
                 </button>
                 <button
-                    className={`flex gap-1 items-center hover:shadow-customhovereffect  ${currentActiveTab !== LeftPartTabType.SOLUTIONS ? "opacity-50" : ""}`}
+                    className={`w-full md:w-auto flex gap-1 justify-center items-center rounded-xl p-2 hover:shadow-customhovereffect  ${currentActiveTab !== LeftPartTabType.SOLUTIONS ? "opacity-50" : ""}`}
                     onClick={() => { setCurrentActiveTab(LeftPartTabType.SOLUTIONS) }}
                 >
                     <Image
@@ -166,7 +166,7 @@ function LeftPart() {
                     <span className="text-xs md:text-sm"> Solutions </span>
                 </button>
                 <button
-                    className={`flex gap-1 items-center hover:shadow-customhovereffect  ${currentActiveTab !== LeftPartTabType.SUBMISSIONS ? "opacity-50" : ""}`}
+                    className={`w-full md:w-auto flex gap-1 justify-center items-center rounded-xl p-2 hover:shadow-customhovereffect  ${currentActiveTab !== LeftPartTabType.SUBMISSIONS ? "opacity-50" : ""}`}
                     onClick={() => { setCurrentActiveTab(LeftPartTabType.SUBMISSIONS) }}
                 >
                     <GoHistory className="h-5 w-5 hidden md:block" />
