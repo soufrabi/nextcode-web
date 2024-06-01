@@ -31,6 +31,7 @@ function NavBar() {
                 <div
                     className="cursor-pointer"
                     onClick={() => { router.push("/") }}
+                    onContextMenu={(ev: React.MouseEvent) => { ev.preventDefault() }}
                 >
                     <Image
                         src={"/nextcode-logo.png"}
