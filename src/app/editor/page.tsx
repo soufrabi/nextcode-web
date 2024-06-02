@@ -207,6 +207,7 @@ function InputBox(props: { value: string, setValue: React.Dispatch<React.SetStat
                 readOnly={false}
                 value={props.value}
                 onChange={handleChange}
+                spellCheck={false}
             // placeholder="stdin"
             />
         </div>
@@ -230,6 +231,7 @@ function OutputBox(props: { value: string, setValue: React.Dispatch<React.SetSta
                 readOnly={true}
                 value={props.value}
                 onChange={handleChange}
+                spellCheck={false}
             // placeholder="stdout"
             />
         </div>
@@ -248,6 +250,7 @@ function ErrorBox(props: { value: string, setValue: React.Dispatch<React.SetStat
                 readOnly={true}
                 value={props.value}
                 onChange={handleChange}
+                spellCheck={false}
                 placeholder="Error Messages will show up here"
             />
         </div>
