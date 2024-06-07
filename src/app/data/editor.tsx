@@ -1,13 +1,23 @@
 
+enum ProgrammingLanguageID {
+    C_11,
+    CPP_20,
+}
+
 type ProgrammingLanguage = {
-    id: number,
+    id: ProgrammingLanguageID,
     name: string,
     monaco: string,
-    defaultCode: string,
     available: boolean,
 }
 
-const defaultCodeC: string = `#include<stdio.h>
+type BoilerPlateCode = {
+    name: string,
+    description: string,
+    code: string,
+}
+
+const boilerPlateCDefault: string = `#include<stdio.h>
 
 int main(int argc, char *argv[]){
     // Write your C code here ...
@@ -19,7 +29,7 @@ int main(int argc, char *argv[]){
 
 `
 
-const defaultCodeCpp: string = `#include<iostream>
+const boilerPlateCppDefault: string = `#include<iostream>
 using namespace std;
 
 int main(int argc, char *argv[]){
@@ -32,7 +42,64 @@ int main(int argc, char *argv[]){
 
 `
 
-const defaultCodeJava = `import java.io.*;
+const boilerPlateCppCp1: string = `#include<iostream>
+#include<cstdint>
+#include<climits>
+#include<vector>
+#include<stack>
+#include<queue>
+#include<map>
+#include<unordered_map>
+#include<set>
+#include<unordered_set>
+#include<utility>
+using namespace std;
+
+typedef long long int ll;
+typedef long double ld;
+
+void _print(int t) {cerr << t;}
+void _print(long long int t) {cerr << t;}
+void _print(string t) {cerr << t;}
+void _print(char t) {cerr << t;}
+void _print(long double t) {cerr << t;}
+void _print(double t) {cerr << t;}
+
+template <class T, class V> void _print(pair <T, V> p);
+template <class T> void _print(vector <T> v);
+template <class T> void _print(set <T> v);
+template <class T> void _print(unordered_set <T> v);
+template <class T> void _print(multiset <T> v);
+template <class T, class V> void _print(map <T, V> v);
+template <class T, class V> void _print(unordered_map <T, V> v);
+template <class T, class V> void _print(pair <T, V> p) {cerr << "{"; _print(p.first); cerr << ","; _print(p.second); cerr << "}";}
+template <class T> void _print(vector <T> v) {cerr << "[ "; for (T i : v) {_print(i); cerr << " ";} cerr << "]";}
+template <class T> void _print(set <T> v) {cerr << "[ "; for (T i : v) {_print(i); cerr << " ";} cerr << "]";}
+template <class T> void _print(unordered_set <T> v) {cerr << "[ "; for (T i : v) {_print(i); cerr << " ";} cerr << "]";}
+template <class T> void _print(multiset <T> v) {cerr << "[ "; for (T i : v) {_print(i); cerr << " ";} cerr << "]";}
+template <class T, class V> void _print(map <T, V> v) {cerr << "[ "; for (auto i : v) {_print(i); cerr << " ";} cerr << "]";}
+template <class T, class V> void _print(unordered_map <T, V> v) {cerr << "[ "; for (auto i : v) {_print(i); cerr << " ";} cerr << "]";}
+
+
+int32_t main(int32_t argc, char *argv[]){
+
+    int testcases = 1;
+    cin >> testcases;
+
+    for(int tt = 1; tt <= testcases ; tt++)
+    {
+        // Write your C++ code here ...
+        
+    }
+
+    return 0;
+}
+
+`
+
+/*
+
+const boilerPlateJavaDefault = `import java.io.*;
 
 public class Main {
     public static void main(String args[]){
@@ -44,13 +111,13 @@ public class Main {
 
 `
 
-const defaultCodePython = `""" Write your python code here """
+const boilerPlatePythonDefault = `""" Write your python code here """
 
 print("Hello World from Python")
 print("Subscribe to Premium for more features")
 `
 
-const defaultCodeGo = `package main
+const boilerPlateGoDefault = `package main
 
 import (
     "fmt"
@@ -64,26 +131,52 @@ func main() {
 
 `
 
+*/
 
 
-const programmingLanguageDefaultCodeMap = {
-    "c": defaultCodeC,
-    "cpp": defaultCodeCpp,
-    "java": defaultCodeJava,
-    "python": defaultCodePython,
-    "go": defaultCodeGo,
+
+// maps langID to list of boilter plate code
+// key and name must be same
+const boilerPlateCodeMap: { [key in ProgrammingLanguageID]: { [key: string]: BoilerPlateCode } } = {
+    [ProgrammingLanguageID.C_11]: {
+        "default": {
+            name: "default",
+            description: "default",
+            code: boilerPlateCDefault
+        },
+    },
+    [ProgrammingLanguageID.CPP_20]: {
+        "default": {
+            name: "default",
+            description: "default",
+            code: boilerPlateCppDefault
+        },
+        "cp1": {
+            name: "cp1",
+            description: "",
+            code: boilerPlateCppCp1,
+        }
+    }
+
 }
 
 const programmingLanguageList: Array<ProgrammingLanguage> = [
-    { id: 1, name: 'GNU GCC C11', monaco: "c", defaultCode: defaultCodeC, available: true },
-    { id: 2, name: 'GNU G++20', monaco: "cpp", defaultCode: defaultCodeCpp, available: true },
-    // { id: 3, name: 'Java 17', monaco: "java", defaultCode: defaultCodeJava, available: true },
-    // { id: 4, name: 'Python 3.12', monaco: "python", defaultCode: defaultCodePython, available: true },
-    // { id: 5, name: 'Go 1.21', monaco:"go", defaultCode: defaultCodeGo, available: true },
+    {
+        id: ProgrammingLanguageID.C_11,
+        name: 'GNU GCC C11',
+        monaco: "c",
+        available: true
+    },
+    {
+        id: ProgrammingLanguageID.CPP_20,
+        name: 'GNU G++20',
+        monaco: "cpp",
+        available: true
+    },
 ]
 
 
-export { programmingLanguageDefaultCodeMap, programmingLanguageList }
-export type { ProgrammingLanguage }
+export { programmingLanguageList, boilerPlateCodeMap }
+export type { ProgrammingLanguage, BoilerPlateCode }
 
 

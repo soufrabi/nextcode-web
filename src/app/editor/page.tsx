@@ -7,16 +7,37 @@ import { Editor } from "@monaco-editor/react"
 import Split from "react-split"
 import { FaPlay } from "react-icons/fa"
 import axios, { AxiosResponse } from "axios"
-import { Listbox, ListboxButton, ListboxOption, ListboxOptions } from "@headlessui/react"
-import { HiChevronDown } from "react-icons/hi2"
+import { Input, Listbox, ListboxButton, ListboxOption, ListboxOptions } from "@headlessui/react"
+import { HiChevronDown, HiChevronUp } from "react-icons/hi2"
 import { MdErrorOutline } from "react-icons/md"
 import { IoIosCheckboxOutline } from "react-icons/io"
-import { IoTimeOutline } from "react-icons/io5";
+import { IoTimeOutline, IoSettingsOutline } from "react-icons/io5";
+import { BiCodeCurly } from "react-icons/bi";
 import clsx from "clsx"
 import { ToastContainer, toast } from "react-toastify";
-import type { ProgrammingLanguage } from "@/app/data/editor"
-import { programmingLanguageList } from "@/app/data/editor"
+import { Dialog, DialogPanel, DialogTitle, Switch } from '@headlessui/react'
+import type { ProgrammingLanguage, BoilerPlateCode } from "@/app/data/editor"
+import { programmingLanguageList, boilerPlateCodeMap } from "@/app/data/editor"
 import 'react-toastify/dist/ReactToastify.css';
+import { nanoid } from "nanoid"
+
+type TemplateSelectorProps = {
+    boilerPlateCodeMapForSelectedLanguage: { [key: string]: BoilerPlateCode },
+    selectedBoilerPlateCode: BoilerPlateCode,
+    setSelectedBoilerPlateCode: React.Dispatch<React.SetStateAction<BoilerPlateCode>>,
+}
+
+type SettingsModalComponentProps = {
+    compileTimeLimit: number,
+    setCompileTimeLimit: React.Dispatch<React.SetStateAction<number>>,
+    compileTimeLimitMinValue: number,
+    compileTimeLimitMaxValue: number,
+    executionTimeLimit: number,
+    setExecutionTimeLimit: React.Dispatch<React.SetStateAction<number>>,
+    executionTimeLimitMinValue: number,
+    executionTimeLimitMaxValue: number,
+}
+
 
 
 function NavBar() {
@@ -45,7 +66,99 @@ function NavBar() {
 
 }
 
+function SettingsModalComponent({
+    compileTimeLimit,
+    setCompileTimeLimit,
+    compileTimeLimitMinValue,
+    compileTimeLimitMaxValue,
+    executionTimeLimit,
+    setExecutionTimeLimit,
+    executionTimeLimitMinValue,
+    executionTimeLimitMaxValue,
+}: SettingsModalComponentProps
+) {
 
+    const [isOpen, setIsOpen] = React.useState<boolean>(false)
+    const [isCpModeOn, setIsCpModeOn] = React.useState(false)
+
+    const handleCompileTimeLimitChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
+        // check if the string can be converted to number
+        const num = parseInt(ev.target.value)
+        if (num) {
+            if (compileTimeLimitMinValue <= num && num <= compileTimeLimitMaxValue) {
+                setCompileTimeLimit(num)
+            }
+        }
+    }
+
+    const handleExecutionTimeLimitChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
+        // check if the string can be converted to number
+        const num = parseInt(ev.target.value)
+        if (num) {
+            if (executionTimeLimitMinValue <= num && num <= executionTimeLimitMaxValue) {
+                setExecutionTimeLimit(num)
+            }
+        }
+
+    }
+
+    return (
+        <>
+            <button
+                className="p-2 bg-slate-50 rounded-sm"
+                onClick={() => setIsOpen(true)}
+            >
+                <IoSettingsOutline
+                    className="w-6 h-6"
+                />
+            </button>
+            <Dialog open={isOpen} onClose={() => setIsOpen(false)} className="relative z-50">
+                <div className="fixed inset-0 flex w-screen items-center justify-center p-4">
+                    <DialogPanel className="max-w-lg space-y-4 border bg-white p-12">
+                        <DialogTitle className="text-lg font-bold">Settings</DialogTitle>
+                        <div className="flex flex-row gap-4 justify-between">
+                            <div className="text-sm">CP mode</div>
+                            <Switch
+                                checked={isCpModeOn}
+                                onChange={setIsCpModeOn}
+                                className="group inline-flex h-6 w-11 items-center rounded-full bg-gray-200 transition data-[checked]:bg-blue-600"
+                            >
+                                <span className="size-4 translate-x-1 rounded-full bg-white transition group-data-[checked]:translate-x-6" />
+                            </Switch>
+                        </div>
+                        <div className="flex flex-row gap-6 justify-between">
+                            <div className="text-sm">Compile Time Limit (in milliseconds)</div>
+                            <Input
+                                type="number"
+                                min={compileTimeLimitMinValue}
+                                max={compileTimeLimitMaxValue}
+                                step={100}
+                                className="w-fit text-right"
+                                value={compileTimeLimit}
+                                onChange={handleCompileTimeLimitChange}
+                            />
+                        </div>
+                        <div className="flex flex-row gap-6 justify-between">
+                            <div className="text-sm">Execution Time Limit (in milliseconds)</div>
+                            <Input
+                                type="number"
+                                min={executionTimeLimitMinValue}
+                                max={executionTimeLimitMaxValue}
+                                step={100}
+                                className="w-fit text-right"
+                                value={executionTimeLimit}
+                                onChange={handleExecutionTimeLimitChange}
+                            />
+                        </div>
+                        <div className="flex flex-row gap-6">
+                            <button onClick={() => setIsOpen(false)}>Close</button>
+                        </div>
+                    </DialogPanel>
+                </div>
+            </Dialog>
+        </>
+    )
+}
 
 
 function LanguageSelector(
@@ -98,20 +211,66 @@ function LanguageSelector(
     )
 }
 
+function TemplateSelector({ boilerPlateCodeMapForSelectedLanguage, selectedBoilerPlateCode, setSelectedBoilerPlateCode }: TemplateSelectorProps) {
+    return (
+        <Listbox
+            value={selectedBoilerPlateCode}
+            onChange={setSelectedBoilerPlateCode}
+        >
+            <ListboxButton
+                className="py-2 px-3 bg-sky-100 rounded-md flex flex-row gap-2 justify-center items-center"
+            >
+                <span
+                    className="font-medium"
+                >Template</span>
+                <HiChevronUp
+                    className="w-4 h-4"
+                />
+            </ListboxButton>
+            <ListboxOptions
+                anchor="top end"
+                className={"text-sm bg-white rounded-lg border-gray-100 border-2"}
+            >
+                {
+                    Object.entries(boilerPlateCodeMapForSelectedLanguage).map(([name, boilerPlate]) => (
+                        <ListboxOption
+                            key={nanoid()}
+                            value={boilerPlate}
+                            className={"p-2 cursor-pointer hover:shadow-customhovereffect"}
+                        >
+                            <span>{name}</span>
+
+                        </ListboxOption>
+
+                    ))
+
+                }
+            </ListboxOptions>
+        </Listbox>
+
+    )
+}
+
 
 type CodeEditorProps = {
     sourceCodeValue: string,
     setSourceCodeValue: React.Dispatch<React.SetStateAction<string>>,
     runCodeAction: (language: ProgrammingLanguage) => Promise<void>,
+    settings: SettingsModalComponentProps,
 }
 
 
 
-function CodeEditor({ sourceCodeValue, setSourceCodeValue, runCodeAction }: CodeEditorProps) {
-    const [selectedLanguage, setSelectedLanguage] = React.useState<ProgrammingLanguage>(programmingLanguageList[0])
+function CodeEditor({ sourceCodeValue, setSourceCodeValue, runCodeAction, settings }: CodeEditorProps) {
+    const [selectedLanguage, setSelectedLanguage] = React.useState<ProgrammingLanguage>(programmingLanguageList[1])
+    const [selectedBoilerPlateCode, setSelectedBoilerPlateCode] = React.useState<BoilerPlateCode>(boilerPlateCodeMap[selectedLanguage.id]["default"])
     // time and delay are measured in milliseconds
     const [runCodeButtonLastClicked, setRunCodeButtonLastClicked] = React.useState<number | null>(null)
     const delayBetweenConsecutiveRunCodeButtonPresses: number = 3000
+
+    const handleResetCodeButtonClicked = () => {
+        setSourceCodeValue(selectedBoilerPlateCode.code)
+    }
 
     const handleChange = (newValue: string | undefined) => {
 
@@ -140,13 +299,17 @@ function CodeEditor({ sourceCodeValue, setSourceCodeValue, runCodeAction }: Code
     }
 
     React.useEffect(() => {
-        setSourceCodeValue(selectedLanguage.defaultCode)
-    }, [selectedLanguage, setSourceCodeValue])
+        setSelectedBoilerPlateCode(boilerPlateCodeMap[selectedLanguage.id]["default"])
+    }, [selectedLanguage, setSelectedLanguage])
+
+    React.useEffect(() => {
+        setSourceCodeValue(selectedBoilerPlateCode.code)
+    }, [setSourceCodeValue, selectedBoilerPlateCode])
 
     return (
 
         <div
-            className="min-h-4 p-4 pt-0 pr-2 h-[calc(100vh-7rem)]"
+            className="min-h-4 p-4 pt-0 pr-2 h-[calc(100vh-4rem)] flex flex-col"
         >
             <div className="pb-2 flex flex-row justify-between">
                 <button
@@ -160,32 +323,53 @@ function CodeEditor({ sourceCodeValue, setSourceCodeValue, runCodeAction }: Code
                         Run
                     </span>
                 </button>
-                <LanguageSelector
-                    selectedLanguage={selectedLanguage}
-                    setSelectedLanguage={setSelectedLanguage}
-                />
+                <div className="flex flex-row justify-center items-center gap-2">
+                    <button
+                        className="p-2 bg-slate-50 rounded-sm"
+                        onClick={handleResetCodeButtonClicked}
+                    >
+                        <BiCodeCurly
+                            className="w-6 h-6"
+                        />
+
+                    </button>
+                    <SettingsModalComponent
+                        {...settings}
+                    />
+                    <LanguageSelector
+                        selectedLanguage={selectedLanguage}
+                        setSelectedLanguage={setSelectedLanguage}
+                    />
+                </div>
 
             </div>
-            <Editor
-                // height="80vh"
-                // defaultLanguage="python"
-                // defaultValue={selectedLanguage.defaultCode}
-                language={selectedLanguage.monaco}
-                value={sourceCodeValue}
-                onChange={handleChange}
-                options={{
-                    readOnly: false,
-                    minimap: {
-                        enabled: false,
-                    },
-                    suggest: {
-                        showWords: false,
-                    },
-                    contextmenu: false,
-                }}
+            <div className="flex-1 pb-2 overflow-hidden">
+                <Editor
+                    // height="80vh"
+                    language={selectedLanguage.monaco}
+                    value={sourceCodeValue}
+                    onChange={handleChange}
+                    options={{
+                        readOnly: false,
+                        minimap: {
+                            enabled: false,
+                        },
+                        suggest: {
+                            showWords: false,
+                        },
+                        contextmenu: false,
+                    }}
 
-                className="min-h-4 border-gray-300 border-2"
-            />
+                    className="min-h-4 border-gray-300 border-2 h-full"
+                />
+            </div>
+            <div className="border-gray-300 border-2 flex flex-row py-2 px-2 justify-end">
+                <TemplateSelector
+                    boilerPlateCodeMapForSelectedLanguage={boilerPlateCodeMap[selectedLanguage.id]}
+                    selectedBoilerPlateCode={selectedBoilerPlateCode}
+                    setSelectedBoilerPlateCode={setSelectedBoilerPlateCode}
+                />
+            </div>
         </div>
     )
 }
@@ -368,12 +552,21 @@ export default function EditorPage() {
     const [stderrValue, setStderrValue] = React.useState<string>("")
     const [timeElpased, setTimeElapsed] = React.useState<string>("nil")
     const [selectedRightPartTab, setSelectedRightPartTab] = React.useState<RightPartTab>(RightPartTab.IO)
+    const compileTimeLimitMinValue: number = 500
+    const compileTimeLimitMaxValue: number = 3000
+    const compileTimeLimitDefaultValue: number = 2000
+    const executionTimeLimitMinValue: number = 300
+    const executionTimeLimitMaxValue: number = 500
+    const executionTimeLimitDefaultValue: number = 500
+    const [compileTimeLimit, setCompileTimeLimit] = React.useState<number>(compileTimeLimitDefaultValue)
+    const [executionTimeLimit, setExecutionTimeLimit] = React.useState<number>(executionTimeLimitDefaultValue)
 
     const runCodeAction = async (language: ProgrammingLanguage) => {
         const bodyObj = {
             sourceCode: sourceCodeValue,
             inputText: inputTextValue,
-            timeLimit: 500,
+            compileTimeLimit: compileTimeLimit,
+            executionTimeLimit: executionTimeLimit,
             language: language.name,
         }
 
@@ -457,7 +650,21 @@ export default function EditorPage() {
                     cursor="row-resize"
                     className="split-horizontal w-full h-full "
                 >
-                    <CodeEditor sourceCodeValue={sourceCodeValue} setSourceCodeValue={setSourceCodeValue} runCodeAction={runCodeAction} />
+                    <CodeEditor
+                        sourceCodeValue={sourceCodeValue}
+                        setSourceCodeValue={setSourceCodeValue}
+                        runCodeAction={runCodeAction}
+                        settings={{
+                            compileTimeLimit: compileTimeLimit,
+                            setCompileTimeLimit: setCompileTimeLimit,
+                            compileTimeLimitMinValue: compileTimeLimitMinValue,
+                            compileTimeLimitMaxValue: compileTimeLimitMaxValue,
+                            executionTimeLimit: executionTimeLimit,
+                            setExecutionTimeLimit: setExecutionTimeLimit,
+                            executionTimeLimitMinValue: executionTimeLimitMinValue,
+                            executionTimeLimitMaxValue: executionTimeLimitMaxValue,
+                        }}
+                    />
                     <RightPart
                         inputTextValue={inputTextValue}
                         setInputTextValue={setInputTextValue}

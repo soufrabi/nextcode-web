@@ -5,7 +5,7 @@ import axios, { AxiosResponse } from "axios";
 export async function POST(request: NextRequest) {
     try {
         const reqBody = await request.json()
-        const { sourceCode, inputText, timeLimit, language } = reqBody
+        const { sourceCode, inputText, compileTimeLimit, executionTimeLimit, language } = reqBody
         console.log(reqBody)
 
         if (typeof process.env.RCEE_SERVER_ADDRESS === undefined ||
@@ -24,7 +24,8 @@ export async function POST(request: NextRequest) {
             const res: AxiosResponse = await axios.post(`${process.env.RCEE_SERVER_ADDRESS}/api/v1/run`, {
                 sourceCode: sourceCode,
                 inputText: inputText,
-                timeLimit: timeLimit,
+                compileTimeLimit: compileTimeLimit,
+                executionTimeLimit: executionTimeLimit,
                 language: language,
             })
 
