@@ -20,6 +20,7 @@ import type { ProgrammingLanguage, BoilerPlateCode } from "@/app/data/editor"
 import { programmingLanguageList, boilerPlateCodeMap } from "@/app/data/editor"
 import 'react-toastify/dist/ReactToastify.css';
 import { nanoid } from "nanoid"
+import { useThemeContext } from "../store/ThemeProvider"
 
 type TemplateSelectorProps = {
     boilerPlateCodeMapForSelectedLanguage: { [key: string]: BoilerPlateCode },
@@ -79,7 +80,7 @@ function SettingsModalComponent({
 ) {
 
     const [isOpen, setIsOpen] = React.useState<boolean>(false)
-    const [isCpModeOn, setIsCpModeOn] = React.useState(false)
+    const { isDarkTheme, setIsDarkTheme } = useThemeContext()
 
     const handleCompileTimeLimitChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
         // check if the string can be converted to number
@@ -117,10 +118,10 @@ function SettingsModalComponent({
                     <DialogPanel className="max-w-lg space-y-4 border bg-white p-12">
                         <DialogTitle className="text-lg font-bold">Settings</DialogTitle>
                         <div className="flex flex-row gap-4 justify-between">
-                            <div className="text-sm">CP mode</div>
+                            <div className="text-sm">Dark Theme</div>
                             <Switch
-                                checked={isCpModeOn}
-                                onChange={setIsCpModeOn}
+                                checked={isDarkTheme}
+                                onChange={setIsDarkTheme}
                                 className="group inline-flex h-6 w-11 items-center rounded-full bg-gray-200 transition data-[checked]:bg-blue-600"
                             >
                                 <span className="size-4 translate-x-1 rounded-full bg-white transition group-data-[checked]:translate-x-6" />
@@ -267,6 +268,7 @@ function CodeEditor({ sourceCodeValue, setSourceCodeValue, runCodeAction, settin
     // time and delay are measured in milliseconds
     const [runCodeButtonLastClicked, setRunCodeButtonLastClicked] = React.useState<number | null>(null)
     const delayBetweenConsecutiveRunCodeButtonPresses: number = 3000
+    const {isDarkTheme} = useThemeContext()
 
     const handleResetCodeButtonClicked = () => {
         setSourceCodeValue(selectedBoilerPlateCode.code)
@@ -358,6 +360,7 @@ function CodeEditor({ sourceCodeValue, setSourceCodeValue, runCodeAction, settin
                             showWords: false,
                         },
                         contextmenu: false,
+                        theme: isDarkTheme ? "vs-dark" : "vs"
                     }}
 
                     className="min-h-4 border-gray-300 border-2 h-full"
@@ -560,6 +563,7 @@ export default function EditorPage() {
     const executionTimeLimitDefaultValue: number = 500
     const [compileTimeLimit, setCompileTimeLimit] = React.useState<number>(compileTimeLimitDefaultValue)
     const [executionTimeLimit, setExecutionTimeLimit] = React.useState<number>(executionTimeLimitDefaultValue)
+    const { loadThemeFromLocalStorage } = useThemeContext()
 
     const runCodeAction = async (language: ProgrammingLanguage) => {
         const bodyObj = {
@@ -633,6 +637,10 @@ export default function EditorPage() {
 
         }
     }
+
+    React.useEffect(() => {
+        loadThemeFromLocalStorage()
+    }, [])
 
     return (
         <main className="h-screen w-screen">
