@@ -188,7 +188,7 @@ function LanguageSelector(
                 </ListboxButton>
                 <ListboxOptions
                     anchor="bottom start"
-                    className={"text-sm shadow-lg bg-white rounded-lg"}
+                    className={"text-sm shadow-lg bg-white rounded-lg z-20"}
                 >
                     {
                         programmingLanguageList.map((language) => (
