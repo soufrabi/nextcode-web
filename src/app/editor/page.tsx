@@ -229,7 +229,7 @@ function TemplateSelector({ boilerPlateCodeMapForSelectedLanguage, selectedBoile
             </ListboxButton>
             <ListboxOptions
                 anchor="top end"
-                className={"text-sm bg-white rounded-lg border-gray-100 border-2"}
+                className={"text-sm bg-white rounded-lg border-gray-100 border-2 z-20"}
             >
                 {
                     Object.entries(boilerPlateCodeMapForSelectedLanguage).map(([name, boilerPlate]) => (
@@ -343,7 +343,7 @@ function CodeEditor({ sourceCodeValue, setSourceCodeValue, runCodeAction, settin
                 </div>
 
             </div>
-            <div className="flex-1 pb-2 overflow-hidden">
+            <div className="flex-1 pb-2 overflow-clip">
                 <Editor
                     // height="80vh"
                     language={selectedLanguage.monaco}
