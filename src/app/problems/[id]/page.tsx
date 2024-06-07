@@ -30,10 +30,8 @@ import { IoMdCloseCircle } from "react-icons/io";
 import { MdOutlineDashboard } from "react-icons/md";
 import { ToastContainer, toast } from "react-toastify";
 import Split from "react-split";
-import { Allotment } from "allotment";
 import { MediaContextProvider, Media } from "../../components/media"
 import 'react-toastify/dist/ReactToastify.css';
-import "allotment/dist/style.css";
 
 
 
@@ -576,39 +574,22 @@ function RightPart() {
         <>
             {
                 <div className="h-[calc(100vh-4rem)]">
-                    {
-                        <Allotment
-                            vertical={true}
-                            defaultSizes={[360, 240]}
-                            minSize={35}
-                            separator={true}
-                        >
-                            <Allotment.Pane>
-                                <CodeEditor />
-                            </Allotment.Pane>
-                            <Allotment.Pane>
-                                <TestCasePanel />
-                            </Allotment.Pane>
-                        </Allotment>
-                    }
-                    {
-                        // <Split
-                        //     sizes={[60, 40]}
-                        //     minSize={[100, 100]}
-                        //     expandToMin={false}
-                        //     gutterSize={10}
-                        //     gutterAlign="center"
-                        //     snapOffset={30}
-                        //     dragInterval={1}
-                        //     direction="vertical"
-                        //     cursor="col-resize"
-                        //     className="split-vertical w-full h-full "
-                        // // onDrag={handleDrag}
-                        // >
-                        //     <CodeEditor />
-                        //     <TestCasePanel />
-                        // </Split>
-                    }
+                    <Split
+                        sizes={[60, 40]}
+                        minSize={[50, 35]}
+                        expandToMin={false}
+                        gutterSize={10}
+                        gutterAlign="center"
+                        snapOffset={30}
+                        dragInterval={1}
+                        direction="vertical"
+                        cursor="col-resize"
+                        className="split-vertical w-full h-full "
+                    // onDrag={handleDrag}
+                    >
+                        <CodeEditor />
+                        <TestCasePanel />
+                    </Split>
                 </div >
             }
             {
