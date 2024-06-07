@@ -6,7 +6,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "NextCode",
-  description: "Created by Soufrabi",
+  description: "Your personal coding platform",
 };
 
 export default function RootLayout({
