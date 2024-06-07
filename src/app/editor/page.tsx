@@ -3,7 +3,7 @@
 import React from "react"
 import Image from "next/image"
 import { useRouter } from "next/navigation"
-import { Editor } from "@monaco-editor/react"
+import { Editor, useMonaco } from "@monaco-editor/react"
 import Split from "react-split"
 import { FaPlay } from "react-icons/fa"
 import axios, { AxiosResponse } from "axios"
@@ -263,6 +263,7 @@ type CodeEditorProps = {
 
 
 function CodeEditor({ sourceCodeValue, setSourceCodeValue, runCodeAction, settings }: CodeEditorProps) {
+    const monaco = useMonaco()
     const [selectedLanguage, setSelectedLanguage] = React.useState<ProgrammingLanguage>(programmingLanguageList[1])
     const [selectedBoilerPlateCode, setSelectedBoilerPlateCode] = React.useState<BoilerPlateCode>(boilerPlateCodeMap[selectedLanguage.id]["default"])
     // time and delay are measured in milliseconds
@@ -301,12 +302,25 @@ function CodeEditor({ sourceCodeValue, setSourceCodeValue, runCodeAction, settin
     }
 
     React.useEffect(() => {
+        if (monaco) {
+            // console.log('here is the monaco instance:', monaco);
+            try {
+                monaco.editor.setTheme(isDarkTheme ? 'vs-dark' : 'vs')
+            } catch (err) {
+                // console.error("Uncaught Promise in Monaco")
+            }
+        }
+    }, [monaco]);
+
+    React.useEffect(() => {
         setSelectedBoilerPlateCode(boilerPlateCodeMap[selectedLanguage.id]["default"])
     }, [selectedLanguage, setSelectedLanguage])
 
     React.useEffect(() => {
         setSourceCodeValue(selectedBoilerPlateCode.code)
     }, [setSourceCodeValue, selectedBoilerPlateCode])
+
+
 
     return (
 
