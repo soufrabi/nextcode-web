@@ -44,7 +44,7 @@ type SettingsModalComponentProps = {
 function NavBar() {
     const router = useRouter()
     return (
-        <div className="w-full h-12 flex flex-row items-center bg-slate-100 px-6 py-4 mb-4">
+        <div className="w-full h-12 flex flex-row items-center bg-slate-100 dark:bg-slate-800 dark:text-slate-100 px-6 py-4 mb-4">
             <div
                 className="flex flex-row gap-4 items-center cursor-pointer"
                 onClick={() => { router.push("/") }}
