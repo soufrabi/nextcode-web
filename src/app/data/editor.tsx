@@ -53,6 +53,8 @@ const boilerPlateCppCp1: string = `#include<iostream>
 #include<set>
 #include<unordered_set>
 #include<utility>
+#include<tuple>
+#include<algorithm>
 using namespace std;
 
 typedef long long int ll;
