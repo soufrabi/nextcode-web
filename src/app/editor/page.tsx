@@ -309,7 +309,7 @@ function CodeEditor({ sourceCodeValue, setSourceCodeValue, runCodeAction, settin
     return (
 
         <div
-            className="min-h-4 p-4 pt-0 pr-2 h-[calc(100vh-4rem)] flex flex-col"
+            className="flex flex-col pl-2 pb-0 pt-0 pr-2 w-full h-full min-h-4"
         >
             <div className="pb-2 flex flex-row justify-between">
                 <button
@@ -463,7 +463,7 @@ function RightPart(props: RightPartProps) {
 
     return (
         <>
-            <div className="flex flex-col h-[calc(100vh-5rem)]" >
+            <div className="flex flex-col h-full w-full pb-0 pr-1" >
                 <div className="w-full flex flex-row pl-0 border-b-gray-200 border-b-2">
                     <button
                         className={clsx("bg-slate-100 px-4 py-1 rounded-lg flex flex-row gap-2 items-center hover:shadow-customhovereffect",
@@ -640,7 +640,7 @@ export default function EditorPage() {
             <div>
                 <Split
                     sizes={[50, 50]}
-                    minSize={[100, 100]}
+                    minSize={[350, 200]}
                     expandToMin={false}
                     gutterSize={10}
                     gutterAlign="center"
@@ -648,7 +648,7 @@ export default function EditorPage() {
                     dragInterval={1}
                     direction="horizontal"
                     cursor="row-resize"
-                    className="split-horizontal w-full h-full "
+                    className="split-horizontal w-full h-[calc(100vh-5rem)] "
                 >
                     <CodeEditor
                         sourceCodeValue={sourceCodeValue}
