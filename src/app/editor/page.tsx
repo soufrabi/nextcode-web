@@ -80,7 +80,7 @@ function SettingsModalComponent({
 ) {
 
     const [isOpen, setIsOpen] = React.useState<boolean>(false)
-    const { isDarkTheme, setIsDarkTheme } = useThemeContext()
+    const { isDarkTheme, setIsDarkThemeInLocalStorage } = useThemeContext()
 
     const handleCompileTimeLimitChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
         // check if the string can be converted to number
@@ -106,7 +106,7 @@ function SettingsModalComponent({
     return (
         <>
             <button
-                className="p-2 bg-slate-50 rounded-sm"
+                className="p-2 bg-slate-50 dark:bg-slate-900 dark:text-white rounded-sm"
                 onClick={() => setIsOpen(true)}
             >
                 <IoSettingsOutline
@@ -115,13 +115,13 @@ function SettingsModalComponent({
             </button>
             <Dialog open={isOpen} onClose={() => setIsOpen(false)} className="relative z-50">
                 <div className="fixed inset-0 flex w-screen items-center justify-center p-4">
-                    <DialogPanel className="max-w-lg space-y-4 border bg-white p-12">
+                    <DialogPanel className="max-w-lg space-y-4 border bg-white p-12 dark:bg-black dark:text-white">
                         <DialogTitle className="text-lg font-bold">Settings</DialogTitle>
                         <div className="flex flex-row gap-4 justify-between">
                             <div className="text-sm">Dark Theme</div>
                             <Switch
                                 checked={isDarkTheme}
-                                onChange={setIsDarkTheme}
+                                onChange={setIsDarkThemeInLocalStorage}
                                 className="group inline-flex h-6 w-11 items-center rounded-full bg-gray-200 transition data-[checked]:bg-blue-600"
                             >
                                 <span className="size-4 translate-x-1 rounded-full bg-white transition group-data-[checked]:translate-x-6" />
@@ -134,7 +134,7 @@ function SettingsModalComponent({
                                 min={compileTimeLimitMinValue}
                                 max={compileTimeLimitMaxValue}
                                 step={100}
-                                className="w-fit text-right"
+                                className="w-fit text-right dark:bg-gray-800 dark:text-gray-100"
                                 value={compileTimeLimit}
                                 onChange={handleCompileTimeLimitChange}
                             />
@@ -146,7 +146,7 @@ function SettingsModalComponent({
                                 min={executionTimeLimitMinValue}
                                 max={executionTimeLimitMaxValue}
                                 step={100}
-                                className="w-fit text-right"
+                                className="w-fit text-right dark:bg-gray-800 dark:text-gray-100"
                                 value={executionTimeLimit}
                                 onChange={handleExecutionTimeLimitChange}
                             />
@@ -189,7 +189,7 @@ function LanguageSelector(
                 </ListboxButton>
                 <ListboxOptions
                     anchor="bottom start"
-                    className={"text-sm shadow-lg bg-white rounded-lg z-20"}
+                    className={"text-sm shadow-lg bg-white dark:bg-black dark:text-white rounded-lg z-20"}
                 >
                     {
                         programmingLanguageList.map((language) => (
@@ -219,7 +219,7 @@ function TemplateSelector({ boilerPlateCodeMapForSelectedLanguage, selectedBoile
             onChange={setSelectedBoilerPlateCode}
         >
             <ListboxButton
-                className="py-2 px-3 bg-sky-100 rounded-md flex flex-row gap-2 justify-center items-center"
+                className="py-2 px-3 bg-sky-100 dark:bg-sky-700 dark:text-gray-200 rounded-md flex flex-row gap-2 justify-center items-center"
             >
                 <span
                     className="font-medium"
@@ -230,7 +230,7 @@ function TemplateSelector({ boilerPlateCodeMapForSelectedLanguage, selectedBoile
             </ListboxButton>
             <ListboxOptions
                 anchor="top end"
-                className={"text-sm bg-white rounded-lg border-gray-100 border-2 z-20"}
+                className={"text-sm bg-white dark:bg-black dark:text-white rounded-lg border-gray-100 border-2 z-20"}
             >
                 {
                     Object.entries(boilerPlateCodeMapForSelectedLanguage).map(([name, boilerPlate]) => (
@@ -268,7 +268,7 @@ function CodeEditor({ sourceCodeValue, setSourceCodeValue, runCodeAction, settin
     // time and delay are measured in milliseconds
     const [runCodeButtonLastClicked, setRunCodeButtonLastClicked] = React.useState<number | null>(null)
     const delayBetweenConsecutiveRunCodeButtonPresses: number = 3000
-    const {isDarkTheme} = useThemeContext()
+    const { isDarkTheme } = useThemeContext()
 
     const handleResetCodeButtonClicked = () => {
         setSourceCodeValue(selectedBoilerPlateCode.code)
@@ -315,7 +315,7 @@ function CodeEditor({ sourceCodeValue, setSourceCodeValue, runCodeAction, settin
         >
             <div className="pb-2 flex flex-row justify-between">
                 <button
-                    className="bg-green-200 px-4 py-2 rounded-2xl flex flex-row gap-2 items-center hover:shadow-customhovereffect"
+                    className="bg-green-200 dark:bg-green-600 dark:text-gray-200 px-4 py-2 rounded-2xl flex flex-row gap-2 items-center hover:shadow-customhovereffect"
                     onClick={handleRunCodeButtonClicked}
                 >
                     <FaPlay
@@ -327,7 +327,7 @@ function CodeEditor({ sourceCodeValue, setSourceCodeValue, runCodeAction, settin
                 </button>
                 <div className="flex flex-row justify-center items-center gap-2">
                     <button
-                        className="p-2 bg-slate-50 rounded-sm"
+                        className="p-2 bg-slate-50 dark:bg-slate-900 dark:text-gray-50 rounded-sm"
                         onClick={handleResetCodeButtonClicked}
                     >
                         <BiCodeCurly
@@ -469,7 +469,7 @@ function RightPart(props: RightPartProps) {
             <div className="flex flex-col h-full w-full pb-0 pr-1" >
                 <div className="w-full flex flex-row pl-0 border-b-gray-200 border-b-2">
                     <button
-                        className={clsx("bg-slate-100 px-4 py-1 rounded-lg flex flex-row gap-2 items-center hover:shadow-customhovereffect",
+                        className={clsx("bg-slate-100 dark:bg-slate-800 dark:text-gray-50 px-4 py-1 rounded-lg flex flex-row gap-2 items-center hover:shadow-customhovereffect",
                             {
                                 "opacity-50": props.selectedTab != RightPartTab.IO
                             }
@@ -484,7 +484,7 @@ function RightPart(props: RightPartProps) {
                         <span className="text-sm/6">I/O</span>
                     </button>
                     <button
-                        className={clsx("bg-slate-100 px-4 py-1 rounded-lg flex flex-row gap-2 items-center hover:shadow-customhovereffect",
+                        className={clsx("bg-slate-100 dark:bg-slate-800 dark:text-gray-50 px-4 py-1 rounded-lg flex flex-row gap-2 items-center hover:shadow-customhovereffect",
                             {
                                 "opacity-50": props.selectedTab != RightPartTab.Error
                             }
@@ -499,7 +499,7 @@ function RightPart(props: RightPartProps) {
                         <span className="text-sm/6">Error</span>
                     </button>
                 </div>
-                <div className="w-full h-full">
+                <div className="w-full h-full dark:bg-black text-white">
                     {props.selectedTab === RightPartTab.IO &&
                         <Split
                             sizes={[50, 50]}
@@ -532,7 +532,7 @@ function RightPart(props: RightPartProps) {
                             className=""
                         />
                         <div className="font-serif pr-2">Time Elapsed </div>
-                        <div className="bg-slate-100 px-2">{props.timeElpased}</div>
+                        <div className="bg-slate-100 dark:bg-slate-800 dark:text-gray-50 px-2">{props.timeElpased}</div>
                     </div>
                 </div>
             </div>
@@ -541,12 +541,6 @@ function RightPart(props: RightPartProps) {
     )
 }
 
-// type RunResponse = {
-//     stdOut: string,
-//     stdErr: string,
-//     execErr: string,
-//     timeElapsed: string,
-// }
 
 export default function EditorPage() {
     const [sourceCodeValue, setSourceCodeValue] = React.useState<string>("")
@@ -638,12 +632,13 @@ export default function EditorPage() {
         }
     }
 
+
     React.useEffect(() => {
         loadThemeFromLocalStorage()
-    }, [])
+    })
 
     return (
-        <main className="h-screen w-screen">
+        <main className="h-screen w-screen dark:bg-black dark:text-white">
             <NavBar />
             <div>
                 <Split
