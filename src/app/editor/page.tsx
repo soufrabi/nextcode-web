@@ -571,7 +571,6 @@ export default function EditorPage() {
     const executionTimeLimitDefaultValue: number = 500
     const [compileTimeLimit, setCompileTimeLimit] = React.useState<number>(compileTimeLimitDefaultValue)
     const [executionTimeLimit, setExecutionTimeLimit] = React.useState<number>(executionTimeLimitDefaultValue)
-    const { loadThemeFromLocalStorage } = useThemeContext()
 
     const runCodeAction = async (language: ProgrammingLanguage) => {
         const bodyObj = {
@@ -646,10 +645,6 @@ export default function EditorPage() {
         }
     }
 
-
-    React.useEffect(() => {
-        loadThemeFromLocalStorage()
-    })
 
     return (
         <main className="h-screen w-screen dark:bg-black dark:text-white">

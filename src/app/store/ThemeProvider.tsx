@@ -1,13 +1,12 @@
 'use client'
 
-import { ReactNode, createContext, useContext, useState } from "react"
+import { ReactNode, createContext, useContext, useEffect, useState } from "react"
 
 type ThemeType = boolean
 type ThemeContextType = {
     isDarkTheme: ThemeType,
     setIsDarkTheme: (theme: ThemeType) => void,
     setIsDarkThemeInLocalStorage: (theme: ThemeType) => void,
-    loadThemeFromLocalStorage: () => void,
 }
 
 const isDarkThemeDefaultValue: ThemeType = false
@@ -16,7 +15,6 @@ const ThemeContext = createContext<ThemeContextType>({
     isDarkTheme: isDarkThemeDefaultValue,
     setIsDarkTheme: () => { },
     setIsDarkThemeInLocalStorage: () => { },
-    loadThemeFromLocalStorage: () => { },
 })
 
 export default function ThemeProvider({
@@ -52,9 +50,13 @@ export default function ThemeProvider({
         }
     }
 
+    useEffect(() => {
+        loadThemeFromLocalStorage()
+    })
+
 
     return (
-        <ThemeContext.Provider value={{ isDarkTheme, setIsDarkTheme, setIsDarkThemeInLocalStorage, loadThemeFromLocalStorage }}>{children}</ThemeContext.Provider>
+        <ThemeContext.Provider value={{ isDarkTheme, setIsDarkTheme, setIsDarkThemeInLocalStorage }}>{children}</ThemeContext.Provider>
     )
 }
 
