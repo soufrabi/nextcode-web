@@ -21,6 +21,7 @@ import { programmingLanguageList, boilerPlateCodeMap } from "@/app/data/editor"
 import 'react-toastify/dist/ReactToastify.css';
 import { nanoid } from "nanoid"
 import { useThemeContext } from "../store/ThemeProvider"
+import PlaygroundPreferencesProvider, { usePlaygroundPreferencesContext } from "../store/PlaygroundPreferencesProvider"
 
 type TemplateSelectorProps = {
     boilerPlateCodeMapForSelectedLanguage: { [key: string]: BoilerPlateCode },
@@ -28,16 +29,6 @@ type TemplateSelectorProps = {
     setSelectedBoilerPlateCode: React.Dispatch<React.SetStateAction<BoilerPlateCode>>,
 }
 
-type SettingsModalComponentProps = {
-    compileTimeLimit: number,
-    setCompileTimeLimit: React.Dispatch<React.SetStateAction<number>>,
-    compileTimeLimitMinValue: number,
-    compileTimeLimitMaxValue: number,
-    executionTimeLimit: number,
-    setExecutionTimeLimit: React.Dispatch<React.SetStateAction<number>>,
-    executionTimeLimitMinValue: number,
-    executionTimeLimitMaxValue: number,
-}
 
 
 
@@ -67,27 +58,39 @@ function NavBar() {
 
 }
 
-function SettingsModalComponent({
-    compileTimeLimit,
-    setCompileTimeLimit,
-    compileTimeLimitMinValue,
-    compileTimeLimitMaxValue,
-    executionTimeLimit,
-    setExecutionTimeLimit,
-    executionTimeLimitMinValue,
-    executionTimeLimitMaxValue,
-}: SettingsModalComponentProps
+function SettingsModalComponent(
 ) {
+
+
 
     const [isOpen, setIsOpen] = React.useState<boolean>(false)
     const { isDarkTheme, setIsDarkThemeInLocalStorage } = useThemeContext()
+
+    const {
+        compileTimeLimit,
+        setCompileTimeLimitInLocalStorage,
+        compileTimeLimitMinValue,
+        compileTimeLimitMaxValue,
+        compileTimeLImitStepValue,
+        executionTimeLimit,
+        setExecutionTimeLimitInLocalStorage,
+        executionTimeLimitMinValue,
+        executionTimeLimitMaxValue,
+        executionTimeLimitStepValue,
+        bufferMaxSize,
+        setBufferMaxSizeInLocalStorage,
+        bufferMaxSizeMinValue,
+        bufferMaxSizeMaxValue,
+        bufferMaxSizeStepValue,
+    } = usePlaygroundPreferencesContext()
+
 
     const handleCompileTimeLimitChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
         // check if the string can be converted to number
         const num = parseInt(ev.target.value)
         if (num) {
             if (compileTimeLimitMinValue <= num && num <= compileTimeLimitMaxValue) {
-                setCompileTimeLimit(num)
+                setCompileTimeLimitInLocalStorage(num)
             }
         }
     }
@@ -97,10 +100,20 @@ function SettingsModalComponent({
         const num = parseInt(ev.target.value)
         if (num) {
             if (executionTimeLimitMinValue <= num && num <= executionTimeLimitMaxValue) {
-                setExecutionTimeLimit(num)
+                setExecutionTimeLimitInLocalStorage(num)
             }
         }
 
+    }
+
+    const handleBufferMaxSizeChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
+        // check if the string can be converted to number
+        const num = parseInt(ev.target.value)
+        if (num) {
+            if (bufferMaxSizeMinValue <= num && num <= bufferMaxSizeMaxValue) {
+                setBufferMaxSizeInLocalStorage(num)
+            }
+        }
     }
 
     return (
@@ -133,7 +146,7 @@ function SettingsModalComponent({
                                 type="number"
                                 min={compileTimeLimitMinValue}
                                 max={compileTimeLimitMaxValue}
-                                step={100}
+                                step={compileTimeLImitStepValue}
                                 className="w-fit text-right dark:bg-gray-800 dark:text-gray-100"
                                 value={compileTimeLimit}
                                 onChange={handleCompileTimeLimitChange}
@@ -145,10 +158,22 @@ function SettingsModalComponent({
                                 type="number"
                                 min={executionTimeLimitMinValue}
                                 max={executionTimeLimitMaxValue}
-                                step={100}
+                                step={executionTimeLimitStepValue}
                                 className="w-fit text-right dark:bg-gray-800 dark:text-gray-100"
                                 value={executionTimeLimit}
                                 onChange={handleExecutionTimeLimitChange}
+                            />
+                        </div>
+                        <div className="flex flex-row gap-6 justify-between">
+                            <div className="text-sm">Buffer Max Size (in bytes)</div>
+                            <Input
+                                type="number"
+                                min={bufferMaxSizeMinValue}
+                                max={bufferMaxSizeMaxValue}
+                                step={bufferMaxSizeStepValue}
+                                className="w-fit text-right dark:bg-gray-800 dark:text-gray-100"
+                                value={bufferMaxSize}
+                                onChange={handleBufferMaxSizeChange}
                             />
                         </div>
                         <div className="flex flex-row gap-6">
@@ -257,12 +282,11 @@ type CodeEditorProps = {
     sourceCodeValue: string,
     setSourceCodeValue: React.Dispatch<React.SetStateAction<string>>,
     runCodeAction: (language: ProgrammingLanguage) => Promise<void>,
-    settings: SettingsModalComponentProps,
 }
 
 
 
-function CodeEditor({ sourceCodeValue, setSourceCodeValue, runCodeAction, settings }: CodeEditorProps) {
+function CodeEditor({ sourceCodeValue, setSourceCodeValue, runCodeAction }: CodeEditorProps) {
     const monaco = useMonaco()
     const [selectedLanguage, setSelectedLanguage] = React.useState<ProgrammingLanguage>(programmingLanguageList[1])
     const [selectedBoilerPlateCode, setSelectedBoilerPlateCode] = React.useState<BoilerPlateCode>(boilerPlateCodeMap[selectedLanguage.id]["default"])
@@ -350,7 +374,6 @@ function CodeEditor({ sourceCodeValue, setSourceCodeValue, runCodeAction, settin
 
                     </button>
                     <SettingsModalComponent
-                        {...settings}
                     />
                     <LanguageSelector
                         selectedLanguage={selectedLanguage}
@@ -556,21 +579,14 @@ function RightPart(props: RightPartProps) {
 }
 
 
-export default function EditorPage() {
+export function EditorPage() {
     const [sourceCodeValue, setSourceCodeValue] = React.useState<string>("")
     const [inputTextValue, setInputTextValue] = React.useState<string>("")
     const [stdoutValue, setStdoutValue] = React.useState<string>("")
     const [stderrValue, setStderrValue] = React.useState<string>("")
     const [timeElpased, setTimeElapsed] = React.useState<string>("nil")
     const [selectedRightPartTab, setSelectedRightPartTab] = React.useState<RightPartTab>(RightPartTab.IO)
-    const compileTimeLimitMinValue: number = 500
-    const compileTimeLimitMaxValue: number = 3000
-    const compileTimeLimitDefaultValue: number = 2000
-    const executionTimeLimitMinValue: number = 300
-    const executionTimeLimitMaxValue: number = 500
-    const executionTimeLimitDefaultValue: number = 500
-    const [compileTimeLimit, setCompileTimeLimit] = React.useState<number>(compileTimeLimitDefaultValue)
-    const [executionTimeLimit, setExecutionTimeLimit] = React.useState<number>(executionTimeLimitDefaultValue)
+    const { compileTimeLimit, executionTimeLimit, bufferMaxSize } = usePlaygroundPreferencesContext()
 
     const runCodeAction = async (language: ProgrammingLanguage) => {
         const bodyObj = {
@@ -578,8 +594,11 @@ export default function EditorPage() {
             inputText: inputTextValue,
             compileTimeLimit: compileTimeLimit,
             executionTimeLimit: executionTimeLimit,
+            bufferMaxSize: bufferMaxSize,
             language: language.name,
         }
+
+        // console.log("Body of request ", bodyObj)
 
         try {
             const res: AxiosResponse = await axios.post(
@@ -666,16 +685,6 @@ export default function EditorPage() {
                         sourceCodeValue={sourceCodeValue}
                         setSourceCodeValue={setSourceCodeValue}
                         runCodeAction={runCodeAction}
-                        settings={{
-                            compileTimeLimit: compileTimeLimit,
-                            setCompileTimeLimit: setCompileTimeLimit,
-                            compileTimeLimitMinValue: compileTimeLimitMinValue,
-                            compileTimeLimitMaxValue: compileTimeLimitMaxValue,
-                            executionTimeLimit: executionTimeLimit,
-                            setExecutionTimeLimit: setExecutionTimeLimit,
-                            executionTimeLimitMinValue: executionTimeLimitMinValue,
-                            executionTimeLimitMaxValue: executionTimeLimitMaxValue,
-                        }}
                     />
                     <RightPart
                         inputTextValue={inputTextValue}
@@ -694,8 +703,17 @@ export default function EditorPage() {
                 </Split>
             </div>
             <ToastContainer />
-        </main>
+        </main >
     )
 
 
+}
+
+
+export default function EditorPageWrapper() {
+    return (
+        <PlaygroundPreferencesProvider>
+            <EditorPage />
+        </PlaygroundPreferencesProvider>
+    )
 }

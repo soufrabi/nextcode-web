@@ -7,7 +7,7 @@ import axios, { AxiosResponse } from "axios";
 export async function POST(request: NextRequest) {
     try {
         const reqBody = await request.json()
-        const { sourceCode, inputText, compileTimeLimit, executionTimeLimit, language } = reqBody
+        const { sourceCode, inputText, compileTimeLimit, executionTimeLimit, bufferMaxSize, language } = reqBody
         console.log(reqBody)
 
         if (typeof process.env.RCEE_SERVER_ADDRESS === undefined ||
@@ -28,6 +28,7 @@ export async function POST(request: NextRequest) {
                 inputText: inputText,
                 compileTimeLimit: compileTimeLimit,
                 executionTimeLimit: executionTimeLimit,
+                bufferMaxSize: bufferMaxSize,
                 language: language,
             })
 
