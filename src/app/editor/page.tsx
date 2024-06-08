@@ -432,6 +432,7 @@ function InputBox(props: { value: string, setValue: React.Dispatch<React.SetStat
                 value={props.value}
                 onChange={handleChange}
                 spellCheck={false}
+                maxLength={1_000}
             // placeholder="stdin"
             />
         </div>
