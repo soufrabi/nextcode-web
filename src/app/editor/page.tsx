@@ -580,7 +580,7 @@ function RightPart(props: RightPartProps) {
 }
 
 
-export function EditorPage() {
+function EditorPage() {
     const [sourceCodeValue, setSourceCodeValue] = React.useState<string>("")
     const [inputTextValue, setInputTextValue] = React.useState<string>("")
     const [stdoutValue, setStdoutValue] = React.useState<string>("")
