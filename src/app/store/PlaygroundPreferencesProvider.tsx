@@ -18,17 +18,17 @@ const bufferMaxSizeDefaultValue: number = 1000
 
 type PlaygroundPreferencesType = {
     compileTimeLimit: number,
-    setCompileTimeLimitInLocalStorage: (newValue: number) => void,
+    setCompileTimeLimitInLocalStorage: (newValue: number) => boolean,
     compileTimeLimitMinValue: number,
     compileTimeLimitMaxValue: number,
     compileTimeLImitStepValue: number,
     executionTimeLimit: number,
-    setExecutionTimeLimitInLocalStorage: (newValue: number) => void
+    setExecutionTimeLimitInLocalStorage: (newValue: number) => boolean
     executionTimeLimitMinValue: number,
     executionTimeLimitMaxValue: number,
     executionTimeLimitStepValue: number,
     bufferMaxSize: number,
-    setBufferMaxSizeInLocalStorage: (newValue: number) => void
+    setBufferMaxSizeInLocalStorage: (newValue: number) => boolean
     bufferMaxSizeMinValue: number,
     bufferMaxSizeMaxValue: number,
     bufferMaxSizeStepValue: number,
@@ -38,17 +38,17 @@ type PlaygroundPreferencesType = {
 const PlaygroundPreferencesContext = createContext<PlaygroundPreferencesType>({
 
     compileTimeLimit: compileTimeLimitDefaultValue,
-    setCompileTimeLimitInLocalStorage: () => { },
+    setCompileTimeLimitInLocalStorage: () => { return false },
     compileTimeLimitMinValue,
     compileTimeLimitMaxValue,
     compileTimeLImitStepValue,
     executionTimeLimit: executionTimeLimitDefaultValue,
-    setExecutionTimeLimitInLocalStorage: () => { },
+    setExecutionTimeLimitInLocalStorage: () => { return false },
     executionTimeLimitMinValue,
     executionTimeLimitMaxValue,
     executionTimeLimitStepValue,
     bufferMaxSize: bufferMaxSizeDefaultValue,
-    setBufferMaxSizeInLocalStorage: () => { },
+    setBufferMaxSizeInLocalStorage: () => { return false },
     bufferMaxSizeMinValue,
     bufferMaxSizeMaxValue,
     bufferMaxSizeStepValue,
@@ -64,18 +64,56 @@ export default function PlaygroundPreferencesProvider({
     const [executionTimeLimit, setExecutionTimeLimit] = useState<number>(executionTimeLimitDefaultValue)
     const [bufferMaxSize, setBufferMaxSize] = useState<number>(bufferMaxSizeDefaultValue)
 
+    const isCompileTimeLimitValid: (num: number) => boolean = (num) => {
+        if (compileTimeLimitMinValue <= num && num <= compileTimeLimitMaxValue) {
+            return true
+        } else {
+            return false
+        }
+    }
+    const isExecutionTimeLimitValid: (num: number) => boolean = (num) => {
+        if (executionTimeLimitMinValue <= num && num <= executionTimeLimitMaxValue) {
+            return true
+        } else {
+            return false
+        }
+    }
+    const isBufferMaxSizeValid: (num: number) => boolean = (num) => {
+        if (bufferMaxSizeMinValue <= num && num <= bufferMaxSizeMaxValue) {
+            return true
+        } else {
+            return false
+        }
+    }
+
+
     const setCompileTimeLimitInLocalStorage = (newValue: number) => {
-        setCompileTimeLimit(newValue)
-        localStorage.setItem('playground-preferences-compile-time-limit', newValue.toString())
+        if (isCompileTimeLimitValid(newValue)) {
+            setCompileTimeLimit(newValue)
+            localStorage.setItem('playground-preferences-compile-time-limit', newValue.toString())
+            return true
+        } else {
+            return false
+        }
     }
 
     const setExecutionTimeLimitInLocalStorage = (newValue: number) => {
-        setExecutionTimeLimit(newValue)
-        localStorage.setItem('playground-preferences-execution-time-limit', newValue.toString())
+        if (isExecutionTimeLimitValid(newValue)) {
+            setExecutionTimeLimit(newValue)
+            localStorage.setItem('playground-preferences-execution-time-limit', newValue.toString())
+            return true
+        } else {
+            return false
+        }
     }
     const setBufferMaxSizeInLocalStorage = (newValue: number) => {
-        setBufferMaxSize(newValue)
-        localStorage.setItem('playground-preferences-buffer-max-size', newValue.toString())
+        if (isBufferMaxSizeValid(newValue)) {
+            setBufferMaxSize(newValue)
+            localStorage.setItem('playground-preferences-buffer-max-size', newValue.toString())
+            return true
+        } else {
+            return false
+        }
     }
 
     const loadValuesFromLocalStorage = () => {
