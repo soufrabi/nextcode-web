@@ -8,7 +8,7 @@ export async function POST(request: NextRequest) {
     try {
         const reqBody = await request.json()
         const { sourceCode, inputText, compileTimeLimit, executionTimeLimit, bufferMaxSize, language } = reqBody
-        console.log(reqBody)
+        console.log("Request Body", reqBody)
 
         if (typeof process.env.RCEE_SERVER_ADDRESS === undefined ||
             typeof process.env.RCEE_SERVER_ADDRESS !== 'string' ||
@@ -32,7 +32,7 @@ export async function POST(request: NextRequest) {
                 language: language,
             })
 
-            // console.log(res.data)
+            console.log("Response Data", res.data)
 
             return NextResponse.json({
                 // Successfully parsed response sent by golang server

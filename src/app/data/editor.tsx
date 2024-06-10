@@ -2,6 +2,9 @@
 enum ProgrammingLanguageID {
     C_11,
     CPP_20,
+    JAVA_17,
+    PYTHON_312,
+    GO_121,
 }
 
 type ProgrammingLanguage = {
@@ -99,7 +102,6 @@ int32_t main(int32_t argc, char *argv[]){
 
 `
 
-/*
 
 const boilerPlateJavaDefault = `import java.io.*;
 
@@ -133,7 +135,6 @@ func main() {
 
 `
 
-*/
 
 
 
@@ -158,7 +159,28 @@ const boilerPlateCodeMap: { [key in ProgrammingLanguageID]: { [key: string]: Boi
             description: "",
             code: boilerPlateCppCp1,
         }
-    }
+    },
+    [ProgrammingLanguageID.JAVA_17]: {
+        "default": {
+            name: "default",
+            description: "default",
+            code: boilerPlateJavaDefault
+        },
+    },
+    [ProgrammingLanguageID.PYTHON_312]: {
+        "default": {
+            name: "default",
+            description: "default",
+            code: boilerPlatePythonDefault,
+        },
+    },
+    [ProgrammingLanguageID.GO_121]: {
+        "default": {
+            name: "default",
+            description: "default",
+            code: boilerPlateGoDefault,
+        },
+    },
 
 }
 
@@ -173,6 +195,24 @@ const programmingLanguageList: Array<ProgrammingLanguage> = [
         id: ProgrammingLanguageID.CPP_20,
         name: 'GNU G++20',
         monaco: "cpp",
+        available: true
+    },
+    {
+        id: ProgrammingLanguageID.JAVA_17,
+        name: 'Java 17',
+        monaco: "java",
+        available: true
+    },
+    {
+        id: ProgrammingLanguageID.PYTHON_312,
+        name: 'Python 3.12',
+        monaco: "python",
+        available: true
+    },
+    {
+        id: ProgrammingLanguageID.GO_121,
+        name: 'Go 1.21',
+        monaco: "go",
         available: true
     },
 ]

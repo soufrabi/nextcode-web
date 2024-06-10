@@ -537,7 +537,7 @@ function RightPart(props: RightPartProps) {
                         <span className="text-sm/6">Error</span>
                     </button>
                 </div>
-                <div className="w-full h-full dark:bg-black text-white">
+                <div className="w-full h-full dark:bg-black dark:text-white">
                     {props.selectedTab === RightPartTab.IO &&
                         <Split
                             sizes={[50, 50]}
