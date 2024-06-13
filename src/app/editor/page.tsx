@@ -2,7 +2,7 @@
 
 import React from "react"
 import Image from "next/image"
-import { useRouter } from "next/navigation"
+import Link from "next/link"
 import { Editor, useMonaco } from "@monaco-editor/react"
 import Split from "react-split"
 import { FaPlay } from "react-icons/fa"
@@ -33,12 +33,11 @@ type TemplateSelectorProps = {
 
 
 function NavBar() {
-    const router = useRouter()
     return (
         <div className="w-full h-12 flex flex-row items-center bg-slate-100 dark:bg-slate-800 dark:text-slate-100 px-6 py-4 mb-4">
-            <div
+            <Link
+                href={"/"}
                 className="flex flex-row gap-4 items-center cursor-pointer"
-                onClick={() => { router.push("/") }}
             >
                 <Image
                     src={"/nextcode-logo.png"}
@@ -52,7 +51,7 @@ function NavBar() {
                     NextCode
                 </span>
 
-            </div>
+            </Link>
         </div>
     )
 

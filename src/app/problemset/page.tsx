@@ -3,7 +3,7 @@
 import Image from "next/image"
 import clsx from "clsx"
 import { nanoid } from "nanoid"
-import { useRouter } from "next/navigation"
+import Link from "next/link"
 
 enum ProblemDifficultData {
     EASY,
@@ -23,14 +23,12 @@ type ProblemData = {
 }
 
 function NavBar() {
-    const router = useRouter()
-
     return (
         <div className="w-full h-12 flex flex-row justify-around py-3 shadow-sm">
             <div className="flex flex-row gap-6 items-center">
-                <div
+                <Link
+                    href={"/"}
                     className="cursor-pointer"
-                    onClick={() => { router.push("/") }}
                     onContextMenu={(ev: React.MouseEvent) => { ev.preventDefault() }}
                 >
                     <Image
@@ -40,55 +38,55 @@ function NavBar() {
                         height={25}
                         className="rounded-2xl"
                     />
-                </div>
-                <div
+                </Link>
+                <Link
+                    href={"/"}
                     className="cursor-pointer"
-                    onClick={() => { router.push("/") }}
                 >
                     <span
                         className="text-gray-500"
                     >Explore</span>
-                </div>
-                <div
+                </Link>
+                <Link
+                    href={"/problemset"}
                     className="cursor-pointer"
-                    onClick={() => { router.push("/problemset") }}
                 >
                     <span
                         className="text-black"
                     >Problems</span>
-                </div>
-                <div
+                </Link>
+                <Link
+                    href={"/"}
                     className="cursor-pointer"
-                    onClick={() => { router.push("/") }}
                 >
                     <span
                         className="text-gray-500"
                     >Contest</span>
-                </div>
-                <div
+                </Link>
+                <Link
+                    href={"/"}
                     className="cursor-pointer"
-                    onClick={() => { router.push("/") }}
                 >
                     <span
                         className="text-gray-500"
                     >Discuss</span>
-                </div>
-                <div
+                </Link>
+                <Link
+                    href={"/"}
                     className="cursor-pointer"
-                    onClick={() => { router.push("/") }}
                 >
                     <span
                         className="text-gray-500"
                     >Interview</span>
-                </div>
-                <div
+                </Link>
+                <Link
+                    href={"/"}
                     className="cursor-pointer"
-                    onClick={() => { router.push("/") }}
                 >
                     <span
                         className="text-gray-500"
                     >Store</span>
-                </div>
+                </Link>
             </div>
             <div className="flex flex-row items-center">
                 <div className="cursor-pointer">
@@ -104,7 +102,6 @@ function NavBar() {
 
 
 function ProblemTable() {
-    const router = useRouter()
 
     const problemDataList: Array<ProblemData> = [
         {
@@ -214,11 +211,14 @@ function ProblemTable() {
                                     {el.status}
                                 </td>
                                 <td
-                                    onClick={() => { router.push(`/problems/${el.titleSlug}`) }}
                                     className="hover:text-blue-600 select-none"
                                 >
-                                    <span
-                                    >{el.title}</span>
+                                    <Link
+                                        href={`/problems/${el.titleSlug}`}
+                                    >
+                                        <span
+                                        >{el.title}</span>
+                                    </Link>
                                 </td>
                                 <td
                                     className="p-3"

@@ -2,7 +2,7 @@
 
 import React from "react";
 import { nanoid } from "nanoid";
-import { useParams, useRouter } from "next/navigation"
+import Link from "next/link";
 import Image from "next/image";
 import { Editor } from "@monaco-editor/react";
 import { Disclosure, DisclosureButton, DisclosurePanel } from "@headlessui/react";
@@ -604,24 +604,14 @@ function RightPart() {
 
 
 function NavBar() {
-    const params = useParams<{ id: string }>()
-    const router = useRouter()
-
-    const handleAppLogoIconClick = () => {
-        router.push("/")
-    }
-    const handleAppLogoIconContextMenu = (ev: React.MouseEvent<HTMLButtonElement>) => {
-        ev.preventDefault()
-        window.open(`https://leetcode.com/problems/${params.id}`, "_blank")
-    }
 
     return (
         <div className="w-full px-6 ">
             <nav className="flex justify-center md:justify-between items-center md:mx-auto bg-[f0f0f0] h-10">
                 <div className="flex items-center gap-4">
-                    <button
-                        onClick={handleAppLogoIconClick}
-                        onContextMenu={handleAppLogoIconContextMenu}
+                    <Link
+                        href={"/"}
+                        className="cursor-pointer"
                     >
                         <Image
                             src="/nextcode-logo.png"
@@ -630,15 +620,15 @@ function NavBar() {
                             height={20}
                             className="rounded-full"
                         />
-                    </button>
+                    </Link>
                     <div className="hidden md:flex gap-0 items-center">
-                        <button
+                        <Link
+                            href={"/problemset"}
                             className="flex flex-row gap-2 items-center px-2 py-1 hover:shadow-customhovereffect"
-                            onClick={() => { router.push("/problemset") }}
                         >
                             <RiPlayList2Fill className="h-4 w-4" />
                             <span className="text-sm">Problem List</span>
-                        </button>
+                        </Link>
                         <button
                             className="px-1.5 py-1 hover:shadow-customhovereffect"
                         >
