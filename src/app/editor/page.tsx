@@ -20,7 +20,7 @@ import type { ProgrammingLanguage, BoilerPlateCode } from "@/app/data/editor"
 import { programmingLanguageList, boilerPlateCodeMap } from "@/app/data/editor"
 import 'react-toastify/dist/ReactToastify.css';
 import { nanoid } from "nanoid"
-import { useThemeContext } from "../store/ThemeProvider"
+import ThemeProvider, { useThemeContext } from "../store/ThemeProvider"
 import PlaygroundPreferencesProvider, { usePlaygroundPreferencesContext } from "../store/PlaygroundPreferencesProvider"
 
 type TemplateSelectorProps = {
@@ -712,8 +712,10 @@ function EditorPage() {
 
 export default function EditorPageWrapper() {
     return (
-        <PlaygroundPreferencesProvider>
-            <EditorPage />
-        </PlaygroundPreferencesProvider>
+        <ThemeProvider>
+            <PlaygroundPreferencesProvider>
+                <EditorPage />
+            </PlaygroundPreferencesProvider>
+        </ThemeProvider>
     )
 }
