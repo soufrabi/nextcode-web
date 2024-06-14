@@ -132,7 +132,7 @@ function LeftPart() {
     const [currentActiveTab, setCurrentActiveTab] = React.useState<LeftPartTabType>(LeftPartTabType.DESCRIPTION)
     return (
         <div className="bg-slate-100 h-full w-full md:pl-2 rounded-2xl">
-            <div className="flex justify-around md:justify-start gap-4 ">
+            <div className="flex justify-around md:justify-start gap-4 overflow-x-clip">
                 <button
                     className={`w-full md:w-auto flex gap-1 justify-center items-center rounded-xl p-2 hover:shadow-customhovereffect ${currentActiveTab !== LeftPartTabType.DESCRIPTION ? "opacity-50" : ""}`}
                     onClick={() => { setCurrentActiveTab(LeftPartTabType.DESCRIPTION) }}
