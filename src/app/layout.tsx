@@ -5,14 +5,16 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "NextCode",
-  description: "Your personal coding platform",
+    title: "NextCode",
+    description: "Your personal coding platform",
 };
 
-export default function RootLayout({
-  children,
+
+
+export default async function RootLayout({
+    children,
 }: Readonly<{
-  children: React.ReactNode;
+    children: React.ReactNode;
 }>) {
 
 
