@@ -22,6 +22,9 @@ import 'react-toastify/dist/ReactToastify.css';
 import { nanoid } from "nanoid"
 import ThemeProvider, { useThemeContext } from "../store/ThemeProvider"
 import PlaygroundPreferencesProvider, { usePlaygroundPreferencesContext } from "../store/PlaygroundPreferencesProvider"
+import { UserProfileDropDownComponent } from "../components/UserProfileDropDownComponent"
+import { PremiumButton } from "../components/PremiumButton"
+import { RegisterOrSignIn } from "../components/RegisterOrSignIn"
 
 type TemplateSelectorProps = {
     boilerPlateCodeMapForSelectedLanguage: { [key: string]: BoilerPlateCode },
@@ -34,13 +37,13 @@ type TemplateSelectorProps = {
 
 function NavBar() {
     return (
-        <div className="w-full h-12 flex flex-row items-center bg-slate-100 dark:bg-slate-800 dark:text-slate-100 px-6 py-4 mb-4">
+        <div className="w-full h-12 flex flex-row justify-between items-center bg-slate-100 dark:bg-slate-800 dark:text-slate-100 px-6 py-4 mb-4">
             <Link
                 href={"/"}
                 className="flex flex-row gap-4 items-center cursor-pointer"
             >
                 <Image
-                    src={"/nextcode-logo.png"}
+                    src={"/nextcode-logo-64x64.jpeg"}
                     alt="nextcode logo"
                     width={25}
                     height={25}
@@ -52,6 +55,14 @@ function NavBar() {
                 </span>
 
             </Link>
+
+            <div className="flex flex-row gap-2">
+                {
+                    true ? <UserProfileDropDownComponent />
+                        : <RegisterOrSignIn />
+                }
+                <PremiumButton />
+            </div>
         </div>
     )
 
