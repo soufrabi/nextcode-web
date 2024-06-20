@@ -71,7 +71,8 @@ export function UserProfileDropDownComponent() {
                             className=''
                         >Theme</span>
                     </div>
-                    <div
+                    <Link
+                        href={"/api/auth/signout?callbackUrl=/"}
                         className="flex flex-row gap-2 cursor-pointer py-2.5 px-2"
                     >
                         <IoMdExit
@@ -80,7 +81,7 @@ export function UserProfileDropDownComponent() {
                         <span
                             className=''
                         >Sign Out</span>
-                    </div>
+                    </Link>
                 </div>
 
             </PopoverPanel>
