@@ -201,7 +201,7 @@ const programmingLanguageList: Array<ProgrammingLanguage> = [
         id: ProgrammingLanguageID.JAVA_17,
         name: 'Java 17',
         monaco: "java",
-        available: true
+        available: false,
     },
     {
         id: ProgrammingLanguageID.PYTHON_312,
@@ -213,7 +213,7 @@ const programmingLanguageList: Array<ProgrammingLanguage> = [
         id: ProgrammingLanguageID.GO_121,
         name: 'Go 1.21',
         monaco: "go",
-        available: true
+        available: false,
     },
 ]
 
