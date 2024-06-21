@@ -1,8 +1,7 @@
 import Image from "next/image"
 import Link from "next/link"
-import { RegisterOrSignIn } from "./RegisterOrSignIn"
-import { UserProfileDropDownComponent } from "./UserProfileDropDownComponent"
 import { PremiumButton } from "./PremiumButton"
+import { AuthenticateOrUserProfileComponent } from "./AuthenticateOrUserProfileComponent"
 
 export function NavBar() {
     return (
@@ -71,10 +70,7 @@ export function NavBar() {
                 </Link>
             </div>
             <div className="flex flex-row gap-3 justify-center items-center">
-                {
-                    false ? <RegisterOrSignIn />
-                        : <UserProfileDropDownComponent />
-                }
+                <AuthenticateOrUserProfileComponent />
                 <PremiumButton />
             </div>
 

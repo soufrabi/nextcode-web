@@ -32,8 +32,7 @@ import { ToastContainer, toast } from "react-toastify";
 import Split from "react-split";
 import { MediaContextProvider, Media } from "../../components/media"
 import 'react-toastify/dist/ReactToastify.css';
-import { UserProfileDropDownComponent } from "@/app/components/UserProfileDropDownComponent";
-import { RegisterOrSignIn } from "@/app/components/RegisterOrSignIn";
+import { AuthenticateOrUserProfileComponent } from "@/app/components/AuthenticateOrUserProfileComponent";
 import { PremiumButton } from "@/app/components/PremiumButton";
 
 
@@ -677,10 +676,7 @@ function NavBar() {
                 <button className="px-2 py-1 hover:shadow-customhovereffect">
                     <IoSettingsOutline className="h-5 w-5" />
                 </button>
-                {
-                    false ? <RegisterOrSignIn />
-                        : <UserProfileDropDownComponent />
-                }
+                <AuthenticateOrUserProfileComponent />
                 <PremiumButton />
             </div>
         </nav>

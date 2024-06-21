@@ -22,9 +22,9 @@ import 'react-toastify/dist/ReactToastify.css';
 import { nanoid } from "nanoid"
 import ThemeProvider, { useThemeContext } from "../store/ThemeProvider"
 import PlaygroundPreferencesProvider, { usePlaygroundPreferencesContext } from "../store/PlaygroundPreferencesProvider"
-import { UserProfileDropDownComponent } from "../components/UserProfileDropDownComponent"
 import { PremiumButton } from "../components/PremiumButton"
-import { RegisterOrSignIn } from "../components/RegisterOrSignIn"
+import { AuthenticateOrUserProfileComponent } from "../components/AuthenticateOrUserProfileComponent"
+import { useSession } from "next-auth/react"
 
 type TemplateSelectorProps = {
     boilerPlateCodeMapForSelectedLanguage: { [key: string]: BoilerPlateCode },
@@ -57,10 +57,7 @@ function NavBar() {
             </Link>
 
             <div className="flex flex-row gap-2">
-                {
-                    true ? <UserProfileDropDownComponent />
-                        : <RegisterOrSignIn />
-                }
+                <AuthenticateOrUserProfileComponent />
                 <PremiumButton />
             </div>
         </div>
