@@ -2,10 +2,20 @@
 
 import { NextRequest, NextResponse } from "next/server";
 import axios, { AxiosResponse } from "axios";
+import { getServerSession } from "next-auth";
 
 
 export async function POST(request: NextRequest) {
     try {
+        const session = await getServerSession()
+        if (!session) {
+            return NextResponse.json({
+                error: "User is not authenticated"
+            }, {
+                status: 401
+            })
+        }
+
         const reqBody = await request.json()
         const { sourceCode, inputText, compileTimeLimit, executionTimeLimit, bufferMaxSize, language } = reqBody
         console.log("Request Body", reqBody)
