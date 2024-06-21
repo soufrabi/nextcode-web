@@ -141,6 +141,13 @@ func main() {
 // maps langID to list of boilter plate code
 // key and name must be same
 const boilerPlateCodeMap: { [key in ProgrammingLanguageID]: { [key: string]: BoilerPlateCode } } = {
+    [ProgrammingLanguageID.PYTHON_312]: {
+        "default": {
+            name: "default",
+            description: "default",
+            code: boilerPlatePythonDefault,
+        },
+    },
     [ProgrammingLanguageID.C_11]: {
         "default": {
             name: "default",
@@ -167,13 +174,6 @@ const boilerPlateCodeMap: { [key in ProgrammingLanguageID]: { [key: string]: Boi
             code: boilerPlateJavaDefault
         },
     },
-    [ProgrammingLanguageID.PYTHON_312]: {
-        "default": {
-            name: "default",
-            description: "default",
-            code: boilerPlatePythonDefault,
-        },
-    },
     [ProgrammingLanguageID.GO_121]: {
         "default": {
             name: "default",
@@ -185,6 +185,12 @@ const boilerPlateCodeMap: { [key in ProgrammingLanguageID]: { [key: string]: Boi
 }
 
 const programmingLanguageList: Array<ProgrammingLanguage> = [
+    {
+        id: ProgrammingLanguageID.PYTHON_312,
+        name: 'Python 3.12',
+        monaco: "python",
+        available: true
+    },
     {
         id: ProgrammingLanguageID.C_11,
         name: 'GNU GCC C11',
@@ -202,12 +208,6 @@ const programmingLanguageList: Array<ProgrammingLanguage> = [
         name: 'Java 17',
         monaco: "java",
         available: false,
-    },
-    {
-        id: ProgrammingLanguageID.PYTHON_312,
-        name: 'Python 3.12',
-        monaco: "python",
-        available: true
     },
     {
         id: ProgrammingLanguageID.GO_121,

@@ -298,7 +298,7 @@ type CodeEditorProps = {
 
 function CodeEditor({ sourceCodeValue, setSourceCodeValue, runCodeAction }: CodeEditorProps) {
     const monaco = useMonaco()
-    const [selectedLanguage, setSelectedLanguage] = React.useState<ProgrammingLanguage>(programmingLanguageList[1])
+    const [selectedLanguage, setSelectedLanguage] = React.useState<ProgrammingLanguage>(programmingLanguageList[0])
     const [selectedBoilerPlateCode, setSelectedBoilerPlateCode] = React.useState<BoilerPlateCode>(boilerPlateCodeMap[selectedLanguage.id]["default"])
     // time and delay are measured in milliseconds
     const [runCodeButtonLastClicked, setRunCodeButtonLastClicked] = React.useState<number | null>(null)
