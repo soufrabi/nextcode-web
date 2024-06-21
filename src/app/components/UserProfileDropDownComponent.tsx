@@ -5,8 +5,15 @@ import { CgDarkMode } from "react-icons/cg";
 import Link from 'next/link';
 import { RiFileListLine } from 'react-icons/ri';
 import { AiOutlineExperiment } from 'react-icons/ai';
+import { signOut } from 'next-auth/react';
+import { Session } from 'next-auth';
 
-export function UserProfileDropDownComponent() {
+type UserProfileDropDownComponentProps = {
+    session: Session
+}
+
+
+export function UserProfileDropDownComponent({ session }: UserProfileDropDownComponentProps) {
     return (
         <Popover
             className="relative"
@@ -25,13 +32,26 @@ export function UserProfileDropDownComponent() {
                     href={"/profile"}
 
                     className='flex flex-row gap-3.5 py-1 px-1'>
-                    <FaCircleUser
-                        className='w-16 h-16 cursor-pointer'
-                    />
+                    {
+                        (session.user && session.user.image) ?
+                            <>
+                                <img
+                                    src={session.user.image}
+                                    alt="Profile Picture"
+                                    width={64}
+                                    height={64}
+                                    className='cursor-pointer'
+                                />
+                            </>
+                            :
+                            <FaCircleUser
+                                className='w-16 h-16 cursor-pointer'
+                            />
+                    }
                     <div className="flex flex-col justify-center">
                         <span
                             className='text-lg font-semibold'
-                        >John Doe</span>
+                        >{session.user?.name || "John Doe"}</span>
                         <Link
                             href="/premium">
                             <span
@@ -71,8 +91,8 @@ export function UserProfileDropDownComponent() {
                             className=''
                         >Theme</span>
                     </div>
-                    <Link
-                        href={"/api/auth/signout?callbackUrl=/"}
+                    <div
+                        onClick={() => { signOut() }}
                         className="flex flex-row gap-2 cursor-pointer py-2.5 px-2"
                     >
                         <IoMdExit
@@ -81,7 +101,7 @@ export function UserProfileDropDownComponent() {
                         <span
                             className=''
                         >Sign Out</span>
-                    </Link>
+                    </div>
                 </div>
 
             </PopoverPanel>
