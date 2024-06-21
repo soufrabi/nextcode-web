@@ -4,17 +4,17 @@ import { ReactNode, createContext, useContext, useEffect, useState } from "react
 
 
 const compileTimeLimitMinValue: number = 500
-const compileTimeLimitMaxValue: number = 3000
+const compileTimeLimitMaxValue: number = 3_000
 const compileTimeLImitStepValue: number = 100
-const compileTimeLimitDefaultValue: number = 2000
+const compileTimeLimitDefaultValue: number = 2_000
 const executionTimeLimitMinValue: number = 100
 const executionTimeLimitMaxValue: number = 1_000
 const executionTimeLimitStepValue: number = 100
 const executionTimeLimitDefaultValue: number = 500
 const bufferMaxSizeMinValue: number = 50
-const bufferMaxSizeMaxValue: number = 5000
+const bufferMaxSizeMaxValue: number = 5_000
 const bufferMaxSizeStepValue: number = 50
-const bufferMaxSizeDefaultValue: number = 1000
+const bufferMaxSizeDefaultValue: number = 1_000
 
 type PlaygroundPreferencesType = {
     compileTimeLimit: number,
