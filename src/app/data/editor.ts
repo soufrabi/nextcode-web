@@ -5,6 +5,7 @@ enum ProgrammingLanguageID {
     JAVA_17,
     PYTHON_312,
     GO_121,
+    JAVASCRIPT_NODE_20,
 }
 
 type ProgrammingLanguage = {
@@ -135,6 +136,12 @@ func main() {
 
 `
 
+const boilerPlateJavascriptDefault = `// Write your Javascript code here
+
+console.log("Hello World from Javascript")
+console.log("Subscribe to Premium for more features")
+`
+
 
 
 
@@ -146,6 +153,13 @@ const boilerPlateCodeMap: { [key in ProgrammingLanguageID]: { [key: string]: Boi
             name: "default",
             description: "default",
             code: boilerPlatePythonDefault,
+        },
+    },
+    [ProgrammingLanguageID.JAVASCRIPT_NODE_20]: {
+        "default": {
+            name: "default",
+            description: "default",
+            code: boilerPlateJavascriptDefault,
         },
     },
     [ProgrammingLanguageID.C_11]: {
@@ -189,6 +203,12 @@ const programmingLanguageList: Array<ProgrammingLanguage> = [
         id: ProgrammingLanguageID.PYTHON_312,
         name: 'Python 3.12',
         monaco: "python",
+        available: true
+    },
+    {
+        id: ProgrammingLanguageID.JAVASCRIPT_NODE_20,
+        name: 'Javascript Node 20',
+        monaco: "javascript",
         available: true
     },
     {
