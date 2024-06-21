@@ -55,7 +55,7 @@ export async function POST(request: NextRequest) {
         } catch (err: any) {
             // console.error(err)
             return NextResponse.json({
-                // Could not connect connect to the golang server
+                // failed to connect connect to the golang server
                 error: "Internal Server Error : 1",
                 // errorDetail: JSON.stringify(err)
             }, {

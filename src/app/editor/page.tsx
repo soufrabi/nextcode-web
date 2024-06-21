@@ -669,13 +669,13 @@ function EditorPage() {
             } catch (err) {
                 // console.error(err)
                 setSelectedRightPartTab(RightPartTab.Error)
-                setStderrValue("Error : Could not parse data coming from server")
+                setStderrValue("Error : failed to parse data coming from server")
             }
 
             // setStdoutValue(JSON.stringify(res.data))
         } catch (err) {
             setSelectedRightPartTab(RightPartTab.Error)
-            setStderrValue("Error : Could not connect to api server")
+            setStderrValue("Error : failed to connect to api server")
             // console.error(err)
 
 
