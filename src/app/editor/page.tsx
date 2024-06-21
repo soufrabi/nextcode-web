@@ -294,6 +294,7 @@ type CodeEditorProps = {
 
 
 function CodeEditor({ sourceCodeValue, setSourceCodeValue, runCodeAction }: CodeEditorProps) {
+    const { status: authenticationStatus } = useSession()
     const monaco = useMonaco()
     const [selectedLanguage, setSelectedLanguage] = React.useState<ProgrammingLanguage>(programmingLanguageList[0])
     const [selectedBoilerPlateCode, setSelectedBoilerPlateCode] = React.useState<BoilerPlateCode>(boilerPlateCodeMap[selectedLanguage.id]["default"])
@@ -351,8 +352,6 @@ function CodeEditor({ sourceCodeValue, setSourceCodeValue, runCodeAction }: Code
         setSourceCodeValue(selectedBoilerPlateCode.code)
     }, [setSourceCodeValue, selectedBoilerPlateCode])
 
-
-
     return (
 
         <div
@@ -360,15 +359,26 @@ function CodeEditor({ sourceCodeValue, setSourceCodeValue, runCodeAction }: Code
         >
             <div className="pb-2 flex flex-row justify-between">
                 <button
-                    className="bg-green-200 dark:bg-green-600 dark:text-gray-200 px-4 py-2 rounded-2xl flex flex-row gap-2 items-center hover:shadow-customhovereffect"
+                    className="group relative bg-green-200 dark:bg-green-600 dark:text-gray-200 px-4 py-2 rounded-2xl flex flex-row gap-2 items-center hover:shadow-customhovereffect"
                     onClick={handleRunCodeButtonClicked}
+                    disabled={authenticationStatus !== 'authenticated'}
                 >
                     <FaPlay
                         className="h-3 w-3"
                     />
-                    <span>
+                    <span
+                        className="select-none">
                         Run
                     </span>
+                    {
+                        // tooltip
+                        (authenticationStatus !== 'authenticated') &&
+                        <div className="absolute hidden group-hover:flex group-hover:flex-row bg-white px-3 py-1 top-12 -left-1 z-20 rounded-lg shadow-customalldirectionmd">
+                            <span
+                                className="select-none whitespace-nowrap"
+                            >You need to Sign in to Run code</span>
+                        </div>
+                    }
                 </button>
                 <div className="flex flex-row justify-center items-center gap-2">
                     <button
