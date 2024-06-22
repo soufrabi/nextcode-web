@@ -621,7 +621,10 @@ function EditorPage() {
         try {
             const res: AxiosResponse = await axios.post(
                 "/api/v1/run",
-                bodyObj
+                bodyObj,
+                {
+                    timeout: 5000,
+                }
             )
             // console.log(res)
 
@@ -674,10 +677,14 @@ function EditorPage() {
 
             // setStdoutValue(JSON.stringify(res.data))
         } catch (err) {
-            setSelectedRightPartTab(RightPartTab.Error)
-            setStderrValue("Error : failed to connect to api server")
             // console.error(err)
-
+            if (axios.isAxiosError(err) && err.code === 'ECONNABORTED') {
+                setSelectedRightPartTab(RightPartTab.Error)
+                setStderrValue("Error : server took too long to respond")
+            } else {
+                setSelectedRightPartTab(RightPartTab.Error)
+                setStderrValue("Error : failed to connect to api server")
+            }
 
         }
     }
