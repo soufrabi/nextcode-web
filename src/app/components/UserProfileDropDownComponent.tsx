@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react'
 import { FaCircleUser } from "react-icons/fa6";
 import { IoMdExit } from 'react-icons/io';
@@ -35,7 +36,7 @@ export function UserProfileDropDownComponent({ session }: UserProfileDropDownCom
                     {
                         (session.user && session.user.image) ?
                             <>
-                                <img
+                                <Image
                                     src={session.user.image}
                                     alt="Profile Picture"
                                     width={64}
