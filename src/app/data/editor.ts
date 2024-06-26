@@ -60,6 +60,7 @@ const boilerPlateCppCp1: string = `#include<iostream>
 #include<utility>
 #include<tuple>
 #include<algorithm>
+#include<numeric>
 using namespace std;
 
 typedef long long int ll;
