@@ -41,7 +41,7 @@ export async function POST(request: NextRequest) {
                 bufferMaxSize: bufferMaxSize,
                 language: language,
             }, {
-                timeout: 5000,
+                timeout: 7000,
             })
 
             console.log("Response Data", res.data)

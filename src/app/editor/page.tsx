@@ -623,7 +623,7 @@ function EditorPage() {
                 "/api/v1/run",
                 bodyObj,
                 {
-                    timeout: 5000,
+                    timeout: 7000,
                 }
             )
             // console.log(res)
