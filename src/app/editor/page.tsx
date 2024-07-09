@@ -1,30 +1,27 @@
 "use client"
 
 import React from "react"
-import Image from "next/image"
-import Link from "next/link"
 import { Editor, useMonaco } from "@monaco-editor/react"
 import Split from "react-split"
 import { FaPlay } from "react-icons/fa"
 import axios, { AxiosResponse } from "axios"
-import { Input, Listbox, ListboxButton, ListboxOption, ListboxOptions } from "@headlessui/react"
+import { Listbox, ListboxButton, ListboxOption, ListboxOptions } from "@headlessui/react"
 import { HiChevronDown, HiChevronUp } from "react-icons/hi2"
 import { MdErrorOutline } from "react-icons/md"
 import { IoIosCheckboxOutline } from "react-icons/io"
-import { IoTimeOutline, IoSettingsOutline } from "react-icons/io5";
+import { IoTimeOutline} from "react-icons/io5";
 import { BiCodeCurly } from "react-icons/bi";
 import clsx from "clsx"
 import { ToastContainer, toast } from "react-toastify";
-import { Dialog, DialogPanel, DialogTitle, Switch } from '@headlessui/react'
 import type { ProgrammingLanguage, BoilerPlateCode } from "@/app/data/editor"
 import { programmingLanguageList, boilerPlateCodeMap } from "@/app/data/editor"
 import 'react-toastify/dist/ReactToastify.css';
 import { nanoid } from "nanoid"
 import { useThemeContext } from "../store/ThemeProvider"
 import PlaygroundPreferencesProvider, { usePlaygroundPreferencesContext } from "../store/PlaygroundPreferencesProvider"
-import { PremiumButton } from "../components/PremiumButton"
-import { AuthenticateOrUserProfileComponent } from "../components/AuthenticateOrUserProfileComponent"
 import { useSession } from "next-auth/react"
+import { NavBar } from "./Navbar"
+import { SettingsModal } from "./SettingsModal"
 
 type TemplateSelectorProps = {
     boilerPlateCodeMapForSelectedLanguage: { [key: string]: BoilerPlateCode },
@@ -32,166 +29,6 @@ type TemplateSelectorProps = {
     setSelectedBoilerPlateCode: React.Dispatch<React.SetStateAction<BoilerPlateCode>>,
 }
 
-
-
-
-function NavBar() {
-    return (
-        <div className="w-full h-12 flex flex-row justify-between items-center bg-slate-100 dark:bg-slate-800 dark:text-slate-100 px-6 py-4 mb-4">
-            <Link
-                href={"/"}
-                className="flex flex-row gap-4 items-center cursor-pointer"
-            >
-                <Image
-                    src={"/nextcode-logo-64x64.jpeg"}
-                    alt="nextcode logo"
-                    width={25}
-                    height={25}
-
-                    className="rounded-2xl"
-                />
-                <span>
-                    NextCode
-                </span>
-
-            </Link>
-
-            <div className="flex flex-row gap-2">
-                <AuthenticateOrUserProfileComponent />
-                <PremiumButton />
-            </div>
-        </div>
-    )
-
-}
-
-function SettingsModalComponent(
-) {
-
-
-
-    const [isOpen, setIsOpen] = React.useState<boolean>(false)
-    const { isDarkTheme, setIsDarkThemeInLocalStorage } = useThemeContext()
-
-    const {
-        compileTimeLimit,
-        setCompileTimeLimitInLocalStorage,
-        compileTimeLimitMinValue,
-        compileTimeLimitMaxValue,
-        compileTimeLImitStepValue,
-        executionTimeLimit,
-        setExecutionTimeLimitInLocalStorage,
-        executionTimeLimitMinValue,
-        executionTimeLimitMaxValue,
-        executionTimeLimitStepValue,
-        bufferMaxSize,
-        setBufferMaxSizeInLocalStorage,
-        bufferMaxSizeMinValue,
-        bufferMaxSizeMaxValue,
-        bufferMaxSizeStepValue,
-    } = usePlaygroundPreferencesContext()
-
-
-    const handleCompileTimeLimitChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
-        // check if the string can be converted to number
-        const num = parseInt(ev.target.value)
-        if (num) {
-            if (compileTimeLimitMinValue <= num && num <= compileTimeLimitMaxValue) {
-                setCompileTimeLimitInLocalStorage(num)
-            }
-        }
-    }
-
-    const handleExecutionTimeLimitChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
-        // check if the string can be converted to number
-        const num = parseInt(ev.target.value)
-        if (num) {
-            if (executionTimeLimitMinValue <= num && num <= executionTimeLimitMaxValue) {
-                setExecutionTimeLimitInLocalStorage(num)
-            }
-        }
-
-    }
-
-    const handleBufferMaxSizeChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
-        // check if the string can be converted to number
-        const num = parseInt(ev.target.value)
-        if (num) {
-            if (bufferMaxSizeMinValue <= num && num <= bufferMaxSizeMaxValue) {
-                setBufferMaxSizeInLocalStorage(num)
-            }
-        }
-    }
-
-    return (
-        <>
-            <button
-                className="p-2 bg-slate-50 dark:bg-slate-900 dark:text-white rounded-sm"
-                onClick={() => setIsOpen(true)}
-            >
-                <IoSettingsOutline
-                    className="w-6 h-6"
-                />
-            </button>
-            <Dialog open={isOpen} onClose={() => setIsOpen(false)} className="relative z-50">
-                <div className="fixed inset-0 flex w-screen items-center justify-center p-4">
-                    <DialogPanel className="max-w-lg space-y-4 border bg-white p-12 dark:bg-black dark:text-white">
-                        <DialogTitle className="text-lg font-bold">Settings</DialogTitle>
-                        <div className="flex flex-row gap-4 justify-between">
-                            <div className="text-sm">Dark Theme</div>
-                            <Switch
-                                checked={isDarkTheme}
-                                onChange={setIsDarkThemeInLocalStorage}
-                                className="group inline-flex h-6 w-11 items-center rounded-full bg-gray-200 transition data-[checked]:bg-blue-600"
-                            >
-                                <span className="size-4 translate-x-1 rounded-full bg-white transition group-data-[checked]:translate-x-6" />
-                            </Switch>
-                        </div>
-                        <div className="flex flex-row gap-6 justify-between">
-                            <div className="text-sm">Compile Time Limit (in milliseconds)</div>
-                            <Input
-                                type="number"
-                                min={compileTimeLimitMinValue}
-                                max={compileTimeLimitMaxValue}
-                                step={compileTimeLImitStepValue}
-                                className="w-fit text-right dark:bg-gray-800 dark:text-gray-100"
-                                value={compileTimeLimit}
-                                onChange={handleCompileTimeLimitChange}
-                            />
-                        </div>
-                        <div className="flex flex-row gap-6 justify-between">
-                            <div className="text-sm">Execution Time Limit (in milliseconds)</div>
-                            <Input
-                                type="number"
-                                min={executionTimeLimitMinValue}
-                                max={executionTimeLimitMaxValue}
-                                step={executionTimeLimitStepValue}
-                                className="w-fit text-right dark:bg-gray-800 dark:text-gray-100"
-                                value={executionTimeLimit}
-                                onChange={handleExecutionTimeLimitChange}
-                            />
-                        </div>
-                        <div className="flex flex-row gap-6 justify-between">
-                            <div className="text-sm">Buffer Max Size (in bytes)</div>
-                            <Input
-                                type="number"
-                                min={bufferMaxSizeMinValue}
-                                max={bufferMaxSizeMaxValue}
-                                step={bufferMaxSizeStepValue}
-                                className="w-fit text-right dark:bg-gray-800 dark:text-gray-100"
-                                value={bufferMaxSize}
-                                onChange={handleBufferMaxSizeChange}
-                            />
-                        </div>
-                        <div className="flex flex-row gap-6">
-                            <button onClick={() => setIsOpen(false)}>Close</button>
-                        </div>
-                    </DialogPanel>
-                </div>
-            </Dialog>
-        </>
-    )
-}
 
 
 function LanguageSelector(
@@ -390,7 +227,7 @@ function CodeEditor({ sourceCodeValue, setSourceCodeValue, runCodeAction }: Code
                         />
 
                     </button>
-                    <SettingsModalComponent
+                    <SettingsModal
                     />
                     <LanguageSelector
                         selectedLanguage={selectedLanguage}
