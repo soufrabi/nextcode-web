@@ -6,7 +6,7 @@ import Split from "react-split"
 import { FaPlay } from "react-icons/fa"
 import axios, { AxiosResponse } from "axios"
 import { Listbox, ListboxButton, ListboxOption, ListboxOptions } from "@headlessui/react"
-import { HiChevronDown, HiChevronUp } from "react-icons/hi2"
+import { HiChevronUp } from "react-icons/hi2"
 import { MdErrorOutline } from "react-icons/md"
 import { IoIosCheckboxOutline } from "react-icons/io"
 import { IoTimeOutline} from "react-icons/io5";
@@ -22,6 +22,7 @@ import PlaygroundPreferencesProvider, { usePlaygroundPreferencesContext } from "
 import { useSession } from "next-auth/react"
 import { NavBar } from "./Navbar"
 import { SettingsModal } from "./SettingsModal"
+import { LanguageSelector } from "./LanguageSelector"
 
 type TemplateSelectorProps = {
     boilerPlateCodeMapForSelectedLanguage: { [key: string]: BoilerPlateCode },
@@ -29,57 +30,6 @@ type TemplateSelectorProps = {
     setSelectedBoilerPlateCode: React.Dispatch<React.SetStateAction<BoilerPlateCode>>,
 }
 
-
-
-function LanguageSelector(
-    props: {
-        selectedLanguage: ProgrammingLanguage,
-        setSelectedLanguage: React.Dispatch<React.SetStateAction<ProgrammingLanguage>>
-    }
-) {
-
-
-    return (
-        <div className="">
-            <Listbox
-                value={props.selectedLanguage}
-                onChange={props.setSelectedLanguage}
-            >
-                <ListboxButton
-                    className={"p-2 border-gray-200/75 border-2 text-sm flex flex-row gap-2 items-center hover:shadow-customhovereffect rounded-lg"}
-                >
-                    <span>
-                        {props.selectedLanguage.name}
-                    </span>
-                    <HiChevronDown
-                        width={5}
-                        height={5}
-                    />
-                </ListboxButton>
-                <ListboxOptions
-                    anchor="bottom start"
-                    className={"text-sm shadow-lg bg-white dark:bg-black dark:text-white rounded-lg z-20"}
-                >
-                    {
-                        programmingLanguageList.map((language) => (
-                            <ListboxOption
-                                key={language.id}
-                                value={language}
-                                disabled={!language.available}
-                                className={"p-2 cursor-pointer hover:shadow-customhovereffect"}
-                            >
-                                <span>{language.name}{language.available ? "" : " (Coming Soon)"}</span>
-                            </ListboxOption>
-
-                        ))
-                    }
-                </ListboxOptions>
-
-
-            </Listbox>
-        </div>
-    )
-}
 
 function TemplateSelector({ boilerPlateCodeMapForSelectedLanguage, selectedBoilerPlateCode, setSelectedBoilerPlateCode }: TemplateSelectorProps) {
     return (
