@@ -5,8 +5,6 @@ import { Editor, useMonaco } from "@monaco-editor/react"
 import Split from "react-split"
 import { FaPlay } from "react-icons/fa"
 import axios, { AxiosResponse } from "axios"
-import { Listbox, ListboxButton, ListboxOption, ListboxOptions } from "@headlessui/react"
-import { HiChevronUp } from "react-icons/hi2"
 import { MdErrorOutline } from "react-icons/md"
 import { IoIosCheckboxOutline } from "react-icons/io"
 import { IoTimeOutline} from "react-icons/io5";
@@ -16,60 +14,14 @@ import { ToastContainer, toast } from "react-toastify";
 import type { ProgrammingLanguage, BoilerPlateCode } from "@/app/data/editor"
 import { programmingLanguageList, boilerPlateCodeMap } from "@/app/data/editor"
 import 'react-toastify/dist/ReactToastify.css';
-import { nanoid } from "nanoid"
 import { useThemeContext } from "../store/ThemeProvider"
 import PlaygroundPreferencesProvider, { usePlaygroundPreferencesContext } from "../store/PlaygroundPreferencesProvider"
 import { useSession } from "next-auth/react"
 import { NavBar } from "./Navbar"
 import { SettingsModal } from "./SettingsModal"
 import { LanguageSelector } from "./LanguageSelector"
+import { TemplateSelector } from "./TemplateSelector"
 
-type TemplateSelectorProps = {
-    boilerPlateCodeMapForSelectedLanguage: { [key: string]: BoilerPlateCode },
-    selectedBoilerPlateCode: BoilerPlateCode,
-    setSelectedBoilerPlateCode: React.Dispatch<React.SetStateAction<BoilerPlateCode>>,
-}
-
-
-function TemplateSelector({ boilerPlateCodeMapForSelectedLanguage, selectedBoilerPlateCode, setSelectedBoilerPlateCode }: TemplateSelectorProps) {
-    return (
-        <Listbox
-            value={selectedBoilerPlateCode}
-            onChange={setSelectedBoilerPlateCode}
-        >
-            <ListboxButton
-                className="py-2 px-3 bg-sky-100 dark:bg-sky-700 dark:text-gray-200 rounded-md flex flex-row gap-2 justify-center items-center"
-            >
-                <span
-                    className="font-medium"
-                >Template</span>
-                <HiChevronUp
-                    className="w-4 h-4"
-                />
-            </ListboxButton>
-            <ListboxOptions
-                anchor="top end"
-                className={"text-sm bg-white dark:bg-black dark:text-white rounded-lg border-gray-100 border-2 z-20"}
-            >
-                {
-                    Object.entries(boilerPlateCodeMapForSelectedLanguage).map(([name, boilerPlate]) => (
-                        <ListboxOption
-                            key={nanoid()}
-                            value={boilerPlate}
-                            className={"p-2 cursor-pointer hover:shadow-customhovereffect"}
-                        >
-                            <span>{name}</span>
-
-                        </ListboxOption>
-
-                    ))
-
-                }
-            </ListboxOptions>
-        </Listbox>
-
-    )
-}
 
 
 type CodeEditorProps = {
