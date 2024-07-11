@@ -1,21 +1,21 @@
 import { Listbox, ListboxButton, ListboxOption, ListboxOptions } from "@headlessui/react"
 import { HiChevronUp } from "react-icons/hi2"
-import type { BoilerPlateCode } from "../data/editor"
+import type { BoilerPlate } from "../data/editor"
 import { nanoid } from "nanoid"
 
 
 type TemplateSelectorProps = {
-    boilerPlateCodeMapForSelectedLanguage: { [key: string]: BoilerPlateCode },
-    selectedBoilerPlateCode: BoilerPlateCode,
-    setSelectedBoilerPlateCode: React.Dispatch<React.SetStateAction<BoilerPlateCode>>,
+    boilerPlateListForSelectedLanguage: Array<BoilerPlate>,
+    selectedBoilerPlate: BoilerPlate,
+    setSelectedBoilerPlate: React.Dispatch<React.SetStateAction<BoilerPlate>>,
 }
 
 
-export function TemplateSelector({ boilerPlateCodeMapForSelectedLanguage, selectedBoilerPlateCode, setSelectedBoilerPlateCode }: TemplateSelectorProps) {
+export function TemplateSelector({ boilerPlateListForSelectedLanguage, selectedBoilerPlate, setSelectedBoilerPlate }: TemplateSelectorProps) {
     return (
         <Listbox
-            value={selectedBoilerPlateCode}
-            onChange={setSelectedBoilerPlateCode}
+            value={selectedBoilerPlate}
+            onChange={setSelectedBoilerPlate}
         >
             <ListboxButton
                 className="py-2 px-3 bg-sky-100 dark:bg-sky-700 dark:text-gray-200 rounded-md flex flex-row gap-2 justify-center items-center"
@@ -32,13 +32,13 @@ export function TemplateSelector({ boilerPlateCodeMapForSelectedLanguage, select
                 className={"text-sm bg-white dark:bg-black dark:text-white rounded-lg border-gray-100 border-2 z-20"}
             >
                 {
-                    Object.entries(boilerPlateCodeMapForSelectedLanguage).map(([name, boilerPlate]) => (
+                    boilerPlateListForSelectedLanguage.map((boilerPlate) => (
                         <ListboxOption
                             key={nanoid()}
                             value={boilerPlate}
                             className={"p-2 cursor-pointer hover:shadow-customhovereffect"}
                         >
-                            <span>{name}</span>
+                            <span>{boilerPlate.name}</span>
 
                         </ListboxOption>
 
