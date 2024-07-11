@@ -19,10 +19,16 @@ export type CodeEditorProps = {
 
 
 export function CodeEditor({ programmingLanguageList, sourceCodeValue, setSourceCodeValue, runCodeAction }: CodeEditorProps) {
+    const defaultLoadingBoilerPlate:BoilerPlate = {
+        name: "loading_boiler_plate",
+        description: "",
+        content: "",
+    }
     const { status: authenticationStatus } = useSession()
     const monaco = useMonaco()
     const [selectedLanguage, setSelectedLanguage] = React.useState<ProgrammingLanguage>(programmingLanguageList[0])
-    const [selectedBoilerPlateCode, setSelectedBoilerPlateCode] = React.useState<BoilerPlateCode>(boilerPlateCodeMap[selectedLanguage.id]["default"])
+    const [selectedBoilerPlate, setSelectedBoilerPlate] = React.useState<BoilerPlate>(defaultLoadingBoilerPlate)
+    const [boilerPlateListForSelectedLanguage, setBoilerPlateListForSelectedLanguage] = React.useState<Array<BoilerPlate>>([defaultLoadingBoilerPlate])
     // time and delay are measured in milliseconds
     const [runCodeButtonLastClicked, setRunCodeButtonLastClicked] = React.useState<number | null>(null)
     const delayBetweenConsecutiveRunCodeButtonPresses: number = 3000
