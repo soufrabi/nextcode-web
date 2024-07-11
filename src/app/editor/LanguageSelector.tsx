@@ -1,28 +1,33 @@
 import { HiChevronDown } from "react-icons/hi2"
 import { Listbox, ListboxButton, ListboxOption, ListboxOptions } from "@headlessui/react"
 import type { ProgrammingLanguage } from "../data/editor"
-import { programmingLanguageList } from "../data/editor"
 
+type LanguageSelectorProps = {
 
-export function LanguageSelector(
-    props: {
-        selectedLanguage: ProgrammingLanguage,
-        setSelectedLanguage: React.Dispatch<React.SetStateAction<ProgrammingLanguage>>
-    }
-) {
+    programmingLanguageList: Array<ProgrammingLanguage>,
+    selectedLanguage: ProgrammingLanguage,
+    setSelectedLanguage: React.Dispatch<React.SetStateAction<ProgrammingLanguage>>,
+}
+
+export function LanguageSelector({
+    programmingLanguageList,
+    selectedLanguage,
+    setSelectedLanguage,
+
+}: LanguageSelectorProps) {
 
 
     return (
         <div className="">
             <Listbox
-                value={props.selectedLanguage}
-                onChange={props.setSelectedLanguage}
+                value={selectedLanguage}
+                onChange={setSelectedLanguage}
             >
                 <ListboxButton
                     className={"p-2 border-gray-200/75 border-2 text-sm flex flex-row gap-2 items-center hover:shadow-customhovereffect rounded-lg"}
                 >
                     <span>
-                        {props.selectedLanguage.name}
+                        {selectedLanguage.name}
                     </span>
                     <HiChevronDown
                         width={5}
