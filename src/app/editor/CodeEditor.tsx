@@ -9,6 +9,7 @@ import { LanguageSelector } from "./LanguageSelector"
 import { TemplateSelector } from "./TemplateSelector"
 import type { ProgrammingLanguage, BoilerPlate } from "@/app/data/editor"
 import { toast } from "react-toastify";
+import { getBoilerPlateList } from "./actions";
 
 export type CodeEditorProps = {
     programmingLanguageList: Array<ProgrammingLanguage>,
@@ -46,6 +47,14 @@ export function CodeEditor({ programmingLanguageList, sourceCodeValue, setSource
         }
     }
 
+    const handleSelectedLanguageChange = async () => {
+
+        const boilerPlateList = await getBoilerPlateList(selectedLanguage.id)
+        // setSelectedBoilerPlateCode(boilerPlateCodeMap[selectedLanguage.id]["default"])
+        setSelectedBoilerPlate(boilerPlateList[0])
+        setBoilerPlateListForSelectedLanguage(boilerPlateList)
+    }
+
     const handleRunCodeButtonClicked = async () => {
         const currentTime: number = new Date().getTime()
         if (runCodeButtonLastClicked !== null &&
@@ -76,7 +85,7 @@ export function CodeEditor({ programmingLanguageList, sourceCodeValue, setSource
     }, [monaco]);
 
     React.useEffect(() => {
-        setSelectedBoilerPlateCode(boilerPlateCodeMap[selectedLanguage.id]["default"])
+        handleSelectedLanguageChange()
     }, [selectedLanguage, setSelectedLanguage])
 
     React.useEffect(() => {
