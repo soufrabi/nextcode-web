@@ -2,11 +2,16 @@
 
 import PlaygroundPreferencesProvider from "../store/PlaygroundPreferencesProvider"
 import { EditorPageClient } from "./EditorPageClient"
+import { getProgrammingLanguages } from "./actions"
 
 export default async function EditorPage() {
+    const programmingLanguageList = await getProgrammingLanguages()
+
     return (
         <PlaygroundPreferencesProvider>
-            <EditorPageClient />
+            <EditorPageClient
+                programmingLanguageList={programmingLanguageList}
+            />
         </PlaygroundPreferencesProvider>
     )
 }

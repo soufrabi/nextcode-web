@@ -114,8 +114,11 @@ function RightPart(props: RightPartProps) {
     )
 }
 
+export type EditorPageClientProps = {
+    programmingLanguageList: Array<ProgrammingLanguage>
+}
 
-export function EditorPageClient() {
+export function EditorPageClient({ programmingLanguageList }: EditorPageClientProps) {
     const [sourceCodeValue, setSourceCodeValue] = React.useState<string>("")
     const [inputTextValue, setInputTextValue] = React.useState<string>("")
     const [stdoutValue, setStdoutValue] = React.useState<string>("")
@@ -225,6 +228,7 @@ export function EditorPageClient() {
                     className="split-horizontal w-full h-[calc(100vh-5rem)] "
                 >
                     <CodeEditor
+                        programmingLanguageList={programmingLanguageList}
                         sourceCodeValue={sourceCodeValue}
                         setSourceCodeValue={setSourceCodeValue}
                         runCodeAction={runCodeAction}

@@ -12,13 +12,14 @@ import type { ProgrammingLanguage, BoilerPlateCode } from "@/app/data/editor"
 import { toast } from "react-toastify";
 
 export type CodeEditorProps = {
+    programmingLanguageList: Array<ProgrammingLanguage>,
     sourceCodeValue: string,
     setSourceCodeValue: React.Dispatch<React.SetStateAction<string>>,
     runCodeAction: (language: ProgrammingLanguage) => Promise<void>,
 }
 
 
-export function CodeEditor({ sourceCodeValue, setSourceCodeValue, runCodeAction }: CodeEditorProps) {
+export function CodeEditor({ programmingLanguageList, sourceCodeValue, setSourceCodeValue, runCodeAction }: CodeEditorProps) {
     const { status: authenticationStatus } = useSession()
     const monaco = useMonaco()
     const [selectedLanguage, setSelectedLanguage] = React.useState<ProgrammingLanguage>(programmingLanguageList[0])
@@ -118,6 +119,7 @@ export function CodeEditor({ sourceCodeValue, setSourceCodeValue, runCodeAction 
                     <SettingsModal
                     />
                     <LanguageSelector
+                        programmingLanguageList={programmingLanguageList}
                         selectedLanguage={selectedLanguage}
                         setSelectedLanguage={setSelectedLanguage}
                     />
