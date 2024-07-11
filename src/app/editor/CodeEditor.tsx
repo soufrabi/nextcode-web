@@ -7,7 +7,7 @@ import { useSession } from "next-auth/react"
 import { SettingsModal } from "./SettingsModal"
 import { LanguageSelector } from "./LanguageSelector"
 import { TemplateSelector } from "./TemplateSelector"
-import type { ProgrammingLanguage, BoilerPlateCode } from "@/app/data/editor"
+import type { ProgrammingLanguage, BoilerPlate } from "@/app/data/editor"
 import { toast } from "react-toastify";
 
 export type CodeEditorProps = {
@@ -29,7 +29,7 @@ export function CodeEditor({ programmingLanguageList, sourceCodeValue, setSource
     const { isDarkTheme } = useThemeContext()
 
     const handleResetCodeButtonClicked = () => {
-        setSourceCodeValue(selectedBoilerPlateCode.code)
+        setSourceCodeValue(selectedBoilerPlate.content)
     }
 
     const handleChange = (newValue: string | undefined) => {
@@ -74,8 +74,8 @@ export function CodeEditor({ programmingLanguageList, sourceCodeValue, setSource
     }, [selectedLanguage, setSelectedLanguage])
 
     React.useEffect(() => {
-        setSourceCodeValue(selectedBoilerPlateCode.code)
-    }, [setSourceCodeValue, selectedBoilerPlateCode])
+        setSourceCodeValue(selectedBoilerPlate.content)
+    }, [selectedBoilerPlate, setSourceCodeValue])
 
     return (
 
