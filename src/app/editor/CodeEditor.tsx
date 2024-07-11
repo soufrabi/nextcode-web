@@ -154,9 +154,9 @@ export function CodeEditor({ programmingLanguageList, sourceCodeValue, setSource
             </div>
             <div className="border-gray-300 border-2 flex flex-row py-2 px-2 justify-end">
                 <TemplateSelector
-                    boilerPlateCodeMapForSelectedLanguage={boilerPlateCodeMap[selectedLanguage.id]}
-                    selectedBoilerPlateCode={selectedBoilerPlateCode}
-                    setSelectedBoilerPlateCode={setSelectedBoilerPlateCode}
+                    boilerPlateListForSelectedLanguage={boilerPlateListForSelectedLanguage}
+                    selectedBoilerPlate={selectedBoilerPlate}
+                    setSelectedBoilerPlate={setSelectedBoilerPlate}
                 />
             </div>
         </div>
