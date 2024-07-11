@@ -4,11 +4,11 @@ import { FcGoogle } from "react-icons/fc";
 
 
 export default function LoginPageClient() {
+    const appTitle = "NextCode"
+
     const handleSignInWithGoogle = () => {
         signIn("google")
     }
-
-    const appTitle = "NextCode"
 
     return (
         <main className="h-[100svh] w-screen grid">
@@ -45,7 +45,7 @@ export default function LoginPageClient() {
                 <div className="flex flex-row border-t-2 border-t-gray-200 py-2 px-6">
                     <span
                         className="text-sm w-full"
-                    >By signing in, you agree to Instant&apos;s terms of service and privacy policy.</span>
+                    >By signing in, you agree to {appTitle}&apos;s terms of service and privacy policy.</span>
                 </div>
             </div>
         </main>
