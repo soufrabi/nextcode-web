@@ -15,7 +15,7 @@ import type { ProgrammingLanguage, BoilerPlateCode } from "@/app/data/editor"
 import { programmingLanguageList, boilerPlateCodeMap } from "@/app/data/editor"
 import 'react-toastify/dist/ReactToastify.css';
 import { useThemeContext } from "../store/ThemeProvider"
-import PlaygroundPreferencesProvider, { usePlaygroundPreferencesContext } from "../store/PlaygroundPreferencesProvider"
+import { usePlaygroundPreferencesContext } from "../store/PlaygroundPreferencesProvider"
 import { useSession } from "next-auth/react"
 import { NavBar } from "./Navbar"
 import { SettingsModal } from "./SettingsModal"
