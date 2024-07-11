@@ -3,7 +3,6 @@ import { FaPlay } from "react-icons/fa"
 import { BiCodeCurly } from "react-icons/bi";
 import { Editor, useMonaco } from "@monaco-editor/react"
 import { useThemeContext } from "../store/ThemeProvider"
-import { boilerPlateCodeMap } from "@/app/data/editor"
 import { useSession } from "next-auth/react"
 import { SettingsModal } from "./SettingsModal"
 import { LanguageSelector } from "./LanguageSelector"
