@@ -20,9 +20,9 @@ export async function POST(request: NextRequest) {
         const { sourceCode, inputText, compileTimeLimit, executionTimeLimit, bufferMaxSize, language } = reqBody
         console.log("Request Body", reqBody)
 
-        if (typeof process.env.RCEE_SERVER_ADDRESS === undefined ||
-            typeof process.env.RCEE_SERVER_ADDRESS !== 'string' ||
-            process.env.RCEE_SERVER_ADDRESS === ""
+        if (typeof process.env.API_SERVER_URL === undefined ||
+            typeof process.env.API_SERVER_URL !== 'string' ||
+            process.env.API_SERVER_URL === ""
         ) {
             return NextResponse.json({
                 error: "Internal Server Error : 4"
@@ -33,7 +33,7 @@ export async function POST(request: NextRequest) {
 
 
         try {
-            const res: AxiosResponse = await axios.post(`${process.env.RCEE_SERVER_ADDRESS}/api/v1/run`, {
+            const res: AxiosResponse = await axios.post(`${process.env.API_SERVER_URL}/editor/run`, {
                 sourceCode: sourceCode,
                 inputText: inputText,
                 compileTimeLimit: compileTimeLimit,
