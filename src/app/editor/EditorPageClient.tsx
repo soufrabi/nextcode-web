@@ -152,8 +152,8 @@ export function EditorPageClient({ programmingLanguageList }: EditorPageClientPr
 
             try {
                 // const resData: RunResponse = res.data
-                const stdoutValueObtained: string = res.data.stdOut
-                const stderrValueObtained: string = res.data.stdErr
+                const stdoutValueObtained: string = res.data.stdout
+                const stderrValueObtained: string = res.data.stderr
                 const execErrValueObtained: string = res.data.execErr
                 const timeElasedValueObtained: string = res.data.timeElapsed
                 const isErrorValueObtained: boolean = res.data.isError
