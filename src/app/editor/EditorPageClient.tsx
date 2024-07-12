@@ -129,12 +129,12 @@ export function EditorPageClient({ programmingLanguageList }: EditorPageClientPr
 
     const runCodeAction = async (language: ProgrammingLanguage) => {
         const bodyObj = {
+            languageId: language.id,
             sourceCode: sourceCodeValue,
             inputText: inputTextValue,
             compileTimeLimit: compileTimeLimit,
             executionTimeLimit: executionTimeLimit,
             bufferMaxSize: bufferMaxSize,
-            language: language.name,
         }
 
         // console.log("Body of request ", bodyObj)
