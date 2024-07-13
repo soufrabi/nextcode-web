@@ -3,7 +3,7 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { MediaContextProvider, Media } from "@/app/components/media"
+import { Media } from "@/app/components/media"
 
 function HomePageNavBar() {
 
@@ -53,7 +53,6 @@ function HomePageNavBar() {
 export default function Home() {
 
     return (
-        <MediaContextProvider>
             <main className="bg-[FEFDFF] min-h-screen w-screen">
                 <HomePageNavBar />
                 <div className="px-10 pt-[calc(10vh)] md:px-0 md:flex md:flex-row md:justify-around md:items-center md:pt-[calc(20vh)]">
@@ -76,6 +75,5 @@ export default function Home() {
 
                 </div>
             </main>
-        </MediaContextProvider>
     )
 }

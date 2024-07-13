@@ -30,7 +30,7 @@ import { IoMdCloseCircle } from "react-icons/io";
 import { MdOutlineDashboard } from "react-icons/md";
 import { ToastContainer, toast } from "react-toastify";
 import Split from "react-split";
-import { MediaContextProvider, Media } from "../../components/media"
+import { Media } from "../../components/media"
 import 'react-toastify/dist/ReactToastify.css';
 import { AuthenticateOrUserProfileComponent } from "@/app/components/AuthenticateOrUserProfileComponent";
 import { PremiumButton } from "@/app/components/PremiumButton";
@@ -690,7 +690,6 @@ export default function ProblemPage() {
     }, [])
 
     return (
-        <MediaContextProvider>
             <main className="bg-slate-200 h-screen w-screen max-h-screen max-w-screen">
                 <NavBar />
                 <div className="">
@@ -717,6 +716,5 @@ export default function ProblemPage() {
                 </div>
                 <ToastContainer />
             </main >
-        </MediaContextProvider>
     )
 }
