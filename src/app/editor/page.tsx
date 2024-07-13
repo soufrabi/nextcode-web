@@ -1,4 +1,4 @@
-import PlaygroundPreferencesProvider from "../store/PlaygroundPreferencesProvider"
+import PlaygroundPreferencesProvider from "../providers/PlaygroundPreferencesProvider"
 import { EditorPageClient } from "./EditorPageClient"
 import { getProgrammingLanguages } from "./actions"
 

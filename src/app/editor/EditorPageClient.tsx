@@ -10,7 +10,7 @@ import clsx from "clsx"
 import { ToastContainer } from "react-toastify";
 import type { ProgrammingLanguage } from "@/app/data/editor"
 import 'react-toastify/dist/ReactToastify.css';
-import { usePlaygroundPreferencesContext } from "../store/PlaygroundPreferencesProvider"
+import { usePlaygroundPreferencesContext } from "../providers/PlaygroundPreferencesProvider"
 import { NavBar } from "./Navbar"
 import { ErrorBox, InputBox, OutputBox } from "./InputOutputErrorBoxes"
 import { CodeEditor } from "./CodeEditor"

@@ -1,8 +1,8 @@
 import React from "react"
 import { IoSettingsOutline } from "react-icons/io5"
 import { Input, Dialog, DialogPanel, DialogTitle, Switch } from '@headlessui/react'
-import { useThemeContext } from "../store/ThemeProvider"
-import { usePlaygroundPreferencesContext } from "../store/PlaygroundPreferencesProvider"
+import { useThemeContext } from "../providers/ThemeProvider"
+import { usePlaygroundPreferencesContext } from "../providers/PlaygroundPreferencesProvider"
 
 
 export function SettingsModal(

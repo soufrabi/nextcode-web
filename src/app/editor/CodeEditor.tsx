@@ -2,7 +2,7 @@ import React from "react";
 import { FaPlay } from "react-icons/fa"
 import { BiCodeCurly } from "react-icons/bi";
 import { Editor, useMonaco } from "@monaco-editor/react"
-import { useThemeContext } from "../store/ThemeProvider"
+import { useThemeContext } from "../providers/ThemeProvider"
 import { useSession } from "next-auth/react"
 import { SettingsModal } from "./SettingsModal"
 import { LanguageSelector } from "./LanguageSelector"
