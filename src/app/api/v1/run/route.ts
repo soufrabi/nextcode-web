@@ -5,6 +5,16 @@ import axios, { AxiosResponse } from "axios";
 import { getServerSession } from "next-auth";
 
 
+type RunRequest = {
+    languageId: number,
+    sourceCode: string,
+    inputText: string,
+    compileTimeLimit: number,
+    executionTimeLimit: number,
+    bufferMaxSize: number,
+
+}
+
 export async function POST(request: NextRequest) {
     try {
         const session = await getServerSession()
@@ -16,8 +26,7 @@ export async function POST(request: NextRequest) {
             })
         }
 
-        const reqBody = await request.json()
-        const { sourceCode, inputText, compileTimeLimit, executionTimeLimit, bufferMaxSize, language } = reqBody
+        const reqBody: RunRequest = await request.json()
         console.log("Request Body", reqBody)
 
         if (typeof process.env.API_SERVER_URL === undefined ||
@@ -33,16 +42,12 @@ export async function POST(request: NextRequest) {
 
 
         try {
-            const res: AxiosResponse = await axios.post(`${process.env.API_SERVER_URL}/editor/run`, {
-                sourceCode: sourceCode,
-                inputText: inputText,
-                compileTimeLimit: compileTimeLimit,
-                executionTimeLimit: executionTimeLimit,
-                bufferMaxSize: bufferMaxSize,
-                language: language,
-            }, {
-                timeout: 7000,
-            })
+            const res: AxiosResponse = await axios.post(`${process.env.API_SERVER_URL}/editor/run`,
+                reqBody,
+                {
+                    timeout: 7000,
+                }
+            )
 
             console.log("Response Data", res.data)
 
