@@ -12,7 +12,7 @@ export async function getProgrammingLanguages(): Promise<Array<ProgrammingLangua
         return data
     } catch (err) {
         console.error("failed to get programming language list")
-        return []
+        throw new Error("failed to get programming language list")
     }
 }
 
