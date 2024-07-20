@@ -2,7 +2,7 @@ import PlaygroundPreferencesProvider from "../providers/PlaygroundPreferencesPro
 import { EditorPageClient } from "./EditorPageClient"
 import { getProgrammingLanguages } from "./actions"
 
-export const revalidate = 0
+export const dynamic = 'force-dynamic'
 
 export default async function EditorPage() {
     const programmingLanguageList = await getProgrammingLanguages()
