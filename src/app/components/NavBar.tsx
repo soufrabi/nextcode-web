@@ -13,7 +13,7 @@ export function NavBar() {
                     onContextMenu={(ev: React.MouseEvent) => { ev.preventDefault() }}
                 >
                     <Image
-                        src={"/nextcode-logo-64x64.jpeg"}
+                        src={"/assets/nextcode-logo-64x64.jpeg"}
                         alt=""
                         width={25}
                         height={25}

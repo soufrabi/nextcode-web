@@ -12,7 +12,7 @@ export function NavBar() {
                 className="flex flex-row gap-4 items-center cursor-pointer"
             >
                 <Image
-                    src={"/nextcode-logo-64x64.jpeg"}
+                    src={"/assets/nextcode-logo-64x64.jpeg"}
                     alt="nextcode logo"
                     width={25}
                     height={25}

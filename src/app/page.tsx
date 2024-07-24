@@ -11,7 +11,7 @@ function HomePageNavBar() {
         <div className="w-full h-12 bg-white flex flex-row items-center justify-center md:justify-around  py-8 shadow-md">
             <div className="flex flex-row gap-4 items-center">
                 <Image
-                    src={"/nextcode-logo-64x64.jpeg"}
+                    src={"/assets/nextcode-logo-64x64.jpeg"}
                     alt="NextCode"
                     width={32}
                     height={32}
