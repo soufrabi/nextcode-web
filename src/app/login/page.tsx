@@ -1,5 +1,6 @@
 import { getServerSession } from "next-auth"
 import { redirect } from "next/navigation"
+import { authOptions } from "@/lib/auth/options"
 import LoginPageClient from "./LoginPageClient"
 
 type LoginPageProps = {
@@ -21,7 +22,7 @@ function getCallbackUrl (searchParams: LoginPageProps["searchParams"]) : string 
 
 export default async function LoginPage({searchParams}: LoginPageProps) {
 
-    const session = await getServerSession()
+    const session = await getServerSession(authOptions)
 
     if (session) {
         // logged in
