@@ -1,6 +1,6 @@
 import { Listbox, ListboxButton, ListboxOption, ListboxOptions } from "@headlessui/react"
 import { HiChevronUp } from "react-icons/hi2"
-import type { BoilerPlate } from "../data/editor"
+import type { BoilerPlate } from "@/lib/editor/types"
 import { nanoid } from "nanoid"
 
 

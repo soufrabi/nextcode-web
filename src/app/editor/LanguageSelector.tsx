@@ -1,6 +1,6 @@
 import { HiChevronDown } from "react-icons/hi2"
 import { Listbox, ListboxButton, ListboxOption, ListboxOptions } from "@headlessui/react"
-import type { ProgrammingLanguage } from "../data/editor"
+import type { ProgrammingLanguage } from "@/lib/editor/types"
 
 type LanguageSelectorProps = {
 

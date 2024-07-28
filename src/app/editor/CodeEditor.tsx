@@ -7,7 +7,7 @@ import { useSession } from "next-auth/react"
 import { SettingsModal } from "./SettingsModal"
 import { LanguageSelector } from "./LanguageSelector"
 import { TemplateSelector } from "./TemplateSelector"
-import type { ProgrammingLanguage, BoilerPlate } from "@/app/data/editor"
+import type { ProgrammingLanguage, BoilerPlate } from "@/lib/editor/types"
 import { toast } from "react-toastify";
 import { getBoilerPlateList } from "./actions";
 

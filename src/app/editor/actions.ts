@@ -1,7 +1,7 @@
 "use server"
 
 import axios from "axios"
-import { BoilerPlate, ProgrammingLanguage } from "../data/editor"
+import { BoilerPlate, ProgrammingLanguage } from "@/lib/editor/types"
 
 export async function getProgrammingLanguages(): Promise<Array<ProgrammingLanguage>> {
     try {
