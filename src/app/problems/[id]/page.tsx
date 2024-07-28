@@ -147,7 +147,7 @@ function LeftPart() {
                     onClick={() => { setCurrentActiveTab(LeftPartTabType.EDITORIAL) }}
                 >
                     <Image
-                        src="/assets/book-icon.png"
+                        src="/assets/book-icon-32x32.jpeg"
                         alt="editorial"
                         width={20}
                         height={20}
@@ -160,7 +160,7 @@ function LeftPart() {
                     onClick={() => { setCurrentActiveTab(LeftPartTabType.SOLUTIONS) }}
                 >
                     <Image
-                        src="/assets/chemistry-icon.png"
+                        src="/assets/chemistry-icon-32x32.jpeg"
                         alt="solution"
                         width={20}
                         height={20}
@@ -615,7 +615,7 @@ function NavBar() {
                     className="cursor-pointer"
                 >
                     <Image
-                        src="/assets/nextcode-logo.png"
+                        src="/assets/nextcode-logo-32x32.jpeg"
                         alt="NextCode Logo"
                         width={20}
                         height={20}
@@ -661,7 +661,7 @@ function NavBar() {
                 </button>
                 <button className="px-2 py-1 hover:shadow-customhovereffect">
                     <Image
-                        src="/assets/pen-and-paper-notes-symbol.png"
+                        src="/assets/pen-and-paper-notes-symbol-32x32.jpeg"
                         alt="Notes"
                         width={16}
                         height={17}
