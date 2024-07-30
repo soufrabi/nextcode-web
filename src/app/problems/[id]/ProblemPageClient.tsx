@@ -10,7 +10,7 @@ import { LeftPart } from "./LeftPart";
 import { RightPart } from "./RightPart";
 
 
-export default function ProblemPage() {
+export default function ProblemPageClient() {
     React.useEffect(() => {
         document.body.style.overflow = "hidden"
     }, [])
