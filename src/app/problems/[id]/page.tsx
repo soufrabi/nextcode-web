@@ -2,10 +2,8 @@
 
 import React from "react";
 import { nanoid } from "nanoid";
-import Link from "next/link";
 import Image from "next/image";
 import { Editor } from "@monaco-editor/react";
-import { HiChevronLeft, HiChevronRight } from "react-icons/hi2"
 import { HiOutlineBuildingOffice2, HiOutlineTag } from "react-icons/hi2";
 import { HiOutlineLightBulb } from "react-icons/hi2";
 import { HiOutlineHandThumbUp } from "react-icons/hi2";
@@ -14,26 +12,19 @@ import { HiOutlineChatBubbleOvalLeft } from "react-icons/hi2";
 import { HiOutlineStar } from "react-icons/hi2";
 import { HiOutlineQuestionMarkCircle } from "react-icons/hi2";
 import { HiOutlineArrowTopRightOnSquare } from "react-icons/hi2";
-import { RiPlayList2Fill } from "react-icons/ri";
-import { RiShuffleFill } from "react-icons/ri";
-import { VscDebug } from "react-icons/vsc";
-import { FaPlay, FaPlus } from "react-icons/fa"
+import { FaPlus } from "react-icons/fa"
 import { IoCodeSlashOutline } from "react-icons/io5";
-import { MdOutlineCloudUpload } from "react-icons/md";
-import { IoSettingsOutline } from "react-icons/io5";
 import { MdOutlineDescription } from "react-icons/md";
 import { GoHistory } from "react-icons/go";
 import { IoIosCheckboxOutline } from "react-icons/io";
 import { LuTerminal } from "react-icons/lu";
 import { IoMdCloseCircle } from "react-icons/io";
-import { MdOutlineDashboard } from "react-icons/md";
 import { ToastContainer, toast } from "react-toastify";
 import Split from "react-split";
 import { Media } from "../../components/media"
 import 'react-toastify/dist/ReactToastify.css';
-import { AuthenticateOrUserProfileComponent } from "@/app/components/AuthenticateOrUserProfileComponent";
-import { PremiumButton } from "@/app/components/PremiumButton";
 import { CompaniesDisclosure, HintsDisclosure, TopicsDisclosure } from "./Disclosures";
+import { NavBar } from "./NavBar";
 
 
 enum LeftPartTabType {
@@ -516,85 +507,6 @@ function RightPart() {
                 // </div>
             }
         </>
-    )
-}
-
-
-function NavBar() {
-
-    return (
-        <nav className="flex justify-center md:justify-between items-center md:mx-auto bg-[f0f0f0] h-12 w-full px-6">
-            <div className="flex items-center gap-4">
-                <Link
-                    href={"/"}
-                    className="cursor-pointer"
-                >
-                    <Image
-                        src="/assets/nextcode-logo-32x32.jpeg"
-                        alt="NextCode Logo"
-                        width={20}
-                        height={20}
-                        className="rounded-full"
-                    />
-                </Link>
-                <div className="hidden md:flex gap-0 items-center">
-                    <Link
-                        href={"/problemset"}
-                        className="flex flex-row gap-2 items-center px-2 py-1 hover:shadow-customhovereffect"
-                    >
-                        <RiPlayList2Fill className="h-4 w-4" />
-                        <span className="text-sm">Problem List</span>
-                    </Link>
-                    <button
-                        className="px-1.5 py-1 hover:shadow-customhovereffect"
-                    >
-                        < HiChevronLeft className="h-5 w-5" />
-                    </button>
-                    <button
-                        className="px-1.5 py-1 hover:shadow-customhovereffect"
-                    >
-                        < HiChevronRight className="h-5 w-5" />
-                    </button>
-                    <button
-                        className="px-1.5 py-1 hover:shadow-customhovereffect"
-                    >
-                        <RiShuffleFill className="h-5 w-5" />
-                    </button>
-                </div>
-            </div>
-            <div className="hidden md:flex md:flex-row gap-0">
-                <button className="px-2 py-1 hover:shadow-customhovereffect">
-                    <VscDebug className="h-4 w-4" />
-                </button>
-                <button className="px-2 py-1 flex gap-2 items-center hover:shadow-customhovereffect">
-                    <FaPlay className="h-3 w-3" />
-                    <span className="text-sm">Run</span>
-                </button>
-                <button className="px-2 py-1 flex gap-2 items-center hover:shadow-customhovereffect">
-                    <MdOutlineCloudUpload className="h-5 w-5 text-green-600" />
-                    <span className="text-sm text-green-600">Submit</span>
-                </button>
-                <button className="px-2 py-1 hover:shadow-customhovereffect">
-                    <Image
-                        src="/assets/pen-and-paper-notes-symbol-32x32.jpeg"
-                        alt="Notes"
-                        width={16}
-                        height={17}
-                    />
-
-                </button>
-            </div>
-            <div className="hidden md:flex gap-2 items-center">
-                <button className="px-2 py-1 hover:shadow-customhovereffect">
-                    <MdOutlineDashboard className="h-5 w-5" />
-                </button>
-                <button className="px-2 py-1 hover:shadow-customhovereffect">
-                    <IoSettingsOutline className="h-5 w-5" />
-                </button>
-                <AuthenticateOrUserProfileComponent />
-                <PremiumButton />
-            </div>
-        </nav>
     )
 }
 
