@@ -5,12 +5,7 @@ import { IoIosCheckboxOutline } from "react-icons/io";
 import { LuTerminal } from "react-icons/lu";
 import { IoMdCloseCircle } from "react-icons/io";
 import { IoCodeSlashOutline } from "react-icons/io5";
-
-type TestCaseData = {
-    id: string,
-    input: string,
-    output: string,
-}
+import type { TestCaseData } from "./types";
 
 function CaseButton(props: {
     testCaseId: string,
