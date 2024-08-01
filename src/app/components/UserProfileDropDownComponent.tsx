@@ -41,7 +41,7 @@ export function UserProfileDropDownComponent({ session }: UserProfileDropDownCom
                                     alt="Profile Picture"
                                     width={64}
                                     height={64}
-                                    className='cursor-pointer'
+                                    className='cursor-pointer rounded-full'
                                 />
                             </>
                             :
