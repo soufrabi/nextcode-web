@@ -7,6 +7,10 @@ import { IoMdCloseCircle } from "react-icons/io";
 import { IoCodeSlashOutline } from "react-icons/io5";
 import type { TestCaseData } from "./types";
 
+type TestCasePanelProps = {
+    testCaseDefaultList : Array<TestCaseData>,
+}
+
 function CaseButton(props: {
     testCaseId: string,
     index: number,
@@ -59,11 +63,9 @@ function CaseButton(props: {
 
 }
 
-export function TestCasePanel() {
+export function TestCasePanel({testCaseDefaultList}:TestCasePanelProps) {
     const MAX_TESTCASES: number = 4
-    const [testCaseList, setTestCaseList] = React.useState<TestCaseData[]>([
-        { id: nanoid(), input: "", output: "", },
-    ]);
+    const [testCaseList, setTestCaseList] = React.useState<TestCaseData[]>(testCaseDefaultList);
 
     const [currentTestCaseId, setCurrentTestCaseId] = React.useState<string>(testCaseList[testCaseList.length - 1].id)
     const inputTextAreaRef: React.Ref<HTMLTextAreaElement> = React.useRef(null)

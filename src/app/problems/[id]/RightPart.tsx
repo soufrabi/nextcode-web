@@ -1,8 +1,13 @@
 import Split from "react-split";
 import { TestCasePanel } from "./TestCasePanel";
 import { CodeEditor } from "./CodeEditor";
+import { TestCaseData } from "./types";
 
-export function RightPart() {
+type RightPartProps = {
+    testCaseDefaultList : Array<TestCaseData>,
+}
+
+export function RightPart({testCaseDefaultList}:RightPartProps) {
     // const handleDrag = (sizes:number[])=>{
     //     console.log(sizes)
     // }
@@ -24,7 +29,7 @@ export function RightPart() {
                     // onDrag={handleDrag}
                     >
                         <CodeEditor />
-                        <TestCasePanel />
+                        <TestCasePanel testCaseDefaultList={testCaseDefaultList} />
                     </Split>
                 </div >
             }

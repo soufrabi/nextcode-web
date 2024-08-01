@@ -8,9 +8,13 @@ import 'react-toastify/dist/ReactToastify.css';
 import { NavBar } from "./NavBar";
 import { LeftPart } from "./LeftPart";
 import { RightPart } from "./RightPart";
+import { TestCaseData } from "./types";
 
+type ProblemPageClientProps = {
+    testCaseDefaultList : Array<TestCaseData>,
+}
 
-export default function ProblemPageClient() {
+export default function ProblemPageClient({testCaseDefaultList}:ProblemPageClientProps) {
     React.useEffect(() => {
         document.body.style.overflow = "hidden"
     }, [])
@@ -36,7 +40,7 @@ export default function ProblemPageClient() {
                             className="split-horizontal"
                         >
                             <LeftPart />
-                            <RightPart />
+                            <RightPart testCaseDefaultList={testCaseDefaultList} />
                         </Split>
                     </Media>
                 </div>
