@@ -96,9 +96,7 @@ export function TestCasePanel({testCaseDefaultList}:TestCasePanelProps) {
     const removeTestCase = (id: string) => {
         if (testCaseList.length > 1) {
             setTestCaseList((prevList: TestCaseData[]) => prevList.filter((testCaseData) => testCaseData.id != id))
-            if (id === currentTestCaseId) {
-                setCurrentTestCaseId(testCaseList[0].id)
-            }
+            setCurrentTestCaseId((prevTestCaseId)=> prevTestCaseId === id ? testCaseList[0].id : prevTestCaseId)
         } else {
             // not needed as UI closeButton becomes visible only when testCaseList.length > 1
             // toast('Must have atleast 1 testcase', {
