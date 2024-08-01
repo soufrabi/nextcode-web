@@ -128,6 +128,8 @@ export function TestCasePanel({testCaseDefaultList}:TestCasePanelProps) {
     }
 
     const handleResetTestCasesClick = ()=>{
+        setTestCaseList(structuredClone(testCaseDefaultList))
+        setCurrentTestCaseId(testCaseDefaultList[0].id)
         // console.log("Reset TestCases button clicked")
     }
 
