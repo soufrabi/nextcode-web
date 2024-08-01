@@ -65,7 +65,7 @@ function CaseButton(props: {
 
 export function TestCasePanel({testCaseDefaultList}:TestCasePanelProps) {
     const MAX_TESTCASES: number = 4
-    const [testCaseList, setTestCaseList] = React.useState<TestCaseData[]>(testCaseDefaultList);
+    const [testCaseList, setTestCaseList] = React.useState<TestCaseData[]>(structuredClone(testCaseDefaultList));
 
     const [currentTestCaseId, setCurrentTestCaseId] = React.useState<string>(testCaseList[testCaseList.length - 1].id)
     const inputTextAreaRef: React.Ref<HTMLTextAreaElement> = React.useRef(null)
