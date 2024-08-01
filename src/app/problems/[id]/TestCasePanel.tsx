@@ -82,7 +82,9 @@ export function TestCasePanel({testCaseDefaultList}:TestCasePanelProps) {
 
     const addTestCase = () => {
         if (testCaseList.length < MAX_TESTCASES) {
-            setTestCaseList((prevList: TestCaseData[]) => [...prevList, { id: nanoid(), input: "", output: "" }])
+            const newTestCase = { id:nanoid(), input: "", output: "" }
+            setTestCaseList((prevList: TestCaseData[]) => [...prevList, newTestCase])
+            setCurrentTestCaseId(newTestCase.id)
         } else {
             // not needed  as UI add button becomes visible only when testCaseList.length exceeds MAX_TESTCASES
             // toast(`Cannot add more than ${MAX_TESTCASES} testcases`, {
