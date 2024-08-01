@@ -189,6 +189,10 @@ export function TestCasePanel({testCaseDefaultList}:TestCasePanelProps) {
                     <textarea
                         // ref={inputTextAreaRef}
                         className="flex-1 h-full w-full bg-slate-100 p-3 mt-2 text-sm font-mono rounded-2xl outline-none focus:outline-blue-400 focus:outline-2 overflow-y-visible resize-none"
+                        autoCorrect="off"
+                        autoComplete="off"
+                        autoCapitalize="off"
+                        spellCheck="false"
                         value={testCaseList.find((testCaseData)=> testCaseData.id === currentTestCaseId)?.input }
                         onChange={handleTextAreaValueChange}
                     />
