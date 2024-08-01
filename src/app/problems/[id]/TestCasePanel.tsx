@@ -13,7 +13,7 @@ type TestCasePanelProps = {
 
 function CaseButton(props: {
     testCaseId: string,
-    index: number,
+    testCaseIndex: number,
     isCurrent: boolean,
     canClose: boolean,
     removeTestCase: (id: string) => void,
@@ -46,7 +46,7 @@ function CaseButton(props: {
             onClick={handleCaseButtonClick}
         >
             <span>
-                Case {props.index + 1}
+                Case {props.testCaseIndex + 1}
             </span>
             {
                 props.canClose &&
@@ -160,7 +160,7 @@ export function TestCasePanel({testCaseDefaultList}:TestCasePanelProps) {
                                 <CaseButton
                                     key={nanoid()}
                                     testCaseId={testCaseData.id}
-                                    index={index}
+                                    testCaseIndex={index}
                                     removeTestCase={removeTestCase}
                                     selectCurrentTestCase={selectCurrentTestCase}
                                     isCurrent={currentTestCaseId === testCaseData.id}
