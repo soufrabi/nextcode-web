@@ -24,7 +24,7 @@ export default function ProblemPageClient({testCaseDefaultList}:ProblemPageClien
     }, [])
 
     return (
-            <main className="bg-slate-200 h-screen w-screen max-h-screen max-w-screen">
+            <main className="bg-slate-200 h-lvh w-screen max-w-screen">
                 <NavBar />
                 <div className="">
                     <Media at="sm">
