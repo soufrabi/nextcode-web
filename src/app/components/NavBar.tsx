@@ -1,5 +1,5 @@
-import Image from "next/image"
 import Link from "next/link"
+import { NavBarAppLogo } from "./NavBarAppLogo"
 import { PremiumButton } from "./PremiumButton"
 import { AuthenticateOrUserProfileComponent } from "./AuthenticateOrUserProfileComponent"
 
@@ -7,19 +7,7 @@ export function NavBar() {
     return (
         <div className="w-full h-12 flex flex-row justify-around py-3 shadow-sm">
             <div className="flex flex-row gap-6 items-center">
-                <Link
-                    href={"/"}
-                    className="cursor-pointer"
-                    onContextMenu={(ev: React.MouseEvent) => { ev.preventDefault() }}
-                >
-                    <Image
-                        src={"/assets/nextcode-logo-64x64.jpeg"}
-                        alt=""
-                        width={25}
-                        height={25}
-                        className="rounded-2xl"
-                    />
-                </Link>
+                <NavBarAppLogo />
                 <Link
                     href={"/"}
                     className="cursor-pointer"
