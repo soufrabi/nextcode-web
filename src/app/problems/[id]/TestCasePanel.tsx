@@ -68,17 +68,17 @@ export function TestCasePanel({testCaseDefaultList}:TestCasePanelProps) {
     const [testCaseList, setTestCaseList] = React.useState<TestCaseData[]>(structuredClone(testCaseDefaultList));
 
     const [currentTestCaseId, setCurrentTestCaseId] = React.useState<string>(testCaseList[testCaseList.length - 1].id)
-    const inputTextAreaRef: React.Ref<HTMLTextAreaElement> = React.useRef(null)
+    // const inputTextAreaRef: React.Ref<HTMLTextAreaElement> = React.useRef(null)
 
-    const getCurrentTestCase = (): TestCaseData | null => {
-        const foundTestCase: TestCaseData | undefined = testCaseList.find((testCaseData) => { return currentTestCaseId === testCaseData.id })
-        if (foundTestCase) {
-            return foundTestCase
-        } else {
-            return null
-        }
+    // const getCurrentTestCase = (): TestCaseData | null => {
+    //     const foundTestCase: TestCaseData | undefined = testCaseList.find((testCaseData) => { return currentTestCaseId === testCaseData.id })
+    //     if (foundTestCase) {
+    //         return foundTestCase
+    //     } else {
+    //         return null
+    //     }
 
-    }
+    // }
 
     const addTestCase = () => {
         if (testCaseList.length < MAX_TESTCASES) {
@@ -96,9 +96,8 @@ export function TestCasePanel({testCaseDefaultList}:TestCasePanelProps) {
     const removeTestCase = (id: string) => {
         if (testCaseList.length > 1) {
             setTestCaseList((prevList: TestCaseData[]) => prevList.filter((testCaseData) => testCaseData.id != id))
-            if (id == currentTestCaseId) {
-                setCurrentTestCaseId(testCaseList[testCaseList.length - 1].id)
-
+            if (id === currentTestCaseId) {
+                setCurrentTestCaseId(testCaseList[0].id)
             }
         } else {
             // not needed as UI closeButton becomes visible only when testCaseList.length > 1
@@ -112,14 +111,17 @@ export function TestCasePanel({testCaseDefaultList}:TestCasePanelProps) {
 
 
     const handleTextAreaValueChange = (ev: React.ChangeEvent<HTMLTextAreaElement>) => {
-        const currentTestCaseDataInList: TestCaseData | null = getCurrentTestCase()
+        setTestCaseList((prevList)=>prevList.map((testCaseData)=>
+                                         testCaseData.id === currentTestCaseId
+                                             ? {...testCaseData,input:ev.target.value} : testCaseData))
+        // const currentTestCaseDataInList: TestCaseData | null = getCurrentTestCase()
         // Warning : modification will not be detected by React
         // since "set" method is not used
         // testCaseList does not need to be "state" variable as we don't want there to be any change in UI when testCaseList changes
         // we simply want it to store the input and output values so that they can be sent to server for remote execution
-        if (currentTestCaseDataInList) {
-            currentTestCaseDataInList.input = ev.target.value
-        }
+        // if (currentTestCaseDataInList) {
+        //     currentTestCaseDataInList.input = ev.target.value
+        // }
 
     }
 
@@ -131,12 +133,12 @@ export function TestCasePanel({testCaseDefaultList}:TestCasePanelProps) {
         // console.log("Reset TestCases button clicked")
     }
 
-    React.useEffect(() => {
-        const currentTestCaseInList: TestCaseData | null = getCurrentTestCase()
-        if (inputTextAreaRef && inputTextAreaRef.current && currentTestCaseInList) {
-            inputTextAreaRef.current.value = currentTestCaseInList.input
-        }
-    }, [currentTestCaseId])
+    // React.useEffect(() => {
+    //     const currentTestCaseInList: TestCaseData | null = getCurrentTestCase()
+    //     if (inputTextAreaRef && inputTextAreaRef.current && currentTestCaseInList) {
+    //         inputTextAreaRef.current.value = currentTestCaseInList.input
+    //     }
+    // }, [currentTestCaseId])
 
     return (
         <div id="testcase-panel" className="h-full flex flex-col overflow-auto">
@@ -185,8 +187,9 @@ export function TestCasePanel({testCaseDefaultList}:TestCasePanelProps) {
                         <span className="text-gray-600 text-sm"> Input = </span>
                     </div>
                     <textarea
-                        ref={inputTextAreaRef}
+                        // ref={inputTextAreaRef}
                         className="flex-1 h-full w-full bg-slate-100 p-3 mt-2 text-sm font-mono rounded-2xl outline-none focus:outline-blue-400 focus:outline-2 overflow-y-visible resize-none"
+                        value={testCaseList.find((testCaseData)=> testCaseData.id === currentTestCaseId)?.input }
                         onChange={handleTextAreaValueChange}
                     />
 
