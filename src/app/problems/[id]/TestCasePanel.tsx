@@ -127,6 +127,10 @@ export function TestCasePanel({testCaseDefaultList}:TestCasePanelProps) {
         setCurrentTestCaseId(id)
     }
 
+    const handleResetTestCasesClick = ()=>{
+        // console.log("Reset TestCases button clicked")
+    }
+
     React.useEffect(() => {
         const currentTestCaseInList: TestCaseData | null = getCurrentTestCase()
         if (inputTextAreaRef && inputTextAreaRef.current && currentTestCaseInList) {
@@ -194,7 +198,10 @@ export function TestCasePanel({testCaseDefaultList}:TestCasePanelProps) {
                         <IoCodeSlashOutline className="h-5 w-5" />
                         <span className="text-base text-gray-600"> Source </span>
                     </button>
-                    <button className="hover:shadow-customhovereffect">
+                    <button
+                        className="hover:shadow-customhovereffect"
+                        onClick={handleResetTestCasesClick}
+                    >
                         <span className="text-base text-gray-500">Reset Testcases</span>
                     </button>
                 </div>
