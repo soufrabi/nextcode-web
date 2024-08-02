@@ -9,8 +9,8 @@ Visit hosted instance at [https://nextcode.soufrabi.com](https://nextcode.soufra
 
 Clone the repo
 ```sh
-git clone https://github.com/soufrabi/nextcode.git
-cd nextcode
+git clone https://github.com/soufrabi/nextcode-web.git
+cd nextcode-web
 ```
 
 Install dependencies
@@ -30,11 +30,11 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 Next.js Dockerization Example : <https://github.com/vercel/next.js/tree/canary/examples/with-docker/>
 
-Docker Image hosted at : <https://hub.docker.com/r/soufrabidev/nextcode/>
+Docker Image hosted at : <https://hub.docker.com/r/soufrabidev/nextcode-web/>
 
 ```sh
-docker pull docker.io/soufrabidev/nextcode:<TAG_NAME>
-docker run -d -p <YOUR_PORT>:3000 soufrabidev/nextcode:<TAG_NAME>
+docker pull docker.io/soufrabidev/nextcode-web:<TAG_NAME>
+docker run -d -p <YOUR_PORT>:3000 docker.io/soufrabidev/nextcode-web:<TAG_NAME>
 ```
 
 ## Environment Variables
