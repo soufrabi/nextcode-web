@@ -39,7 +39,12 @@ docker run -d -p <YOUR_PORT>:3000 docker.io/soufrabidev/nextcode-web:<TAG_NAME>
 
 ## Environment Variables
 
-```
-RCEE_SERVER_ADDRESS="http://<IP_ADDRESS>:<PORT>"
-```
-
+- NEXTAUTH_SECRET
+: Generate using `openssl rand -base64 32`
+- NEXTAUTH_URL : `http://localhost:<PORT_NUMBER>`
+- GOOGLE_CLIENT_ID
+- GOOGLE_CLIENT_SECRET
+- API_SERVER_URL
+: Url of the Spring Boot backend
+- DATABASE_URL
+: In development mode, must be placed in .env due to prisma limitations, eg,`mysql://sqluser:password@hostname:port_number/db_name`
