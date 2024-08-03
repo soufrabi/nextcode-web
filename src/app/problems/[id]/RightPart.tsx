@@ -25,7 +25,7 @@ export function RightPart({
                 <div className="h-[calc(100vh-4rem)]">
                     <Split
                         sizes={[60, 40]}
-                        minSize={[50, 35]}
+                        minSize={[100, 35]}
                         expandToMin={false}
                         gutterSize={10}
                         gutterAlign="center"
