@@ -23,13 +23,6 @@ export default function ProblemPageClient({
     programmingLanguageList,
 } : ProblemPageClientProps
 ) {
-    React.useEffect(() => {
-        document.body.style.overflow = "hidden"
-
-        return ()=>{
-            document.body.style.overflow = "visible"
-        }
-    }, [])
 
     return (
             <main className="bg-slate-200 h-lvh w-screen max-w-screen">
