@@ -34,7 +34,7 @@ export async function getProgrammingLanguages(problemId: string): Promise<Array<
 
 const pythonDefaultBoilerPlate : string = `
 class Solution:
-    def two_sum(arr:List[int], target:number) -> List[int]:
+    def two_sum(arr:List[int], target:int) -> List[int]:
         # Write your code here
         pass
 `
