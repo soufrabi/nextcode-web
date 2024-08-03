@@ -1,7 +1,7 @@
 "use server"
 
 import ProblemPageClient from "./ProblemPageClient"
-import { getTestCaseDefaultList } from "./actions"
+import { getProgrammingLanguages, getTestCaseDefaultList } from "./actions"
 
 type ProblemPageProps = {
     params: {
@@ -12,7 +12,13 @@ type ProblemPageProps = {
 export default async function ProblemPage({ params }: ProblemPageProps) {
     const { id } = params
     const testCaseDefaultList = await getTestCaseDefaultList(id)
+    const programmingLanguageList = await getProgrammingLanguages(id)
+
     return (
-        <ProblemPageClient testCaseDefaultList={testCaseDefaultList} />
+        <ProblemPageClient
+            problemId={id}
+            testCaseDefaultList={testCaseDefaultList}
+            programmingLanguageList={programmingLanguageList}
+        />
     )
 }

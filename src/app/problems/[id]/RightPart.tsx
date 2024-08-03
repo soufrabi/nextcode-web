@@ -2,12 +2,20 @@ import Split from "react-split";
 import { TestCasePanel } from "./TestCasePanel";
 import { CodeEditor } from "./CodeEditor";
 import { TestCaseData } from "./types";
+import { ProgrammingLanguage } from "@/lib/editor/types";
 
 type RightPartProps = {
-    testCaseDefaultList : Array<TestCaseData>,
+    problemId: string,
+    testCaseDefaultList: Array<TestCaseData>,
+    programmingLanguageList: Array<ProgrammingLanguage>,
 }
 
-export function RightPart({testCaseDefaultList}:RightPartProps) {
+export function RightPart({
+    problemId,
+    testCaseDefaultList,
+    programmingLanguageList,
+}: RightPartProps
+) {
     // const handleDrag = (sizes:number[])=>{
     //     console.log(sizes)
     // }
@@ -28,7 +36,10 @@ export function RightPart({testCaseDefaultList}:RightPartProps) {
                         className="split-vertical w-full h-full "
                     // onDrag={handleDrag}
                     >
-                        <CodeEditor />
+                        <CodeEditor
+                            problemId={problemId}
+                            programmingLanguageList={programmingLanguageList}
+                        />
                         <TestCasePanel testCaseDefaultList={testCaseDefaultList} />
                     </Split>
                 </div >

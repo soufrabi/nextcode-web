@@ -9,12 +9,20 @@ import { NavBar } from "./NavBar";
 import { LeftPart } from "./LeftPart";
 import { RightPart } from "./RightPart";
 import { TestCaseData } from "./types";
+import { ProgrammingLanguage } from "@/lib/editor/types";
 
 type ProblemPageClientProps = {
+    problemId:string,
     testCaseDefaultList : Array<TestCaseData>,
+    programmingLanguageList: Array<ProgrammingLanguage>
 }
 
-export default function ProblemPageClient({testCaseDefaultList}:ProblemPageClientProps) {
+export default function ProblemPageClient({
+    problemId,
+    testCaseDefaultList,
+    programmingLanguageList,
+} : ProblemPageClientProps
+) {
     React.useEffect(() => {
         document.body.style.overflow = "hidden"
 
@@ -44,7 +52,11 @@ export default function ProblemPageClient({testCaseDefaultList}:ProblemPageClien
                             className="split-horizontal"
                         >
                             <LeftPart />
-                            <RightPart testCaseDefaultList={testCaseDefaultList} />
+                            <RightPart
+                                problemId={problemId}
+                                testCaseDefaultList={testCaseDefaultList}
+                                programmingLanguageList={programmingLanguageList}
+                            />
                         </Split>
                     </Media>
                 </div>

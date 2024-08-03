@@ -1,18 +1,23 @@
-import React from "react"
+import { useEffect, useState } from "react"
 import { Editor } from "@monaco-editor/react";
 import { IoCodeSlashOutline } from "react-icons/io5";
+import { ProgrammingLanguage } from "@/lib/editor/types";
+import { LanguageSelector } from "@/app/editor/LanguageSelector";
+import { getBoilerPlate } from "./actions";
 
-export function CodeEditor() {
-    const cppDefaultValue = `#include <bits/stdc++.h>
-using namespace std;
-
-int main(int argc, char** argv) {
-
-    return 0;
+type CodeEditorProps = {
+    problemId: string,
+    programmingLanguageList: Array<ProgrammingLanguage>,
 }
-`
 
-    const [value, setValue] = React.useState("")
+export function CodeEditor({
+    problemId,
+    programmingLanguageList
+}: CodeEditorProps) {
+
+    const loadingText = "Loading ..."
+    const [value, setValue] = useState(loadingText)
+    const [selectedLanguage, setSelectedLanguage] = useState<ProgrammingLanguage>(programmingLanguageList[0])
 
     const handleChange = (newValue: string | undefined) => {
         // event should be passed as the second parameter
@@ -22,6 +27,16 @@ int main(int argc, char** argv) {
         // console.log(value)
     }
 
+    const updateBoilerPlate = async () =>{
+        const boilerPlateCode = await getBoilerPlate(problemId, selectedLanguage.id)
+        setValue(boilerPlateCode)
+    }
+
+    useEffect(() => {
+        updateBoilerPlate()
+
+    }, [selectedLanguage])
+
     return (
         <div className="h-full pb-9">
             <div className="bg-slate-100 rounded-tl-2xl rounded-tr-2xl">
@@ -29,6 +44,13 @@ int main(int argc, char** argv) {
                     <IoCodeSlashOutline className="h-5 w-5" /> <span className="text-sm"> Code </span>
                 </button>
 
+            </div>
+            <div className="p-1">
+                <LanguageSelector
+                    programmingLanguageList={programmingLanguageList}
+                    selectedLanguage={selectedLanguage}
+                    setSelectedLanguage={setSelectedLanguage}
+                />
             </div>
             <div className="h-full min-h-4">
                 <Editor
@@ -38,8 +60,7 @@ int main(int argc, char** argv) {
                     // defaultValue='Deno.serve(req => new Response("Hello"));'
                     value={value}
                     onChange={handleChange}
-                    defaultLanguage="cpp"
-                    defaultValue={cppDefaultValue}
+                    language={selectedLanguage.monaco}
                     options={{
                         readOnly: false,
                         minimap: {
