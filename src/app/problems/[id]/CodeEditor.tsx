@@ -38,7 +38,7 @@ export function CodeEditor({
     }, [selectedLanguage])
 
     return (
-        <div className="h-full pb-9">
+        <div className="h-full pb-20">
             <div className="bg-slate-100 rounded-tl-2xl rounded-tr-2xl">
                 <button className="flex gap-1 px-2 py-2 items-center hover:shadow-customhovereffect">
                     <IoCodeSlashOutline className="h-5 w-5" /> <span className="text-sm"> Code </span>
