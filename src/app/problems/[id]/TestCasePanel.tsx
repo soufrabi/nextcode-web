@@ -8,7 +8,7 @@ import { IoCodeSlashOutline } from "react-icons/io5";
 import type { TestCaseData } from "./types";
 
 type TestCasePanelProps = {
-    testCaseDefaultList : Array<TestCaseData>,
+    testCaseDefaultList: Array<TestCaseData>,
 }
 
 function CaseButton(props: {
