@@ -71,6 +71,7 @@ function CaseButton(props: {
 export function TestCasePanel({ testCaseDefaultList }: TestCasePanelProps) {
     const MAX_TESTCASES: number = 4
     const [testCaseList, setTestCaseList] = React.useState<TestCaseData[]>(structuredClone(testCaseDefaultList));
+    const [testCasePanelCurrentTab, setTestCasePanelCurrentTab] = React.useState<TestCasePanelTab>(TestCasePanelTab.EDITOR)
 
     const [currentTestCaseId, setCurrentTestCaseId] = React.useState<string>(testCaseList[testCaseList.length - 1].id)
     // const inputTextAreaRef: React.Ref<HTMLTextAreaElement> = React.useRef(null)
@@ -152,12 +153,18 @@ export function TestCasePanel({ testCaseDefaultList }: TestCasePanelProps) {
     return (
         <div id="testcase-panel" className="h-full flex flex-col overflow-auto">
             <div className="bg-slate-100 flex gap-0 py-0 px-0 rounded-tl-2xl rounded-tr-2xl">
-                <button className="flex gap-1 px-3 py-2 items-center hover:shadow-customhovereffect">
+                <button
+                    className="flex gap-1 px-3 py-2 items-center hover:shadow-customhovereffect"
+                    onClick={() => { setTestCasePanelCurrentTab(TestCasePanelTab.EDITOR) }}
+                >
                     <IoIosCheckboxOutline className="h-5 w-5" />
                     <span className="text-sm"> Testcase </span>
                 </button>
 
-                <button className="flex gap-1 px-3 py-2 items-center hover:shadow-customhovereffect">
+                <button
+                    className="flex gap-1 px-3 py-2 items-center hover:shadow-customhovereffect"
+                    onClick={() => { setTestCasePanelCurrentTab(TestCasePanelTab.RESULT) }}
+                >
                     <LuTerminal className="h-5 w-5" />
                     <span className="text-sm"> Test Result </span>
                 </button>
