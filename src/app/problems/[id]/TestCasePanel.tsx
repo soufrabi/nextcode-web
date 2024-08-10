@@ -63,7 +63,7 @@ function CaseButton(props: {
 
 }
 
-export function TestCasePanel({testCaseDefaultList}:TestCasePanelProps) {
+export function TestCasePanel({ testCaseDefaultList }: TestCasePanelProps) {
     const MAX_TESTCASES: number = 4
     const [testCaseList, setTestCaseList] = React.useState<TestCaseData[]>(structuredClone(testCaseDefaultList));
 
@@ -82,7 +82,7 @@ export function TestCasePanel({testCaseDefaultList}:TestCasePanelProps) {
 
     const addTestCase = () => {
         if (testCaseList.length < MAX_TESTCASES) {
-            const newTestCase = { id:nanoid(), input: "", output: "" }
+            const newTestCase = { id: nanoid(), input: "", output: "" }
             setTestCaseList((prevList: TestCaseData[]) => [...prevList, newTestCase])
             setCurrentTestCaseId(newTestCase.id)
         } else {
@@ -98,8 +98,8 @@ export function TestCasePanel({testCaseDefaultList}:TestCasePanelProps) {
     const removeTestCase = (id: string) => {
         if (testCaseList.length > 1) {
             setTestCaseList((prevList: TestCaseData[]) => prevList.filter((testCaseData) => testCaseData.id != id))
-            setCurrentTestCaseId((prevTestCaseId)=> prevTestCaseId === id
-                ? (testCaseList.findLast((testCaseData)=> testCaseData.id !== id)?.id || testCaseList[0].id)
+            setCurrentTestCaseId((prevTestCaseId) => prevTestCaseId === id
+                ? (testCaseList.findLast((testCaseData) => testCaseData.id !== id)?.id || testCaseList[0].id)
                 : prevTestCaseId)
         } else {
             // not needed as UI closeButton becomes visible only when testCaseList.length > 1
@@ -113,9 +113,9 @@ export function TestCasePanel({testCaseDefaultList}:TestCasePanelProps) {
 
 
     const handleTextAreaValueChange = (ev: React.ChangeEvent<HTMLTextAreaElement>) => {
-        setTestCaseList((prevList)=>prevList.map((testCaseData)=>
-                                         testCaseData.id === currentTestCaseId
-                                             ? {...testCaseData,input:ev.target.value} : testCaseData))
+        setTestCaseList((prevList) => prevList.map((testCaseData) =>
+            testCaseData.id === currentTestCaseId
+                ? { ...testCaseData, input: ev.target.value } : testCaseData))
         // const currentTestCaseDataInList: TestCaseData | null = getCurrentTestCase()
         // Warning : modification will not be detected by React
         // since "set" method is not used
@@ -131,7 +131,7 @@ export function TestCasePanel({testCaseDefaultList}:TestCasePanelProps) {
         setCurrentTestCaseId(id)
     }
 
-    const handleResetTestCasesClick = ()=>{
+    const handleResetTestCasesClick = () => {
         setTestCaseList(structuredClone(testCaseDefaultList))
         setCurrentTestCaseId(testCaseDefaultList[0].id)
         // console.log("Reset TestCases button clicked")
