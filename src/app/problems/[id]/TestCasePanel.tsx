@@ -68,6 +68,92 @@ function CaseButton(props: {
 
 }
 
+type TestCasePanelEditorProps = {
+    testCaseList: Array<TestCaseData>,
+    currentTestCaseId: string,
+    selectCurrentTestCase: any,
+    showAddTestCaseButton: boolean,
+    addTestCase: () => void,
+    removeTestCase: (id: string) => void,
+    handleTextAreaValueChange: (ev: React.ChangeEvent<HTMLTextAreaElement>) => void,
+    handleResetTestCasesClick: () => void,
+}
+
+function TestCasePanelEditor({
+    testCaseList,
+    currentTestCaseId,
+    selectCurrentTestCase,
+    showAddTestCaseButton,
+    addTestCase,
+    removeTestCase,
+    handleTextAreaValueChange,
+    handleResetTestCasesClick,
+}: TestCasePanelEditorProps) {
+
+    return (
+        <div className="flex-1 flex flex-col bg-white p-4 pb-2 rounded-bl-2xl rounded-br-2xl">
+            <div className="flex flex-row gap-2">
+                {
+                    testCaseList.map((testCaseData: TestCaseData, index: number) => {
+                        return (
+                            <CaseButton
+                                key={nanoid()}
+                                testCaseId={testCaseData.id}
+                                testCaseIndex={index}
+                                removeTestCase={removeTestCase}
+                                selectCurrentTestCase={selectCurrentTestCase}
+                                isCurrent={currentTestCaseId === testCaseData.id}
+                                canClose={testCaseList.length > 1}
+                            />
+                        )
+                    })
+                }
+                {
+                    showAddTestCaseButton &&
+                    <button
+                        className="bg-slate-50 p-2 hover:shadow-customhovereffect"
+                        onClick={addTestCase}
+                    >
+                        <FaPlus className="h-3 w-3" />
+                    </button>
+                }
+            </div>
+
+            <div className="flex-1 flex flex-col mt-2">
+                <div>
+                    <span className="text-gray-600 text-sm"> Input = </span>
+                </div>
+                <textarea
+                    // ref={inputTextAreaRef}
+                    className="flex-1 h-full w-full bg-slate-100 p-3 mt-2 text-sm font-mono rounded-2xl outline-none focus:outline-blue-400 focus:outline-2 overflow-y-visible resize-none"
+                    autoCorrect="off"
+                    autoComplete="off"
+                    autoCapitalize="off"
+                    spellCheck="false"
+                    value={testCaseList.find((testCaseData) => testCaseData.id === currentTestCaseId)?.input}
+                    onChange={handleTextAreaValueChange}
+                />
+
+            </div>
+
+            <div className="mt-1 flex flex-row gap-4">
+
+                <button className="flex flex-row gap-1 items-center hover:shadow-customhovereffect">
+                    <IoCodeSlashOutline className="h-5 w-5" />
+                    <span className="text-base text-gray-600"> Source </span>
+                </button>
+                <button
+                    className="hover:shadow-customhovereffect"
+                    onClick={handleResetTestCasesClick}
+                >
+                    <span className="text-base text-gray-500">Reset Testcases</span>
+                </button>
+            </div>
+        </div>
+
+    )
+}
+
 export function TestCasePanel({ testCaseDefaultList }: TestCasePanelProps) {
     const MAX_TESTCASES: number = 4
     const [testCaseList, setTestCaseList] = React.useState<TestCaseData[]>(structuredClone(testCaseDefaultList));
@@ -172,65 +258,16 @@ export function TestCasePanel({ testCaseDefaultList }: TestCasePanelProps) {
             </div>
             {
                 testCasePanelCurrentTab === TestCasePanelTab.EDITOR &&
-                <div className="flex-1 flex flex-col bg-white p-4 pb-2 rounded-bl-2xl rounded-br-2xl">
-                    <div className="flex flex-row gap-2">
-                        {
-                            testCaseList.map((testCaseData: TestCaseData, index: number) => {
-                                return (
-                                    <CaseButton
-                                        key={nanoid()}
-                                        testCaseId={testCaseData.id}
-                                        testCaseIndex={index}
-                                        removeTestCase={removeTestCase}
-                                        selectCurrentTestCase={selectCurrentTestCase}
-                                        isCurrent={currentTestCaseId === testCaseData.id}
-                                        canClose={testCaseList.length > 1}
-                                    />
-                                )
-                            })
-                        }
-                        {
-                            testCaseList.length < MAX_TESTCASES &&
-                            <button
-                                className="bg-slate-50 p-2 hover:shadow-customhovereffect"
-                                onClick={addTestCase}
-                            >
-                                <FaPlus className="h-3 w-3" />
-                            </button>
-                        }
-                    </div>
-
-                    <div className="flex-1 flex flex-col mt-2">
-                        <div>
-                            <span className="text-gray-600 text-sm"> Input = </span>
-                        </div>
-                        <textarea
-                            // ref={inputTextAreaRef}
-                            className="flex-1 h-full w-full bg-slate-100 p-3 mt-2 text-sm font-mono rounded-2xl outline-none focus:outline-blue-400 focus:outline-2 overflow-y-visible resize-none"
-                            autoCorrect="off"
-                            autoComplete="off"
-                            autoCapitalize="off"
-                            spellCheck="false"
-                            value={testCaseList.find((testCaseData) => testCaseData.id === currentTestCaseId)?.input}
-                            onChange={handleTextAreaValueChange}
-                        />
-
-                    </div>
-
-                    <div className="mt-1 flex flex-row gap-4">
-
-                        <button className="flex flex-row gap-1 items-center hover:shadow-customhovereffect">
-                            <IoCodeSlashOutline className="h-5 w-5" />
-                            <span className="text-base text-gray-600"> Source </span>
-                        </button>
-                        <button
-                            className="hover:shadow-customhovereffect"
-                            onClick={handleResetTestCasesClick}
-                        >
-                            <span className="text-base text-gray-500">Reset Testcases</span>
-                        </button>
-                    </div>
-                </div>
+                <TestCasePanelEditor
+                    testCaseList={testCaseList}
+                    currentTestCaseId={currentTestCaseId}
+                    selectCurrentTestCase={selectCurrentTestCase}
+                    showAddTestCaseButton={testCaseList.length < MAX_TESTCASES}
+                    addTestCase={addTestCase}
+                    removeTestCase={removeTestCase}
+                    handleTextAreaValueChange={handleTextAreaValueChange}
+                    handleResetTestCasesClick={handleResetTestCasesClick}
+                />
             }
             {
                 testCasePanelCurrentTab === TestCasePanelTab.RESULT &&
