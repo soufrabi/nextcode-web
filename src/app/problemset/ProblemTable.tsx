@@ -83,6 +83,7 @@ export async function ProblemTable() {
                                 >
                                     <Link
                                         href={`/problems/${el.titleSlug}`}
+                                        className="block"
                                     >
                                         <span
                                         >{el.title}</span>
