@@ -16,20 +16,20 @@ export function CodeEditor({
 }: CodeEditorProps) {
 
     const loadingText = "Loading ..."
-    const [value, setValue] = useState(loadingText)
+    const [sourceCodeValue, setSourceCodeValue] = useState(loadingText)
     const [selectedLanguage, setSelectedLanguage] = useState<ProgrammingLanguage>(programmingLanguageList[0])
 
-    const handleChange = (newValue: string | undefined) => {
+    const handleChange = (newSourceCodeValue: string | undefined) => {
         // event should be passed as the second parameter
-        if (newValue) {
-            setValue(newValue)
+        if (newSourceCodeValue) {
+            setSourceCodeValue(newSourceCodeValue)
         }
         // console.log(value)
     }
 
-    const updateBoilerPlate = async () =>{
+    const updateBoilerPlate = async () => {
         const boilerPlateCode = await getBoilerPlate(problemId, selectedLanguage.id)
-        setValue(boilerPlateCode)
+        setSourceCodeValue(boilerPlateCode)
     }
 
     useEffect(() => {
@@ -58,7 +58,7 @@ export function CodeEditor({
                     // height="50vh"
                     // defaultLanguage="javascript"
                     // defaultValue='Deno.serve(req => new Response("Hello"));'
-                    value={value}
+                    value={sourceCodeValue}
                     onChange={handleChange}
                     language={selectedLanguage.monaco}
                     options={{
