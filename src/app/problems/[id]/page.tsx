@@ -19,6 +19,7 @@ export default async function ProblemPage({ params }: ProblemPageProps) {
     return (
         <ProblemProvider
             testCaseDefaultList={testCaseDefaultList}
+            programmingLanguageList={programmingLanguageList}
         >
             <DocumentBodyOverflow>
                 <ProblemPageClient
