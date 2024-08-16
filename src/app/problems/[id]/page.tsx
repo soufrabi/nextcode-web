@@ -1,5 +1,6 @@
 "use server"
 
+import ProblemProvider from "@/app/providers/ProblemProvider"
 import { DocumentBodyOverflow } from "./DocumentBodyOverflow"
 import ProblemPageClient from "./ProblemPageClient"
 import { getProgrammingLanguages, getTestCaseDefaultList } from "./actions"
@@ -16,12 +17,16 @@ export default async function ProblemPage({ params }: ProblemPageProps) {
     const programmingLanguageList = await getProgrammingLanguages(id)
 
     return (
-        <DocumentBodyOverflow>
-            <ProblemPageClient
-                problemId={id}
-                testCaseDefaultList={testCaseDefaultList}
-                programmingLanguageList={programmingLanguageList}
-            />
-        </DocumentBodyOverflow>
+        <ProblemProvider
+            testCaseDefaultList={testCaseDefaultList}
+        >
+            <DocumentBodyOverflow>
+                <ProblemPageClient
+                    problemId={id}
+                    testCaseDefaultList={testCaseDefaultList}
+                    programmingLanguageList={programmingLanguageList}
+                />
+            </DocumentBodyOverflow>
+        </ProblemProvider>
     )
 }
