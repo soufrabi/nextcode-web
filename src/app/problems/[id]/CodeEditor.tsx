@@ -4,6 +4,7 @@ import { IoCodeSlashOutline } from "react-icons/io5";
 import { ProgrammingLanguage } from "@/lib/editor/types";
 import { LanguageSelector } from "@/app/editor/LanguageSelector";
 import { getBoilerPlate } from "./actions";
+import { useProblemContext } from "@/app/providers/ProblemProvider";
 
 type CodeEditorProps = {
     problemId: string,
@@ -15,9 +16,12 @@ export function CodeEditor({
     programmingLanguageList
 }: CodeEditorProps) {
 
-    const loadingText = "Loading ..."
-    const [sourceCodeValue, setSourceCodeValue] = useState(loadingText)
-    const [selectedLanguage, setSelectedLanguage] = useState<ProgrammingLanguage>(programmingLanguageList[0])
+    const {
+        sourceCodeValue,
+        setSourceCodeValue,
+        selectedLanguage,
+        setSelectedLanguage,
+    } = useProblemContext()
 
     const handleChange = (newSourceCodeValue: string | undefined) => {
         // event should be passed as the second parameter
