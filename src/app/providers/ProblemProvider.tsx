@@ -3,13 +3,19 @@
 import { ReactNode, createContext, useContext, useState } from "react"
 import { nanoid } from "nanoid"
 import { TestCaseData, TestCasePanelTab } from "@/app/problems/[id]/types"
+import { ProgrammingLanguage } from "@/lib/editor/types"
 
 type ProblemProviderProps = {
     testCaseDefaultList: Array<TestCaseData>,
+    programmingLanguageList: Array<ProgrammingLanguage>,
     children: ReactNode,
 }
 
 type ProblemContextType = {
+    sourceCodeValue: string,
+    setSourceCodeValue: (newValue: string) => void,
+    selectedLanguage: ProgrammingLanguage,
+    setSelectedLanguage: (newLanguage: ProgrammingLanguage) => void,
     testCaseList: Array<TestCaseData>
     setTestCaseList: (testCaseList: Array<TestCaseData>) => void,
     currentTestCaseId: string,
@@ -23,6 +29,10 @@ type ProblemContextType = {
 }
 
 const ProblemContext = createContext<ProblemContextType>({
+    sourceCodeValue: "",
+    setSourceCodeValue: () => { },
+    selectedLanguage: { id: 1, name: "", monaco: "", available: false },
+    setSelectedLanguage: () => { },
     testCaseList: [],
     setTestCaseList: () => { },
     currentTestCaseId: "",
@@ -37,10 +47,13 @@ const ProblemContext = createContext<ProblemContextType>({
 
 export default function ProblemProvider({
     testCaseDefaultList,
+    programmingLanguageList,
     children,
 }: ProblemProviderProps) {
 
     const MAX_TESTCASES = 4
+    const [sourceCodeValue, setSourceCodeValue] = useState<string>("Loading ...")
+    const [selectedLanguage, setSelectedLanguage] = useState<ProgrammingLanguage>(programmingLanguageList[0])
     const [testCaseList, setTestCaseList] = useState<Array<TestCaseData>>(structuredClone(testCaseDefaultList))
     const [currentTestCaseId, setCurrentTestCaseId] = useState<string>(testCaseList[testCaseList.length - 1].id)
     const [testCasePanelCurrentTab, setTestCasePanelCurrentTab] = useState<TestCasePanelTab>(TestCasePanelTab.EDITOR)
@@ -90,6 +103,10 @@ export default function ProblemProvider({
     return (
         <ProblemContext.Provider
             value={{
+                sourceCodeValue,
+                setSourceCodeValue,
+                selectedLanguage,
+                setSelectedLanguage,
                 testCaseList,
                 setTestCaseList,
                 currentTestCaseId,
