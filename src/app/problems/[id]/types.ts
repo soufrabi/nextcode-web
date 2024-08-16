@@ -5,3 +5,8 @@ export type TestCaseData = {
     input: string,
     output: string,
 }
+
+export enum TestCasePanelTab {
+    EDITOR,
+    RESULT,
+}

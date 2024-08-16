@@ -6,11 +6,7 @@ import { LuTerminal } from "react-icons/lu";
 import { IoMdCloseCircle } from "react-icons/io";
 import { IoCodeSlashOutline } from "react-icons/io5";
 import type { TestCaseData } from "./types";
-
-enum TestCasePanelTab {
-    EDITOR,
-    RESULT,
-}
+import { TestCasePanelTab } from "./types";
 
 type TestCasePanelProps = {
     testCaseDefaultList: Array<TestCaseData>,
