@@ -7,6 +7,7 @@ import { IoMdCloseCircle } from "react-icons/io";
 import { IoCodeSlashOutline } from "react-icons/io5";
 import type { TestCaseData } from "./types";
 import { TestCasePanelTab } from "./types";
+import { useProblemContext } from "@/app/providers/ProblemProvider";
 
 type TestCasePanelProps = {
     testCaseDefaultList: Array<TestCaseData>,
@@ -152,10 +153,18 @@ function TestCasePanelEditor({
 
 export function TestCasePanel({ testCaseDefaultList }: TestCasePanelProps) {
     const MAX_TESTCASES: number = 4
-    const [testCaseList, setTestCaseList] = React.useState<TestCaseData[]>(structuredClone(testCaseDefaultList));
-    const [testCasePanelCurrentTab, setTestCasePanelCurrentTab] = React.useState<TestCasePanelTab>(TestCasePanelTab.EDITOR)
+    const {
+        testCaseList,
+        testCasePanelCurrentTab,
+        setTestCasePanelCurrentTab,
+        currentTestCaseId,
+        setCurrentTestCaseId,
+        addTestCase,
+        removeTestCase,
+        resetTestCases,
+        updateCurrentTestCase,
+    } = useProblemContext()
 
-    const [currentTestCaseId, setCurrentTestCaseId] = React.useState<string>(testCaseList[testCaseList.length - 1].id)
     // const inputTextAreaRef: React.Ref<HTMLTextAreaElement> = React.useRef(null)
 
     // const getCurrentTestCase = (): TestCaseData | null => {
@@ -168,42 +177,12 @@ export function TestCasePanel({ testCaseDefaultList }: TestCasePanelProps) {
 
     // }
 
-    const addTestCase = () => {
-        if (testCaseList.length < MAX_TESTCASES) {
-            const newTestCase = { id: nanoid(), input: "", output: "" }
-            setTestCaseList((prevList: TestCaseData[]) => [...prevList, newTestCase])
-            setCurrentTestCaseId(newTestCase.id)
-        } else {
-            // not needed  as UI add button becomes visible only when testCaseList.length exceeds MAX_TESTCASES
-            // toast(`Cannot add more than ${MAX_TESTCASES} testcases`, {
-            //     position: 'bottom-right',
-            //     type: 'warning',
-            //     autoClose: 2000,
-            // })
-        }
-    }
-
-    const removeTestCase = (id: string) => {
-        if (testCaseList.length > 1) {
-            setTestCaseList((prevList: TestCaseData[]) => prevList.filter((testCaseData) => testCaseData.id != id))
-            setCurrentTestCaseId((prevTestCaseId) => prevTestCaseId === id
-                ? (testCaseList.findLast((testCaseData) => testCaseData.id !== id)?.id || testCaseList[0].id)
-                : prevTestCaseId)
-        } else {
-            // not needed as UI closeButton becomes visible only when testCaseList.length > 1
-            // toast('Must have atleast 1 testcase', {
-            //     position: 'bottom-right',
-            //     type: 'warning',
-            //     autoClose: 2000
-            // })
-        }
-    }
-
 
     const handleTextAreaValueChange = (ev: React.ChangeEvent<HTMLTextAreaElement>) => {
-        setTestCaseList((prevList) => prevList.map((testCaseData) =>
-            testCaseData.id === currentTestCaseId
-                ? { ...testCaseData, input: ev.target.value } : testCaseData))
+        updateCurrentTestCase(ev.target.value)
+        // setTestCaseList((prevList) => prevList.map((testCaseData) =>
+        //     testCaseData.id === currentTestCaseId
+        //         ? { ...testCaseData, input: ev.target.value } : testCaseData))
         // const currentTestCaseDataInList: TestCaseData | null = getCurrentTestCase()
         // Warning : modification will not be detected by React
         // since "set" method is not used
@@ -220,8 +199,7 @@ export function TestCasePanel({ testCaseDefaultList }: TestCasePanelProps) {
     }
 
     const handleResetTestCasesClick = () => {
-        setTestCaseList(structuredClone(testCaseDefaultList))
-        setCurrentTestCaseId(testCaseDefaultList[0].id)
+        resetTestCases()
         // console.log("Reset TestCases button clicked")
     }
 
