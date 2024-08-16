@@ -18,6 +18,7 @@ type ProblemContextType = {
     setTestCasePanelCurrentTab: (currentTab: TestCasePanelTab) => void,
     addTestCase: () => void,
     removeTestCase: (id: string) => void,
+    updateCurrentTestCase: (content: string) => void,
     resetTestCases: () => void,
 }
 
@@ -30,6 +31,7 @@ const ProblemContext = createContext<ProblemContextType>({
     setTestCasePanelCurrentTab: () => { },
     addTestCase: () => { },
     removeTestCase: () => { },
+    updateCurrentTestCase: () => { },
     resetTestCases: () => { },
 })
 
@@ -79,6 +81,12 @@ export default function ProblemProvider({
         setCurrentTestCaseId(testCaseDefaultList[testCaseDefaultList.length - 1].id)
     }
 
+    const updateCurrentTestCase = (content: string) => {
+        setTestCaseList((prevList) => prevList.map((testCaseData) =>
+            testCaseData.id === currentTestCaseId
+                ? { ...testCaseData, input: content } : testCaseData))
+    }
+
     return (
         <ProblemContext.Provider
             value={{
@@ -90,6 +98,7 @@ export default function ProblemProvider({
                 setTestCasePanelCurrentTab,
                 addTestCase,
                 removeTestCase,
+                updateCurrentTestCase,
                 resetTestCases,
             }}
         >
