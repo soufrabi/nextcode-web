@@ -6,7 +6,7 @@ type LanguageSelectorProps = {
 
     programmingLanguageList: Array<ProgrammingLanguage>,
     selectedLanguage: ProgrammingLanguage,
-    setSelectedLanguage: React.Dispatch<React.SetStateAction<ProgrammingLanguage>>,
+    setSelectedLanguage: (newLanguage: ProgrammingLanguage) => void,
 }
 
 export function LanguageSelector({
